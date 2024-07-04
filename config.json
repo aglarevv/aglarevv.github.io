@@ -2,5 +2,7 @@
     "title":"十三个九的 Blog",
     "subTitle":"简介",
     "avatarUrl":"https://github.githubassets.com/favicons/favicon.svg",
-    "GMEEK_VERSION":"last"
+    "GMEEK_VERSION":"last",
+    "singlePage":["about"],
+    "startSite":"07/1/2024"
 }
