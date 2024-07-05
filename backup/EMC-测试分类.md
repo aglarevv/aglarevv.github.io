@@ -15,5 +15,5 @@
 - EFT－电快速瞬变脉冲群抗扰度测试
 - FMF－工频磁场抗扰度测试
 
-[详细内容参考1](https://aglarevv.github.io/EMC测试指标及测试方法介绍.pdf)
-[详细内容参考2](https://aglarevv.github.io/EMC测试项目详述.pdf)
+[详细内容参考1](https://github.com/aglarevv/aglarevv.github.io/blob/main/static/EMC%E6%B5%8B%E8%AF%95%E9%A1%B9%E7%9B%AE%E8%AF%A6%E8%BF%B0.pdf)
+[详细内容参考2](https://github.com/aglarevv/aglarevv.github.io/blob/main/static/EMC%E6%B5%8B%E8%AF%95%E6%8C%87%E6%A0%87%E5%8F%8A%E6%B5%8B%E8%AF%95%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D.pdf)
