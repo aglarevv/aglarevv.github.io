@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Fri, 05 Jul 2024 05:41:03 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>EMC-测试分类</title><link>https://aglarevv.github.io//post/EMC--ce-shi-fen-lei.html</link><description>1.EMI（Electro-Magnetic Interference）---电磁骚扰测试&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Fri, 05 Jul 2024 05:48:56 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>EMC-测试分类</title><link>https://aglarevv.github.io//post/EMC--ce-shi-fen-lei.html</link><description>1.EMI（Electro-Magnetic Interference）---电磁骚扰测试&#13;
 &#13;
 - Radiated Emission －空间辐射测试&#13;
 - Conducted Emission－电源传导测试&#13;
@@ -16,8 +16,8 @@
 - EFT－电快速瞬变脉冲群抗扰度测试&#13;
 - FMF－工频磁场抗扰度测试&#13;
 &#13;
-[详细内容参考1](https://github.com/user-attachments/files/16105308/EMC.pdf)&#13;
-[详细内容参考2](https://github.com/user-attachments/files/16105309/EMC.pdf)。</description><guid isPermaLink="true">https://aglarevv.github.io//post/EMC--ce-shi-fen-lei.html</guid><pubDate>Fri, 05 Jul 2024 05:31:53 +0000</pubDate></item><item><title>EMC-基础理论</title><link>https://aglarevv.github.io//post/EMC--ji-chu-li-lun.html</link><description>电磁干扰的三要素&#13;
+[EMC测试项目详述下载](https://github.com/user-attachments/files/16105308/EMC.pdf)&#13;
+[EMC测试指标及测试方法介绍下载](https://github.com/user-attachments/files/16105309/EMC.pdf)。</description><guid isPermaLink="true">https://aglarevv.github.io//post/EMC--ce-shi-fen-lei.html</guid><pubDate>Fri, 05 Jul 2024 05:31:53 +0000</pubDate></item><item><title>EMC-基础理论</title><link>https://aglarevv.github.io//post/EMC--ji-chu-li-lun.html</link><description>电磁干扰的三要素&#13;
 `骚扰源，耦合途径，敏感设备`&#13;
 电磁兼容控制技术&#13;
 `最常用，最基本的：屏蔽、滤波、接地`&#13;

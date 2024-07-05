@@ -15,5 +15,5 @@
 - EFT－电快速瞬变脉冲群抗扰度测试
 - FMF－工频磁场抗扰度测试
 
-[详细内容参考1](https://github.com/user-attachments/files/16105308/EMC.pdf)
-[详细内容参考2](https://github.com/user-attachments/files/16105309/EMC.pdf)
+[EMC测试项目详述下载](https://github.com/user-attachments/files/16105308/EMC.pdf)
+[EMC测试指标及测试方法介绍下载](https://github.com/user-attachments/files/16105309/EMC.pdf)
