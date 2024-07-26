@@ -1,5 +1,25 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Fri, 05 Jul 2024 05:48:56 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>EMC-测试分类</title><link>https://aglarevv.github.io//post/EMC--ce-shi-fen-lei.html</link><description>1.EMI（Electro-Magnetic Interference）---电磁骚扰测试&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Fri, 26 Jul 2024 14:14:46 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>EMC-梳理复习</title><link>https://aglarevv.github.io//post/EMC--shu-li-fu-xi.html</link><description>电磁兼容性定义：&#13;
+ ```&#13;
+电子设备或系统在预定的电磁环境中能够可靠的工作，并且电子设备或系统之间不会产生不良的影响&#13;
+```&#13;
+电磁发射方式有两大类：&#13;
+```&#13;
+通过电源线发射，叫传导发射&#13;
+通过辐射电磁波，叫辐射发射&#13;
+电源线传导发射也会产生伴随辐射发射，产生辐射性的电磁骚扰&#13;
+```&#13;
+电磁兼容三要素：&#13;
+```&#13;
+骚扰源，敏感源，耦合路径&#13;
+```&#13;
+四种耦合路径：&#13;
+```&#13;
+电源线耦合，地线耦合，近场耦合，天线耦合&#13;
+```&#13;
+**如何理解地线耦合:**&#13;
+```&#13;
+第一，地线是电源或信号电流的返回路径，所以地线电流导致地线上有电压。</description><guid isPermaLink="true">https://aglarevv.github.io//post/EMC--shu-li-fu-xi.html</guid><pubDate>Fri, 26 Jul 2024 14:14:14 +0000</pubDate></item><item><title>EMC-测试分类</title><link>https://aglarevv.github.io//post/EMC--ce-shi-fen-lei.html</link><description>1.EMI（Electro-Magnetic Interference）---电磁骚扰测试&#13;
 &#13;
 - Radiated Emission －空间辐射测试&#13;
 - Conducted Emission－电源传导测试&#13;
