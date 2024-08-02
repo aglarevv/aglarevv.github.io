@@ -159,7 +159,24 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 <pre class="notranslate"><code class="notranslate">增加感抗，抑制电流变化，改变谐振频率
 </code></pre>
-<p>时钟信号是周期性的信号，对电磁兼容来说，周期性的信号通常是最强的骚扰源</p></div>
+<p>时钟信号是周期性的信号，对电磁兼容来说，周期性的信号通常是最强的骚扰源。因为有限的能量集中在有限的频率上<br>
+差模电流/共模电流：</p>
+<pre class="notranslate"><code class="notranslate">在设计意图中的电路路径上流动的电流叫差模电流，由差模电压驱动
+在设计意图之外的电路路径上流动的电流叫共模电流，由共模电压驱动
+</code></pre>
+<p>电源线上的骚扰发射：</p>
+<pre class="notranslate"><code class="notranslate">差模发射：对于AC/DC电路，位于整流电路和开关电路
+共模发射：开关电源中的开关器件，内部电路的电磁辐射
+</code></pre>
+<p>敏感性试验：</p>
+<pre class="notranslate"><code class="notranslate">向电缆上注入骚扰有两种方法：磁场注入、电场注入。
+磁场注入的原理是通过电磁感应进行能量的耦合。
+电场注入的原理是通过电场耦合的原理把骚扰能量注入到电缆上。
+磁场耦合相当于在电缆上串联一个电压源，对低阻抗电路影响更大。
+电场耦合相当于在电缆上并联一个电流源，对高阻抗电路影响更大
+电场耦合随RL【负载电阻（Load Resistance, RL）】的增加而增大，磁场耦合随RL的增加而减小
+RL对电场耦合起放大作用，对磁场耦合起减小作用
+</code></pre></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
