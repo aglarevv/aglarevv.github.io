@@ -63,10 +63,11 @@ HP服务器硬盘位置：
 ```
 /dev/cciss/c0d0p1：c0是第一个控制器，d0是第一块磁盘，p1是分区1
 ```
-
-
-
-。">
+磁盘相关：
+```
+查看磁盘分区：lsblk
+查看当前使用磁盘文件：df -TH
+磁盘自动开机挂载：/etc/rc.d/rc.local文件里添加挂载命令。">
 <meta property="og:title" content="运维-linux">
 <meta property="og:description" content="top命令：动态监控系统资源
 ```
@@ -121,10 +122,11 @@ HP服务器硬盘位置：
 ```
 /dev/cciss/c0d0p1：c0是第一个控制器，d0是第一块磁盘，p1是分区1
 ```
-
-
-
-。">
+磁盘相关：
+```
+查看磁盘分区：lsblk
+查看当前使用磁盘文件：df -TH
+磁盘自动开机挂载：/etc/rc.d/rc.local文件里添加挂载命令。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://aglarevv.github.io//post/yun-wei--linux.html">
 <meta property="og:image" content="https://aglarevv.github.io/icon2.svg">
@@ -240,6 +242,11 @@ sed -i "s/**/**/g" file ：修改文件
 <p>awk命令：文本格式化，转换为标准的excel表样式<br>
 HP服务器硬盘位置：</p>
 <pre class="notranslate"><code class="notranslate">/dev/cciss/c0d0p1：c0是第一个控制器，d0是第一块磁盘，p1是分区1
+</code></pre>
+<p>磁盘相关：</p>
+<pre class="notranslate"><code class="notranslate">查看磁盘分区：lsblk
+查看当前使用磁盘文件：df -TH
+磁盘自动开机挂载：/etc/rc.d/rc.local文件里添加挂载命令。这个文件开机自动执行
 </code></pre></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
