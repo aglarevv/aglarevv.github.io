@@ -61,7 +61,7 @@ image/gif image/png;
 ```
 url重写：
 ```
-在location中添加：rewrite ^/(.*) 要转发的url$1 flag标记
+在location中添加：rewrite ^/(.*) 要转发的url/$1 flag标记
 flag：
 1. last 匹配最后一个符合的
 2. break 匹配第一个符合的
@@ -130,7 +130,7 @@ image/gif image/png;
 ```
 url重写：
 ```
-在location中添加：rewrite ^/(.*) 要转发的url$1 flag标记
+在location中添加：rewrite ^/(.*) 要转发的url/$1 flag标记
 flag：
 1. last 匹配最后一个符合的
 2. break 匹配第一个符合的
@@ -264,7 +264,7 @@ text/css application/xml text/javascript application/x-httpd-php image/jpeg
 image/gif image/png;
 </code></pre>
 <p>url重写：</p>
-<pre class="notranslate"><code class="notranslate">在location中添加：rewrite ^/(.*) 要转发的url$1 flag标记
+<pre class="notranslate"><code class="notranslate">在location中添加：rewrite ^/(.*) 要转发的url/$1 flag标记
 flag：
 1. last 匹配最后一个符合的
 2. break 匹配第一个符合的

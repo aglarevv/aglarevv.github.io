@@ -49,7 +49,7 @@ image/gif image/png;
 ```
 url重写：
 ```
-在location中添加：rewrite ^/(.*) 要转发的url$1 flag标记
+在location中添加：rewrite ^/(.*) 要转发的url/$1 flag标记
 flag：
 1. last 匹配最后一个符合的
 2. break 匹配第一个符合的
