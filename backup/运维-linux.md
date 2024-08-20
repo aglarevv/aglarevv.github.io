@@ -61,6 +61,15 @@ HP服务器硬盘位置：
 ```
 vi /etc/sysconfig/network-scripts/ifcfg-eth0
 ```
+防火墙：
+```
+添加允许通过的服务：firewall-cmd --zone=public --add-service=http
+查看当前使用区域配置：firewall-cmd --list-all
+删除允许通过的服务或端口：firewall-cmd --zone=public --remove-service=http or --remove-port=1234/tcp
+添加允许通过的端口：firewall-cmd --zone=public --add-port=1234/tcp
+```
+>[!TIP]
+>以上全部只在本次开机生效，要永久性生效，添加 --permanent参数，之后重新启动防火墙或使用 --reload参数重新加载配置
 
 
 
