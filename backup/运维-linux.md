@@ -57,7 +57,10 @@ HP服务器硬盘位置：
 查看当前使用磁盘文件：df -TH
 磁盘自动开机挂载：/etc/rc.d/rc.local文件里添加挂载命令。这个文件开机自动执行
 ```
-
+更改ip地址：
+```
+vi /etc/sysconfig/network-scripts/ifcfg-eth0
+```
 
 
 
