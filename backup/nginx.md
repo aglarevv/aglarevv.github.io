@@ -82,3 +82,12 @@ localtion /{
     proxy_pass http://my_cluter;
 }
 ```
+负载均衡策略：
+```
+轮询：默认
+权重：使用较多
+ip_hash：临时存储，使用redis代替
+fair：智能加载
+least_conn：最闲连接
+url_hash：固定业务，用于分布式微服务
+```

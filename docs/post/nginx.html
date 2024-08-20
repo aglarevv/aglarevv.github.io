@@ -93,6 +93,15 @@ upstream  my_cluster{
 localtion /{
     proxy_pass http://my_cluter;
 }
+```
+负载均衡策略：
+```
+轮询：默认
+权重：使用较多
+ip_hash：临时存储，使用redis代替
+fair：智能加载
+least_conn：最闲连接
+url_hash：固定业务，用于分布式微服务
 ```。">
 <meta property="og:title" content="nginx">
 <meta property="og:description" content="多虚拟主机配置：
@@ -178,6 +187,15 @@ upstream  my_cluster{
 localtion /{
     proxy_pass http://my_cluter;
 }
+```
+负载均衡策略：
+```
+轮询：默认
+权重：使用较多
+ip_hash：临时存储，使用redis代替
+fair：智能加载
+least_conn：最闲连接
+url_hash：固定业务，用于分布式微服务
 ```。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://aglarevv.github.io//post/nginx.html">
@@ -326,6 +344,14 @@ backup: 备份机，当其他非备份机无法使用时请求分到备份机，
 localtion /{
     proxy_pass http://my_cluter;
 }
+</code></pre>
+<p>负载均衡策略：</p>
+<pre class="notranslate"><code class="notranslate">轮询：默认
+权重：使用较多
+ip_hash：临时存储，使用redis代替
+fair：智能加载
+least_conn：最闲连接
+url_hash：固定业务，用于分布式微服务
 </code></pre></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Tue, 20 Aug 2024 02:47:57 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>nginx</title><link>https://aglarevv.github.io//post/nginx.html</link><description>多虚拟主机配置：&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Tue, 20 Aug 2024 07:02:03 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>nginx</title><link>https://aglarevv.github.io//post/nginx.html</link><description>多虚拟主机配置：&#13;
 ```&#13;
 &gt; 多端口&#13;
 1. 不同server监听不同端口&#13;
@@ -82,6 +82,15 @@ upstream  my_cluster{&#13;
 localtion /{&#13;
     proxy_pass http://my_cluter;&#13;
 }&#13;
+```&#13;
+负载均衡策略：&#13;
+```&#13;
+轮询：默认&#13;
+权重：使用较多&#13;
+ip_hash：临时存储，使用redis代替&#13;
+fair：智能加载&#13;
+least_conn：最闲连接&#13;
+url_hash：固定业务，用于分布式微服务&#13;
 ```。</description><guid isPermaLink="true">https://aglarevv.github.io//post/nginx.html</guid><pubDate>Mon, 19 Aug 2024 02:46:17 +0000</pubDate></item><item><title>运维-linux</title><link>https://aglarevv.github.io//post/yun-wei--linux.html</link><description>top命令：动态监控系统资源&#13;
 ```&#13;
 top -d 1：每秒刷新&#13;
