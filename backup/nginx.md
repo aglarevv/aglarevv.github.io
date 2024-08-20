@@ -66,3 +66,19 @@ flag：
 auth_basic "sample auth";
 auth_basic_user_file 上面生成的文件位置；
 ```
+反向代理集群配置：
+
+> weight:	内容为数字，权重比，数字越大，所获得的请求越多
+> max_fails: 内容为数字，nginx尝试连接该节点的失败次数
+> fail_timeout: 内容为数字单位秒，与失败次数联合使用，到达上述失败次数后间隔多长再次请求
+> backup: 备份机，当其他非备份机无法使用时请求分到备份机，在使用ip_hash时无效
+
+```
+upstream  my_cluster{
+    server 192.168.209.138 weight=1 max_fails=1 fail_timeout=10s backup;
+}
+
+localtion /{
+    proxy_pass http://my_cluter;
+}
+```

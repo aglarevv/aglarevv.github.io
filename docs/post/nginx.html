@@ -77,6 +77,22 @@ flag：
 配置文件location中添加：
 auth_basic 'sample auth';
 auth_basic_user_file 上面生成的文件位置；
+```
+反向代理集群配置：
+
+> weight:	内容为数字，权重比，数字越大，所获得的请求越多
+> max_fails: 内容为数字，nginx尝试连接该节点的失败次数
+> fail_timeout: 内容为数字单位秒，与失败次数联合使用，到达上述失败次数后间隔多长再次请求
+> backup: 备份机，当其他非备份机无法使用时请求分到备份机，在使用ip_hash时无效
+
+```
+upstream  my_cluster{
+    server 192.168.209.138 weight=1 max_fails=1 fail_timeout=10s backup;
+}
+
+localtion /{
+    proxy_pass http://my_cluter;
+}
 ```。">
 <meta property="og:title" content="nginx">
 <meta property="og:description" content="多虚拟主机配置：
@@ -146,6 +162,22 @@ flag：
 配置文件location中添加：
 auth_basic 'sample auth';
 auth_basic_user_file 上面生成的文件位置；
+```
+反向代理集群配置：
+
+> weight:	内容为数字，权重比，数字越大，所获得的请求越多
+> max_fails: 内容为数字，nginx尝试连接该节点的失败次数
+> fail_timeout: 内容为数字单位秒，与失败次数联合使用，到达上述失败次数后间隔多长再次请求
+> backup: 备份机，当其他非备份机无法使用时请求分到备份机，在使用ip_hash时无效
+
+```
+upstream  my_cluster{
+    server 192.168.209.138 weight=1 max_fails=1 fail_timeout=10s backup;
+}
+
+localtion /{
+    proxy_pass http://my_cluter;
+}
 ```。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://aglarevv.github.io//post/nginx.html">
@@ -279,6 +311,21 @@ flag：
 配置文件location中添加：
 auth_basic "sample auth";
 auth_basic_user_file 上面生成的文件位置；
+</code></pre>
+<p>反向代理集群配置：</p>
+<blockquote>
+<p>weight:	内容为数字，权重比，数字越大，所获得的请求越多<br>
+max_fails: 内容为数字，nginx尝试连接该节点的失败次数<br>
+fail_timeout: 内容为数字单位秒，与失败次数联合使用，到达上述失败次数后间隔多长再次请求<br>
+backup: 备份机，当其他非备份机无法使用时请求分到备份机，在使用ip_hash时无效</p>
+</blockquote>
+<pre class="notranslate"><code class="notranslate">upstream  my_cluster{
+    server 192.168.209.138 weight=1 max_fails=1 fail_timeout=10s backup;
+}
+
+localtion /{
+    proxy_pass http://my_cluter;
+}
 </code></pre></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
