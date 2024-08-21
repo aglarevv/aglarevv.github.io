@@ -43,6 +43,12 @@ useradd -r sql -M -s /sbin/nologin
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
+
+> 二进制安装使用下面的命令（可选），如使用二进制安装，跳过第4，7步
+
+```
+wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
+```
 4.安装编译工具
 ```
 yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
@@ -54,6 +60,13 @@ mkdir -p /opt/vv/{data,mysql,log}
 6.解压
 ```
 tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
+```
+
+> 二进制方式安装使用下面的命令解压并移动
+
+```
+tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
+mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 ```
 7.编译安装
 ```
@@ -120,6 +133,12 @@ useradd -r sql -M -s /sbin/nologin
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
+
+> 二进制安装使用下面的命令（可选），如使用二进制安装，跳过第4，7步
+
+```
+wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
+```
 4.安装编译工具
 ```
 yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
@@ -131,6 +150,13 @@ mkdir -p /opt/vv/{data,mysql,log}
 6.解压
 ```
 tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
+```
+
+> 二进制方式安装使用下面的命令解压并移动
+
+```
+tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
+mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 ```
 7.编译安装
 ```
@@ -264,6 +290,11 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <p>3.下载源码</p>
 <pre class="notranslate"><code class="notranslate">wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 </code></pre>
+<blockquote>
+<p>二进制安装使用下面的命令（可选），如使用二进制安装，跳过第4，7步</p>
+</blockquote>
+<pre class="notranslate"><code class="notranslate">wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
+</code></pre>
 <p>4.安装编译工具</p>
 <pre class="notranslate"><code class="notranslate">yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
 </code></pre>
@@ -272,6 +303,12 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </code></pre>
 <p>6.解压</p>
 <pre class="notranslate"><code class="notranslate">tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
+</code></pre>
+<blockquote>
+<p>二进制方式安装使用下面的命令解压并移动</p>
+</blockquote>
+<pre class="notranslate"><code class="notranslate">tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
+mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 </code></pre>
 <p>7.编译安装</p>
 <pre class="notranslate"><code class="notranslate">cd /opt/vv/mysql-5.7.26/

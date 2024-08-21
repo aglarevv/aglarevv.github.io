@@ -31,6 +31,12 @@ useradd -r sql -M -s /sbin/nologin
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
+
+> 二进制安装使用下面的命令（可选），如使用二进制安装，跳过第4，7步
+
+```
+wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
+```
 4.安装编译工具
 ```
 yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
@@ -42,6 +48,13 @@ mkdir -p /opt/vv/{data,mysql,log}
 6.解压
 ```
 tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
+```
+
+> 二进制方式安装使用下面的命令解压并移动
+
+```
+tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
+mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 ```
 7.编译安装
 ```
