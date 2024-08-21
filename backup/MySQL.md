@@ -115,11 +115,11 @@ vi /etc/my.cnf
 bind-address=0.0.0.0 
 port=3306
 user=sql 
-basedir=/opt/liuyh/mysql
-datadir=/opt/liuyh/data/mysql 
+basedir=/opt/vv/mysql
+datadir=/opt/vv/data/mysql 
 socket=/tmp/mysql.sock 
-log-error=/opt/liuyh/data/mysql/mysql.err
-pid-file=/opt/liuyh/data/mysql/mysql.pid
+log-error=/opt/vv/data/mysql/mysql.err
+pid-file=/opt/vv/data/mysql/mysql.pid
 #character config
 character_set_server=utf8mb4
 symbolic-links=0
