@@ -114,7 +114,7 @@ vi /etc/my.cnf
 [mysqld]
 bind-address=0.0.0.0 
 port=3306
-user=mysql 
+user=sql 
 basedir=/opt/liuyh/mysql
 datadir=/opt/liuyh/data/mysql 
 socket=/tmp/mysql.sock 
