@@ -94,9 +94,15 @@ cmake . \
 -DWITH_EMBEDDED_SERVER=1 \   嵌入式数据库
 -DENABLED_LOCAL_INFILE=1 \    从本地倒入数据，不是备份和恢复。
 -DWITH_INNOBASE_STORAGE_ENGINE=1  默认的存储引擎，支持外键
+
+> 如因网络问题boost库无法自动下载，可手动下载后将压缩包移动到 -DWITH_BOOST 参数所指定的目录下。
+删除 -DDOWNLOAD_BOOST 和 -DWITH_BOOST参数
+**不用解压！！！**
+
 ```
 make && make install
 ```
+
 8.创建软连接
 ```
 ln -s /opt/vv/mysql/bin/mysql /usr/bin

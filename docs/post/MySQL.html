@@ -348,6 +348,11 @@ mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 -DENABLED_LOCAL_INFILE=1 \    从本地倒入数据，不是备份和恢复。<br>
 -DWITH_INNOBASE_STORAGE_ENGINE=1  默认的存储引擎，支持外键</p>
 </blockquote>
+<blockquote>
+<p>如因网络问题boost库无法自动下载，可手动下载后将压缩包移动到 -DWITH_BOOST 参数所指定的目录下。<br>
+删除 -DDOWNLOAD_BOOST 和 -DWITH_BOOST参数<br>
+<strong>不用解压！！！</strong></p>
+</blockquote>
 <pre class="notranslate"><code class="notranslate">make &amp;&amp; make install
 </code></pre>
 <p>8.创建软连接</p>
