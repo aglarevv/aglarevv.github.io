@@ -14,12 +14,26 @@
 ```
 vi /etc/passwd
 ```
+全局变量（环境变量）生效优先级：
+> 优先级依次递增
+1. /etc/profile
+2. /etc/profile.d
+3. $HOME/.bash_profile
+4. $HOME/.bashrc
+5. /etc/bashrc
 。">
 <meta property="og:title" content="shell">
 <meta property="og:description" content="修改使用的shell解释器：
 ```
 vi /etc/passwd
 ```
+全局变量（环境变量）生效优先级：
+> 优先级依次递增
+1. /etc/profile
+2. /etc/profile.d
+3. $HOME/.bash_profile
+4. $HOME/.bashrc
+5. /etc/bashrc
 。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://aglarevv.github.io//post/shell.html">
@@ -93,7 +107,18 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     <div id="content">
 <div class="markdown-body" id="postBody"><p>修改使用的shell解释器：</p>
 <pre class="notranslate"><code class="notranslate">vi /etc/passwd
-</code></pre></div>
+</code></pre>
+<p>全局变量（环境变量）生效优先级：</p>
+<blockquote>
+<p>优先级依次递增</p>
+</blockquote>
+<ol>
+<li>/etc/profile</li>
+<li>/etc/profile.d</li>
+<li>$HOME/.bash_profile</li>
+<li>$HOME/.bashrc</li>
+<li>/etc/bashrc</li>
+</ol></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
