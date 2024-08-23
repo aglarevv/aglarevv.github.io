@@ -1,5 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Thu, 22 Aug 2024 02:11:20 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>MySQL</title><link>https://aglarevv.github.io//post/MySQL.html</link><description>### 什么是数据库？&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Fri, 23 Aug 2024 12:33:02 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>rk</title><link>https://aglarevv.github.io//post/rk.html</link><description>## Flynn分类法：&#13;
+根据指令流和控制流的不同组合，分为SISD、SIMD、MISD、MIMD&#13;
+计算机指令由操作码和操作数（地址码）组成&#13;
+指令执行过程：取值-分析-执行&#13;
+## 指令系统：&#13;
+**CISC：复杂指令系统。</description><guid isPermaLink="true">https://aglarevv.github.io//post/rk.html</guid><pubDate>Fri, 23 Aug 2024 12:32:38 +0000</pubDate></item><item><title>MySQL</title><link>https://aglarevv.github.io//post/MySQL.html</link><description>### 什么是数据库？&#13;
 数据库是专门用于存放计算机数据的软件仓库，这个仓库安装一定的数据结构对数据进行组织和存储&#13;
 ### 数据库的分类&#13;
 **1、关系型数据库**&#13;
