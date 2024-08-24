@@ -70,6 +70,18 @@ vi /etc/sysconfig/network-scripts/ifcfg-eth0
 ```
 >[!TIP]
 >以上全部只在本次开机生效，要永久性生效，添加 --permanent参数，之后重新启动防火墙或使用 --reload参数重新加载配置
+ 
+`init 0`：关机，`init 6`：重启
+`whoami`：查看当前用户
+`id -u`：查看用户id
+`uname -r`：查看内核版本
+`lscpu`：查看cpu信息
+`free -h`：查看内存使用信息
+`lsblk`：查看硬盘信息
+`who am i`：查看当前登录用户，登录终端
+`who`：查看当前所有登录用户
+`PS1="\[\e[1;35m\][\u@\h \w]\\$\[\e[0m\]"`：更改命令行颜色（临时，重启失效）
+`vi /etc/motd`：登录提示内容
 
 
 
