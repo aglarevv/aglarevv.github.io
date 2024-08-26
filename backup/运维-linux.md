@@ -123,6 +123,10 @@ vi /etc/motd
 ```
 cal -y
 ```
+指定登录shell：
+```
+chsh -s /bin/bash
+```
 
 
 
