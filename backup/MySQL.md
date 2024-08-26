@@ -16,8 +16,8 @@
 缺点：不支持sql语句，复杂查询欠缺
 
 > SQL（Structured Query Language）结构化查询语言
-
-### MySQL安装步骤：
+<details>
+<summary>MySQL安装步骤：</summary>
 
 1. 清理环境
 ```
@@ -174,7 +174,7 @@ flush privileges;
 ```
 chkconfig --add mysqld 
 ```
-
+</summary>
 
 
 
