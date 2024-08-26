@@ -1,6 +1,6 @@
-### 什么是数据库？
+## 什么是数据库？
 数据库是专门用于存放计算机数据的软件仓库，这个仓库安装一定的数据结构对数据进行组织和存储
-### 数据库的分类
+## 数据库的分类
 **1、关系型数据库**
 遵循ACID理论
 常见的有：Oracle、MySQL、MariaDB、Microsoft SQL Server
@@ -17,12 +17,15 @@
 
 > SQL（Structured Query Language）结构化查询语言
 
-### SQL分类：
+## SQL分类：
 DQL：数据查询语言：查询操作的SQL
 DCL：数据控制语言，设定用户及权限的SQL
 DDL：数据定义语言：表、序列、视图、索引的创建和销毁的SQL
 DML：数据操作语言：CRUD
 TCL：事务控制语言：控制事务的SQL
+
+
+
 
 <details>
 <summary>MySQL安装步骤：</summary>
