@@ -24,8 +24,6 @@ DDL：数据定义语言：表、序列、视图、索引的创建和销毁的SQ
 DML：数据操作语言：CRUD
 TCL：事务控制语言：控制事务的SQL
 
-
-
 ## MySQL安装
 
 <details>
@@ -343,11 +341,123 @@ mysqldump -u root -p -A > /mysql_backup/all.sql
 类似执行： mysqldump --single-transaction -u root -p dbname > mysql.sql
 
 3. 查看是否生成文件
-
-
-
-
 </details>
 
+## 基础操作语句
+- 数据库的创建和销毁-语法：
+```
+create database [if not exists] 数据库名 [default charset 字符集]
+drop database [if exists] 数据库名;
+```
+- 表的创建和销毁-语法：
+```
+create table [if not exists] 表名( 字段名 数据类型  [约束],  ... );
+drop table [if exists] 表名;
+```
+- 添加数据-语法：
+```
+insert into 表名(列名,列名，列名,...) values(值，值，值，...);
+```
+- 删除数据-语法：
+```
+delete from 表名 [where 条件];
+```
+> 表截断：truncate table 表名;//删除表中所有数据
+表截断：直接在物理空间中，将保存数据的空间截断，效率更高
+delete from 表：一行一行的删除，效率比较低。
 
+- 更改数据-语法：
+```
+update 表名 set 列名 = 新值,列名=新值, ... [where 条件];
+```
+- 事务：
+开启：begin
+成功：commit
+失败：rollback
 
+事务的特点：
+1. Atomicity 原子性  保证多条SQL要么同时成功，要么同时失败。
+2. Consistency 一致性  事务执行前后，数据的状态是一致的。
+3. Isolation 隔离性  并发访问相同数据时，不同用户是否可以看到另外一个用户未提交的数据。oracle默认只能看到提交后的。
+4. Durability 持久性 一个事务一旦提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响 。
+
+- 视图的创建、使用和销毁-语法：
+```
+create view 视图名  as  查询SQL;
+select 列，列,... from 视图名 [where 条件] ...
+drop view 视图名;
+```
+> 视图本=本质上是一个复杂的查询SQL
+视图只能提升开发效率，不能提升查询效率
+视图本身不是表，不存储数据
+视图本身可用于屏蔽底层表的机密列
+
+- 索引的创建和销毁-语法：
+普通索引：
+```
+创建：
+ALTER TABLE student3 ADD INDEX nameIndex(name(50));
+alter table 表名 add index 索引名(字段名）
+删除：
+ALTER TABLE student2 DROP INDEX nameIndex;
+alter table 表名 DROP  index 索引名
+```
+唯一索引
+```
+创建：
+ALTER TABLE student3 ADD UNIQUE INDEX nameIndex(name(50));
+alter table 表名 add unique index 索引名(字段名）
+删除同普通索引
+```
+主键索引
+```
+创建：
+ALTER TABLE student7 ADD PRIMARY KEY (id);
+alter table 表名 add PRIMARY KEY (字段名）
+删除：
+ALTER TABLE student7 DROP PRIMARY KEY;
+alter table 表名 drop primary key
+```
+- 查看索引：
+```
+show index from tab_name;
+```
+## 慢查询
+命令开启（数据库重启失效）：
+查询是否开启：
+```
+show variables like "%slow%"; 
+```
+查询慢查询阈值时间：
+```
+show variables like "%long%"; 
+```
+修改阈值时间：
+```
+set global long_query_time=2;
+```
+开启慢查询：
+```
+set global slow_query_log='ON';
+```
+配置文件开启（永久生效）：
+打开配置文件/etc/my.cnf，添加配置：
+```
+slow_query_log=1  #设置开启慢查询 值可以为1也可以为ON
+slow_query_log_file=/opt/vv/log/mysql/mysql-slow.log  #设置慢查询日志位置,保证数据库所在用户拥有该位置权限
+long_query_time=2  #设置慢查询阈值时间，单位s
+```
+## 权限管理
+- 赋予权限：
+grant 权限名 on 库名.表名 to 用户名@'登录地址限制' identified by '新的密码'；
+```
+grant select on test.user to gsc@'%' identfied by '111111';
+将对test库中的user表的查询权限授予gsc,并设置gsc可在任意主机登录，并且密码改为111111
+```
+- 回收权限：
+```
+revoke 权限名 on 库名.表明 from 用户名;
+```
+> 被回收的权限必须存在，否则会出错
+整个数据库，使用 ON datebase.*；
+特定的表：使用 ON datebase.table；
