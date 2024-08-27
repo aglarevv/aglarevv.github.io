@@ -24,132 +24,10 @@ DDL：数据定义语言：表、序列、视图、索引的创建和销毁的SQ
 DML：数据操作语言：CRUD
 TCL：事务控制语言：控制事务的SQL
 
-## 数据备份
-
-<details>
-<summary>使用select into命令备份</summary>
-
-> 是sql中的一个基础命令，可以完成数据备份，但是由于十分简陋，只能适用于临时的数据备份
-
-查看权限：
-```
-show variables like '%secure%';
-```
-> secure_file_priv为NULL表示当前不可用select into进行备份
-
-进入进入/etc/my.cnf，添加配置
-```
-secure-file-priv=/tmp
-```
-重启MySQL，重新查看权限，value值为/tmp/表示只能备份在此目录下。
-执行select into命令
-```
-select * from t_user into outfile '/tmp/user.txt'
-```
-> 语法：select 语句 into outfile '目标文件'
-将select的查询结果数据储存到/tmp/user.txt
-
-恢复数据：
-```
-load data infile '/tmp/user.txt' into table t_user;
-```
-</details>
-
-<details>
-<summary>使用xtrabackup工具备份</summary>
-
-1.下载：
-```
-wget https://www.percona.com/downloads/XtraBackup/Percona-XtraBackup-2.4.9/binary/redhat/6/x86_64/Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
-```
-2.解压：
-```
-tar xvf Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
-```
-3.安装：
-```
-yum install  percona-xtrabackup-24-2.4.9-1.el6.x86\_64.rpm -y
-```
-4.完整备份
-
-- 创建备份
-1. 创建备份目录
-```
-mkdir /xtrabackup/full -p
-```
-2. 执行备份命令
-```
-innobackupex --user=root --password='AGLAREvv.1' -S /tmp/mysql.sock  /xtrabackup/full
-```
-> --user: 数据库登陆用户名
---password: 密码
--S :数据库套接文件地址，在/etc/my.cnf的socket中获取
-
-- 恢复备份
-1. 关闭数据库
-2. 删除数据库所有数据
-3. 重演数据
-```
-innobackupex --apply-log /xtrabackup/full/2021-11-17_00-37-48
-```
-
-4. 恢复数据
-
-```
-innobackupex --copy-back /xtrabackup/full/2021-11-17_00-37-48
-```
-
-5. 查看数据库储存位置是否有数据文件
-6. 设置权限，将恢复后的文件权限设置为MySQL数据的拥有者可执行权限
-
-```
-chown -R sql:sql /opt/vv/data/mysql/*
-```
-
-7. 启动数据库
-
-4-1.增量备份
-- 创建备份
-
-1. 先创建完整备份
-2. 修改数据库数据
-3. 创建增量备份
-```
-innobackupex --user=root --password='AGLAREvv.1' -S /tmp/mysql.sock --incremental /xtrabackup/full --incremental-basedir=/xtrabackup/full/2023-11-17_15-57-12
-```
-
-> --incremental：指定增量备份生成位置
---incremental-basedir：指定以哪个备份为基础做增量备份，注意：所选备份应为一个完整备份或增量备份
-
-- 恢复备份
-
-1. 关闭数据库
-2. 删除数据库所有数据
-3. 重演数据
-```
-innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12
-```
-
-4. 整合数据
-```
-innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12 --incremental-dir=/xtrabackup/full/2021-11-17_16-01-25
-```
->前面的是完整备份，后面的是增量备份
-
-5. 恢复数据，所有数据都在完整备份中，恢复完整备份即可
-```
-innobackupex --copy-back /xtrabackup/full/2021-11-17_15-57-12 
-```
-6. 设置权限
-```
-chown -R sql:sql /opt/vv/data/mysql/*
-```
-7. 启动数据库，查看数据
-
-</details>
 
 
 ## MySQL安装
+
 <details>
 <summary>MySQL安装步骤：</summary>
 
@@ -308,9 +186,168 @@ flush privileges;
 ```
 chkconfig --add mysqld 
 ```
-</summary>
+</details>
+
+## 数据备份
+
+<details>
+<summary>使用select into命令备份</summary>
+
+> 是sql中的一个基础命令，可以完成数据备份，但是由于十分简陋，只能适用于临时的数据备份
+
+查看权限：
+```
+show variables like '%secure%';
+```
+> secure_file_priv为NULL表示当前不可用select into进行备份
+
+进入进入/etc/my.cnf，添加配置
+```
+secure-file-priv=/tmp
+```
+重启MySQL，重新查看权限，value值为/tmp/表示只能备份在此目录下。
+执行select into命令
+```
+select * from t_user into outfile '/tmp/user.txt'
+```
+> 语法：select 语句 into outfile '目标文件'
+将select的查询结果数据储存到/tmp/user.txt
+
+恢复数据：
+```
+load data infile '/tmp/user.txt' into table t_user;
+```
+</details>
+
+<details>
+<summary>使用xtrabackup工具备份</summary>
+
+1.下载：
+```
+wget https://www.percona.com/downloads/XtraBackup/Percona-XtraBackup-2.4.9/binary/redhat/6/x86_64/Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
+```
+2.解压：
+```
+tar xvf Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
+```
+3.安装：
+```
+yum install  percona-xtrabackup-24-2.4.9-1.el6.x86\_64.rpm -y
+```
+### 三种备份方式：
+**4-1.完整备份**
+
+- 创建备份
+1. 创建备份目录
+```
+mkdir /xtrabackup/full -p
+```
+2. 执行备份命令
+```
+innobackupex --user=root --password='AGLAREvv.1' -S /tmp/mysql.sock  /xtrabackup/full
+```
+> --user: 数据库登陆用户名
+--password: 密码
+-S :数据库套接文件地址，在/etc/my.cnf的socket中获取
+
+- 恢复备份
+1. 关闭数据库
+2. 删除数据库所有数据
+3. 重演数据
+```
+innobackupex --apply-log /xtrabackup/full/2021-11-17_00-37-48
+```
+
+4. 恢复数据
+
+```
+innobackupex --copy-back /xtrabackup/full/2021-11-17_00-37-48
+```
+
+5. 查看数据库储存位置是否有数据文件
+6. 设置权限，将恢复后的文件权限设置为MySQL数据的拥有者可执行权限
+
+```
+chown -R sql:sql /opt/vv/data/mysql/*
+```
+
+7. 启动数据库
+
+**4-2.增量备份**
+- 创建备份
+
+1. 先创建完整备份
+2. 修改数据库数据
+3. 创建增量备份
+```
+innobackupex --user=root --password='AGLAREvv.1' -S /tmp/mysql.sock --incremental /xtrabackup/full --incremental-basedir=/xtrabackup/full/2023-11-17_15-57-12
+```
+
+> --incremental：指定增量备份生成位置
+--incremental-basedir：指定以哪个备份为基础做增量备份，注意：所选备份应为一个完整备份或增量备份
+
+- 恢复备份
+
+1. 关闭数据库
+2. 删除数据库所有数据
+3. 重演数据
+```
+innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12
+```
+
+4. 整合数据
+```
+innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12 --incremental-dir=/xtrabackup/full/2021-11-17_16-01-25
+```
+>前面的是完整备份，后面的是增量备份
+
+5. 恢复数据，所有数据都在完整备份中，恢复完整备份即可
+```
+innobackupex --copy-back /xtrabackup/full/2021-11-17_15-57-12 
+```
+6. 设置权限
+```
+chown -R sql:sql /opt/vv/data/mysql/*
+```
+7. 启动数据库，查看数据
+
+**4-3.逻辑备份**
+- 使用mysqldump工具，是MySQL自带的逻辑备份工具
+>本身为客户端工具:
+远程备份语法: # mysqldump  -h 服务器  -u用户名  -p密码  数据库名  > 备份文件.sql
+本地备份语法: # mysqldump  -u用户名  -p密码   数据库名  > 备份文件.sql
+
+1. 创建备份目录
+```
+mkdir /mysql_backup
+```
+2. 备份当前数据库所有数据
+> 执行MySQL安装目录下bin目录中的mysqldump
+
+```
+mysqldump -u root -p -A > /mysql_backup/all.sql
+```
+> 参数解释：
+-A, --all-databases #备份所有库
+-B, --databases  #备份多个数据库
+--tables：指定表
+-F, --flush-logs #备份之前刷新binlog日志
+--default-character-set #指定导出数据时采用何种字符集，如果数据表不是采用默认的latin1字符集的话，那么导出时必须指定该选项，否则再次导入数据后将产生乱码问题。
+--no-data，-d #不导出任何数据，只导出数据库表结构。
+--lock-tables #备份前，锁定所有数据库表
+--single-transaction #保证数据的一致性和服务的可用性
+-f, --force #即使在一个表导出期间得到一个SQL错误，继续。
+着重强调：
+使用 mysqldump 备份数据库时避免锁表:
+对一个正在运行的数据库进行备份请慎重，尽量不要在数据库开放服务时备份，如果一定要在服务运行期间备份，可以选择添加 --single-transaction选项，
+类似执行： mysqldump --single-transaction -u root -p dbname > mysql.sql
+
+3. 查看是否生成文件
 
 
+
+
+</details>
 
 
 

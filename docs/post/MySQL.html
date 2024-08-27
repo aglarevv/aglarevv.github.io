@@ -36,24 +36,81 @@ DDL：数据定义语言：表、序列、视图、索引的创建和销毁的SQ
 DML：数据操作语言：CRUD
 TCL：事务控制语言：控制事务的SQL
 
-## 数据备份
+
+
+## MySQL安装
 
 <details>
-<summary>使用select into命令备份</summary>
+<summary>MySQL安装步骤：</summary>
 
-> 是sql中的一个基础命令，可以完成数据备份，但是由于十分简陋，只能适用于临时的数据备份
+1. 清理环境
+```
+yum erase mariadb mariadb-server mariadb-libs mariadb-devel -y
+```
+8.创建用户
+```
+useradd -r sql -M -s /sbin/nologin
+```
+9.下载源码
+```
+wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
+```
 
-查看权限：
-```
-show variables like '%secure%';
-```
-> secure_file_priv为NULL表示当前不可用select into进行备份
+> 二进制安装使用下面的命令（可选），如使用二进制安装，跳过第4，7步
 
-进入进入/etc/my.cnf，添加配置
 ```
-secure-file-priv=/tmp
+wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
 ```
-重启MySQL，重新查看权限，value值为/tmp/表示只能备份在此目录下。">
+10.安装编译工具
+```
+yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
+```
+11.创建MySQL目录
+```
+mkdir -p /opt/vv/{data,mysql,log}
+```
+12.解压
+```
+tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
+```
+
+> 二进制方式安装使用下面的命令解压并移动
+
+```
+tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
+mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
+```
+13.编译安装
+```
+cd /opt/vv/mysql-5.7.26/
+```
+```
+cmake . \
+-DDOWNLOAD_BOOST=1 \
+-DWITH_BOOST=boost/boost_1_59_0/ \
+-DCMAKE_INSTALL_PREFIX=/opt/vv/mysql \
+-DSYSCONFDIR=/etc \
+-DMYSQL_DATADIR=/opt/vv/data \
+-DINSTALL_MANDIR=/usr/share/man \
+-DMYSQL_TCP_PORT=3306 \
+-DMYSQL_UNIX_ADDR=/tmp/mysql.sock \
+-DDEFAULT_CHARSET=utf8 \
+-DEXTRA_CHARSETS=all \
+-DDEFAULT_COLLATION=utf8_general_ci \
+-DWITH_READLINE=1 \
+-DWITH_SSL=system \
+-DWITH_EMBEDDED_SERVER=1 \
+-DENABLED_LOCAL_INFILE=1 \
+-DWITH_INNOBASE_STORAGE_ENGINE=1
+```
+> 参数解释：
+-DCMAKE_INSTALL_PREFIX=/opt/liuyh/mysql \   安装目录
+-DSYSCONFDIR=/etc \   配置文件存放 （默认可以不安装配置文件）
+-DMYSQL_DATADIR=/opt/liuyh/data \   数据目录   错误日志文件也会在这个目录
+-DINSTALL_MANDIR=/usr/share/man \     帮助文档 
+-DMYSQL_TCP_PORT=3306 \     默认端口
+-DMYSQL_UNIX_ADDR=/tmp/mysql.sock \  sock文件位置，用来做网络通信的，客户端连接服务器的时候用
+-DDEFAULT_CHARSET=utf8 \    默认字符集。">
 <meta property="og:title" content="MySQL">
 <meta property="og:description" content="## 什么是数据库？
 数据库是专门用于存放计算机数据的软件仓库，这个仓库安装一定的数据结构对数据进行组织和存储
@@ -81,24 +138,81 @@ DDL：数据定义语言：表、序列、视图、索引的创建和销毁的SQ
 DML：数据操作语言：CRUD
 TCL：事务控制语言：控制事务的SQL
 
-## 数据备份
+
+
+## MySQL安装
 
 <details>
-<summary>使用select into命令备份</summary>
+<summary>MySQL安装步骤：</summary>
 
-> 是sql中的一个基础命令，可以完成数据备份，但是由于十分简陋，只能适用于临时的数据备份
+1. 清理环境
+```
+yum erase mariadb mariadb-server mariadb-libs mariadb-devel -y
+```
+8.创建用户
+```
+useradd -r sql -M -s /sbin/nologin
+```
+9.下载源码
+```
+wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
+```
 
-查看权限：
-```
-show variables like '%secure%';
-```
-> secure_file_priv为NULL表示当前不可用select into进行备份
+> 二进制安装使用下面的命令（可选），如使用二进制安装，跳过第4，7步
 
-进入进入/etc/my.cnf，添加配置
 ```
-secure-file-priv=/tmp
+wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
 ```
-重启MySQL，重新查看权限，value值为/tmp/表示只能备份在此目录下。">
+10.安装编译工具
+```
+yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
+```
+11.创建MySQL目录
+```
+mkdir -p /opt/vv/{data,mysql,log}
+```
+12.解压
+```
+tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
+```
+
+> 二进制方式安装使用下面的命令解压并移动
+
+```
+tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
+mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
+```
+13.编译安装
+```
+cd /opt/vv/mysql-5.7.26/
+```
+```
+cmake . \
+-DDOWNLOAD_BOOST=1 \
+-DWITH_BOOST=boost/boost_1_59_0/ \
+-DCMAKE_INSTALL_PREFIX=/opt/vv/mysql \
+-DSYSCONFDIR=/etc \
+-DMYSQL_DATADIR=/opt/vv/data \
+-DINSTALL_MANDIR=/usr/share/man \
+-DMYSQL_TCP_PORT=3306 \
+-DMYSQL_UNIX_ADDR=/tmp/mysql.sock \
+-DDEFAULT_CHARSET=utf8 \
+-DEXTRA_CHARSETS=all \
+-DDEFAULT_COLLATION=utf8_general_ci \
+-DWITH_READLINE=1 \
+-DWITH_SSL=system \
+-DWITH_EMBEDDED_SERVER=1 \
+-DENABLED_LOCAL_INFILE=1 \
+-DWITH_INNOBASE_STORAGE_ENGINE=1
+```
+> 参数解释：
+-DCMAKE_INSTALL_PREFIX=/opt/liuyh/mysql \   安装目录
+-DSYSCONFDIR=/etc \   配置文件存放 （默认可以不安装配置文件）
+-DMYSQL_DATADIR=/opt/liuyh/data \   数据目录   错误日志文件也会在这个目录
+-DINSTALL_MANDIR=/usr/share/man \     帮助文档 
+-DMYSQL_TCP_PORT=3306 \     默认端口
+-DMYSQL_UNIX_ADDR=/tmp/mysql.sock \  sock文件位置，用来做网络通信的，客户端连接服务器的时候用
+-DDEFAULT_CHARSET=utf8 \    默认字符集。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://aglarevv.github.io//post/MySQL.html">
 <meta property="og:image" content="https://aglarevv.github.io/icon2.svg">
@@ -194,134 +308,6 @@ DCL：数据控制语言，设定用户及权限的SQL<br>
 DDL：数据定义语言：表、序列、视图、索引的创建和销毁的SQL<br>
 DML：数据操作语言：CRUD<br>
 TCL：事务控制语言：控制事务的SQL</p>
-<h2>数据备份</h2>
-<details>
-<summary>使用select into命令备份</summary>
-<blockquote>
-<p>是sql中的一个基础命令，可以完成数据备份，但是由于十分简陋，只能适用于临时的数据备份</p>
-</blockquote>
-<p>查看权限：</p>
-<pre class="notranslate"><code class="notranslate">show variables like '%secure%';
-</code></pre>
-<blockquote>
-<p>secure_file_priv为NULL表示当前不可用select into进行备份</p>
-</blockquote>
-<p>进入进入/etc/my.cnf，添加配置</p>
-<pre class="notranslate"><code class="notranslate">secure-file-priv=/tmp
-</code></pre>
-<p>重启MySQL，重新查看权限，value值为/tmp/表示只能备份在此目录下。<br>
-执行select into命令</p>
-<pre class="notranslate"><code class="notranslate">select * from t_user into outfile '/tmp/user.txt'
-</code></pre>
-<blockquote>
-<p>语法：select 语句 into outfile '目标文件'<br>
-将select的查询结果数据储存到/tmp/user.txt</p>
-</blockquote>
-<p>恢复数据：</p>
-<pre class="notranslate"><code class="notranslate">load data infile '/tmp/user.txt' into table t_user;
-</code></pre>
-</details>
-<details>
-<summary>使用xtrabackup工具备份</summary>
-<p>1.下载：</p>
-<pre class="notranslate"><code class="notranslate">wget https://www.percona.com/downloads/XtraBackup/Percona-XtraBackup-2.4.9/binary/redhat/6/x86_64/Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
-</code></pre>
-<p>2.解压：</p>
-<pre class="notranslate"><code class="notranslate">tar xvf Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
-</code></pre>
-<p>3.安装：</p>
-<pre class="notranslate"><code class="notranslate">yum install  percona-xtrabackup-24-2.4.9-1.el6.x86\_64.rpm -y
-</code></pre>
-<p>4.完整备份</p>
-<ul>
-<li>创建备份</li>
-</ul>
-<ol>
-<li>创建备份目录</li>
-</ol>
-<pre class="notranslate"><code class="notranslate">mkdir /xtrabackup/full -p
-</code></pre>
-<ol start="2">
-<li>执行备份命令</li>
-</ol>
-<pre class="notranslate"><code class="notranslate">innobackupex --user=root --password='AGLAREvv.1' -S /tmp/mysql.sock  /xtrabackup/full
-</code></pre>
-<blockquote>
-<p>--user: 数据库登陆用户名<br>
---password: 密码<br>
--S :数据库套接文件地址，在/etc/my.cnf的socket中获取</p>
-</blockquote>
-<ul>
-<li>恢复备份</li>
-</ul>
-<ol>
-<li>关闭数据库</li>
-<li>删除数据库所有数据</li>
-<li>重演数据</li>
-</ol>
-<pre class="notranslate"><code class="notranslate">innobackupex --apply-log /xtrabackup/full/2021-11-17_00-37-48
-</code></pre>
-<ol start="4">
-<li>恢复数据</li>
-</ol>
-<pre class="notranslate"><code class="notranslate">innobackupex --copy-back /xtrabackup/full/2021-11-17_00-37-48
-</code></pre>
-<ol start="5">
-<li>查看数据库储存位置是否有数据文件</li>
-<li>设置权限，将恢复后的文件权限设置为MySQL数据的拥有者可执行权限</li>
-</ol>
-<pre class="notranslate"><code class="notranslate">chown -R sql:sql /opt/vv/data/mysql/*
-</code></pre>
-<ol start="7">
-<li>启动数据库</li>
-</ol>
-<p>4-1.增量备份</p>
-<ul>
-<li>创建备份</li>
-</ul>
-<ol>
-<li>先创建完整备份</li>
-<li>修改数据库数据</li>
-<li>创建增量备份</li>
-</ol>
-<pre class="notranslate"><code class="notranslate">innobackupex --user=root --password='AGLAREvv.1' -S /tmp/mysql.sock --incremental /xtrabackup/full --incremental-basedir=/xtrabackup/full/2023-11-17_15-57-12
-</code></pre>
-<blockquote>
-<p>--incremental：指定增量备份生成位置<br>
---incremental-basedir：指定以哪个备份为基础做增量备份，注意：所选备份应为一个完整备份或增量备份</p>
-</blockquote>
-<ul>
-<li>恢复备份</li>
-</ul>
-<ol>
-<li>关闭数据库</li>
-<li>删除数据库所有数据</li>
-<li>重演数据</li>
-</ol>
-<pre class="notranslate"><code class="notranslate">innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12
-</code></pre>
-<ol start="4">
-<li>整合数据</li>
-</ol>
-<pre class="notranslate"><code class="notranslate">innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12 --incremental-dir=/xtrabackup/full/2021-11-17_16-01-25
-</code></pre>
-<blockquote>
-<p>前面的是完整备份，后面的是增量备份</p>
-</blockquote>
-<ol start="5">
-<li>恢复数据，所有数据都在完整备份中，恢复完整备份即可</li>
-</ol>
-<pre class="notranslate"><code class="notranslate">innobackupex --copy-back /xtrabackup/full/2021-11-17_15-57-12 
-</code></pre>
-<ol start="6">
-<li>设置权限</li>
-</ol>
-<pre class="notranslate"><code class="notranslate">chown -R sql:sql /opt/vv/data/mysql/*
-</code></pre>
-<ol start="7">
-<li>启动数据库，查看数据</li>
-</ol>
-</details>
 <h2>MySQL安装</h2>
 <details>
 <summary>MySQL安装步骤：</summary>
@@ -461,6 +447,176 @@ validate-password=ON
 <p>22.设置MySQL开机自启</p>
 <pre class="notranslate"><code class="notranslate">chkconfig --add mysqld 
 </code></pre>
+</details>
+<h2>数据备份</h2>
+<details>
+<summary>使用select into命令备份</summary>
+<blockquote>
+<p>是sql中的一个基础命令，可以完成数据备份，但是由于十分简陋，只能适用于临时的数据备份</p>
+</blockquote>
+<p>查看权限：</p>
+<pre class="notranslate"><code class="notranslate">show variables like '%secure%';
+</code></pre>
+<blockquote>
+<p>secure_file_priv为NULL表示当前不可用select into进行备份</p>
+</blockquote>
+<p>进入进入/etc/my.cnf，添加配置</p>
+<pre class="notranslate"><code class="notranslate">secure-file-priv=/tmp
+</code></pre>
+<p>重启MySQL，重新查看权限，value值为/tmp/表示只能备份在此目录下。<br>
+执行select into命令</p>
+<pre class="notranslate"><code class="notranslate">select * from t_user into outfile '/tmp/user.txt'
+</code></pre>
+<blockquote>
+<p>语法：select 语句 into outfile '目标文件'<br>
+将select的查询结果数据储存到/tmp/user.txt</p>
+</blockquote>
+<p>恢复数据：</p>
+<pre class="notranslate"><code class="notranslate">load data infile '/tmp/user.txt' into table t_user;
+</code></pre>
+</details>
+<details>
+<summary>使用xtrabackup工具备份</summary>
+<p>1.下载：</p>
+<pre class="notranslate"><code class="notranslate">wget https://www.percona.com/downloads/XtraBackup/Percona-XtraBackup-2.4.9/binary/redhat/6/x86_64/Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
+</code></pre>
+<p>2.解压：</p>
+<pre class="notranslate"><code class="notranslate">tar xvf Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
+</code></pre>
+<p>3.安装：</p>
+<pre class="notranslate"><code class="notranslate">yum install  percona-xtrabackup-24-2.4.9-1.el6.x86\_64.rpm -y
+</code></pre>
+<h3>三种备份方式：</h3>
+<p><strong>4-1.完整备份</strong></p>
+<ul>
+<li>创建备份</li>
+</ul>
+<ol>
+<li>创建备份目录</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">mkdir /xtrabackup/full -p
+</code></pre>
+<ol start="2">
+<li>执行备份命令</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">innobackupex --user=root --password='AGLAREvv.1' -S /tmp/mysql.sock  /xtrabackup/full
+</code></pre>
+<blockquote>
+<p>--user: 数据库登陆用户名<br>
+--password: 密码<br>
+-S :数据库套接文件地址，在/etc/my.cnf的socket中获取</p>
+</blockquote>
+<ul>
+<li>恢复备份</li>
+</ul>
+<ol>
+<li>关闭数据库</li>
+<li>删除数据库所有数据</li>
+<li>重演数据</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">innobackupex --apply-log /xtrabackup/full/2021-11-17_00-37-48
+</code></pre>
+<ol start="4">
+<li>恢复数据</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">innobackupex --copy-back /xtrabackup/full/2021-11-17_00-37-48
+</code></pre>
+<ol start="5">
+<li>查看数据库储存位置是否有数据文件</li>
+<li>设置权限，将恢复后的文件权限设置为MySQL数据的拥有者可执行权限</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">chown -R sql:sql /opt/vv/data/mysql/*
+</code></pre>
+<ol start="7">
+<li>启动数据库</li>
+</ol>
+<p><strong>4-2.增量备份</strong></p>
+<ul>
+<li>创建备份</li>
+</ul>
+<ol>
+<li>先创建完整备份</li>
+<li>修改数据库数据</li>
+<li>创建增量备份</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">innobackupex --user=root --password='AGLAREvv.1' -S /tmp/mysql.sock --incremental /xtrabackup/full --incremental-basedir=/xtrabackup/full/2023-11-17_15-57-12
+</code></pre>
+<blockquote>
+<p>--incremental：指定增量备份生成位置<br>
+--incremental-basedir：指定以哪个备份为基础做增量备份，注意：所选备份应为一个完整备份或增量备份</p>
+</blockquote>
+<ul>
+<li>恢复备份</li>
+</ul>
+<ol>
+<li>关闭数据库</li>
+<li>删除数据库所有数据</li>
+<li>重演数据</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12
+</code></pre>
+<ol start="4">
+<li>整合数据</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12 --incremental-dir=/xtrabackup/full/2021-11-17_16-01-25
+</code></pre>
+<blockquote>
+<p>前面的是完整备份，后面的是增量备份</p>
+</blockquote>
+<ol start="5">
+<li>恢复数据，所有数据都在完整备份中，恢复完整备份即可</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">innobackupex --copy-back /xtrabackup/full/2021-11-17_15-57-12 
+</code></pre>
+<ol start="6">
+<li>设置权限</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">chown -R sql:sql /opt/vv/data/mysql/*
+</code></pre>
+<ol start="7">
+<li>启动数据库，查看数据</li>
+</ol>
+<p><strong>4-3.逻辑备份</strong></p>
+<ul>
+<li>使用mysqldump工具，是MySQL自带的逻辑备份工具</li>
+</ul>
+<blockquote>
+<p>本身为客户端工具:<br>
+远程备份语法: # mysqldump  -h 服务器  -u用户名  -p密码  数据库名  &gt; 备份文件.sql<br>
+本地备份语法: # mysqldump  -u用户名  -p密码   数据库名  &gt; 备份文件.sql</p>
+</blockquote>
+<ol>
+<li>创建备份目录</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">mkdir /mysql_backup
+</code></pre>
+<ol start="2">
+<li>备份当前数据库所有数据</li>
+</ol>
+<blockquote>
+<p>执行MySQL安装目录下bin目录中的mysqldump</p>
+</blockquote>
+<pre class="notranslate"><code class="notranslate">mysqldump -u root -p -A &gt; /mysql_backup/all.sql
+</code></pre>
+<blockquote>
+<p>参数解释：<br>
+-A, --all-databases #备份所有库<br>
+-B, --databases  #备份多个数据库<br>
+--tables：指定表<br>
+-F, --flush-logs #备份之前刷新binlog日志<br>
+--default-character-set #指定导出数据时采用何种字符集，如果数据表不是采用默认的latin1字符集的话，那么导出时必须指定该选项，否则再次导入数据后将产生乱码问题。<br>
+--no-data，-d #不导出任何数据，只导出数据库表结构。<br>
+--lock-tables #备份前，锁定所有数据库表<br>
+--single-transaction #保证数据的一致性和服务的可用性<br>
+-f, --force #即使在一个表导出期间得到一个SQL错误，继续。<br>
+着重强调：<br>
+使用 mysqldump 备份数据库时避免锁表:<br>
+对一个正在运行的数据库进行备份请慎重，尽量不要在数据库开放服务时备份，如果一定要在服务运行期间备份，可以选择添加 --single-transaction选项，<br>
+类似执行： mysqldump --single-transaction -u root -p dbname &gt; mysql.sql</p>
+</blockquote>
+<ol start="3">
+<li>查看是否生成文件</li>
+</ol>
 </details></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
