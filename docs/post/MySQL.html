@@ -305,8 +305,11 @@ TCL：事务控制语言：控制事务的SQL</p>
 </ol>
 <pre class="notranslate"><code class="notranslate">innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12 --incremental-dir=/xtrabackup/full/2021-11-17_16-01-25
 </code></pre>
+<blockquote>
+<p>前面的是完整备份，后面的是增量备份</p>
+</blockquote>
 <ol start="5">
-<li>恢复数据</li>
+<li>恢复数据，所有数据都在完整备份中，恢复完整备份即可</li>
 </ol>
 <pre class="notranslate"><code class="notranslate">innobackupex --copy-back /xtrabackup/full/2021-11-17_15-57-12 
 </code></pre>

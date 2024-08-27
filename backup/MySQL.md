@@ -134,8 +134,9 @@ innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12
 ```
 innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12 --incremental-dir=/xtrabackup/full/2021-11-17_16-01-25
 ```
+>前面的是完整备份，后面的是增量备份
 
-5. 恢复数据
+5. 恢复数据，所有数据都在完整备份中，恢复完整备份即可
 ```
 innobackupex --copy-back /xtrabackup/full/2021-11-17_15-57-12 
 ```
