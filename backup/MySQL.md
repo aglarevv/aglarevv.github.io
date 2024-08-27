@@ -24,6 +24,128 @@ DDL：数据定义语言：表、序列、视图、索引的创建和销毁的SQ
 DML：数据操作语言：CRUD
 TCL：事务控制语言：控制事务的SQL
 
+## 数据备份
+
+<details>
+<summary>使用select into命令备份</summary>
+
+> 是sql中的一个基础命令，可以完成数据备份，但是由于十分简陋，只能适用于临时的数据备份
+
+查看权限：
+```
+show variables like '%secure%';
+```
+> secure_file_priv为NULL表示当前不可用select into进行备份
+
+进入进入/etc/my.cnf，添加配置
+```
+secure-file-priv=/tmp
+```
+重启MySQL，重新查看权限，value值为/tmp/表示只能备份在此目录下。
+执行select into命令
+```
+select * from t_user into outfile '/tmp/user.txt'
+```
+> 语法：select 语句 into outfile '目标文件'
+将select的查询结果数据储存到/tmp/user.txt
+
+恢复数据：
+```
+load data infile '/tmp/user.txt' into table t_user;
+```
+</details>
+
+<details>
+<summary>使用xtrabackup工具备份</summary>
+
+1.下载：
+```
+wget https://www.percona.com/downloads/XtraBackup/Percona-XtraBackup-2.4.9/binary/redhat/6/x86_64/Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
+```
+2.解压：
+```
+tar xvf Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
+```
+3.安装：
+```
+yum install  percona-xtrabackup-24-2.4.9-1.el6.x86\_64.rpm -y
+```
+4.完整备份
+
+- 创建备份
+1. 创建备份目录
+```
+mkdir /xtrabackup/full -p
+```
+2. 执行备份命令
+```
+innobackupex --user=root --password='AGLAREvv.1' -S /tmp/mysql.sock  /xtrabackup/full
+```
+> --user: 数据库登陆用户名
+--password: 密码
+-S :数据库套接文件地址，在/etc/my.cnf的socket中获取
+
+- 恢复备份
+1. 关闭数据库
+2. 删除数据库所有数据
+3. 重演数据
+```
+innobackupex --apply-log /xtrabackup/full/2021-11-17_00-37-48
+```
+
+4. 恢复数据
+
+```
+innobackupex --copy-back /xtrabackup/full/2021-11-17_00-37-48
+```
+
+5. 查看数据库储存位置是否有数据文件
+6. 设置权限，将恢复后的文件权限设置为MySQL数据的拥有者可执行权限
+
+```
+chown -R sql:sql /opt/vv/data/mysql/*
+```
+
+7. 启动数据库
+
+4-1.增量备份
+- 创建备份
+
+1. 先创建完整备份
+2. 修改数据库数据
+3. 创建增量备份
+```
+innobackupex --user=root --password='AGLAREvv.1' -S /tmp/mysql.sock --incremental /xtrabackup/full --incremental-basedir=/xtrabackup/full/2023-11-17_15-57-12
+```
+
+> --incremental：指定增量备份生成位置
+--incremental-basedir：指定以哪个备份为基础做增量备份，注意：所选备份应为一个完整备份或增量备份
+
+- 恢复备份
+
+1. 关闭数据库
+2. 删除数据库所有数据
+3. 重演数据
+```
+innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12
+```
+
+4. 整合数据
+```
+innobackupex --apply-log --redo-only /xtrabackup/full/2021-11-17_15-57-12 --incremental-dir=/xtrabackup/full/2021-11-17_16-01-25
+```
+
+5. 恢复数据
+```
+innobackupex --copy-back /xtrabackup/full/2021-11-17_15-57-12 
+```
+6. 设置权限
+```
+chown -R sql:sql /opt/vv/data/mysql/*
+```
+7. 启动数据库，查看数据
+
+</details>
 
 
 ## MySQL安装
@@ -34,11 +156,11 @@ TCL：事务控制语言：控制事务的SQL
 ```
 yum erase mariadb mariadb-server mariadb-libs mariadb-devel -y
 ```
-2.创建用户
+8.创建用户
 ```
 useradd -r sql -M -s /sbin/nologin
 ```
-3.下载源码
+9.下载源码
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
@@ -48,15 +170,15 @@ wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
 ```
-4.安装编译工具
+10.安装编译工具
 ```
 yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
 ```
-5.创建MySQL目录
+11.创建MySQL目录
 ```
 mkdir -p /opt/vv/{data,mysql,log}
 ```
-6.解压
+12.解压
 ```
 tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 ```
@@ -67,7 +189,7 @@ tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
 mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 ```
-7.编译安装
+13.编译安装
 ```
 cd /opt/vv/mysql-5.7.26/
 ```
@@ -114,15 +236,15 @@ cmake . \
 make && make install
 ```
 
-8.创建软连接
+14.创建软连接
 ```
 ln -s /opt/vv/mysql/bin/mysql /usr/bin
 ```
-9.更改创建的文件夹所属用户和所属组
+15.更改创建的文件夹所属用户和所属组
 ```
 chown -R sql:sql /opt/vv/{mysql,data,log}
 ```
-10.配置参数
+16.配置参数
 ```
 vi /etc/my.cnf
 ```
@@ -143,16 +265,16 @@ symbolic-links=0
 plugin-load=validate_password.so
 validate-password=ON 
 ```
-11.初始化MySQL
+17.初始化MySQL
 >进入MySQL的bin目录
 ```
 ./mysqld --defaults-file=/etc/my.cnf --basedir=/opt/vv/mysql/ --datadir=/opt/vv/data/mysql/ --user=sql --initialize
 ```
-12.查看临时密码
+18.查看临时密码
 ```
 cat /opt/vv/data/mysql/mysql.err 
 ```
-13.启动MySQL前先开放权限
+19.启动MySQL前先开放权限
 ```
 cp /opt/vv/mysql/support-files/mysql.server /etc/init.d/mysqld 
 ```
@@ -167,11 +289,11 @@ chmod +x /etc/init.d/mysqld
 service mysqld start
 ```
 >关闭：service mysqld stop
-14.登录MySQL修改密码
+20.登录MySQL修改密码
 ```
 set password = password('AGLAREvv.1');
 ```
-15.开启远程连接
+21.开启远程连接
 ```
 use mysql
 ```
@@ -181,7 +303,7 @@ update user set Host='%' where user = "root";
 ```
 flush privileges;
 ```
-16.设置MySQL开机自启
+22.设置MySQL开机自启
 ```
 chkconfig --add mysqld 
 ```
