@@ -127,6 +127,21 @@ cal -y
 ```
 chsh -s /bin/bash
 ```
+vim文件分割：
+```
+多文件水平分割：vim -o f1 f2
+多文件垂直分割：vim -O f1 f2
+单文件水平分割：CTRL+w,s
+单文件垂直分割：CTRL+w,v
+退出相邻一个：CTRL+w,q
+退出其他所有：CTRL+w,o
+推出所有：:wqll
+```
+vim配置文件：
+```
+个人位置：~/.vimrc
+全局位置：/etc/vimrc
+```
 
 
 
