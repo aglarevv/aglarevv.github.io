@@ -344,6 +344,10 @@ mysqldump -u root -p -A > /mysql_backup/all.sql
 </details>
 
 ## 数据库集群
+主从复制：
+> [!TIP] 
+> 原理：
+
 <details>
 <summary>基于log-bin的主从复制</summary>
 
