@@ -343,6 +343,62 @@ mysqldump -u root -p -A > /mysql_backup/all.sql
 3. 查看是否生成文件
 </details>
 
+## 数据库集群
+<details>
+<summary>基于log-bin的主从复制</summary>
+
+1. 主库创建用户并赋予权限
+```
+grant replication  slave,reload,super on *.*  to 'testslave'@'192.168.209.%' identified by 'AGLAREvv.1';
+```
+> replication slave：拥有此权限可以查看从服务器，从主服务器读取二进制日志。
+super权限：允许用户使用修改全局变量的SET语句以及CHANGE  MASTER语句
+reload权限：必须拥有reload权限，才可以执行flush  [tables | logs | privileges]
+
+2. 主库修改配置文件/etc/my.cnf，添加配置
+```
+log-bin=/opt/vv/log/master.log
+server-id=124
+```
+3. 重启数据库
+4. 进入数据库查看状态
+```
+show master status\G;
+```
+> 关注file和position两条信息，从库配置时使用
+
+5. 从库配置文件添加
+```
+server-id=126
+```
+> server-id 要唯一
+
+5. 重启数据库
+6. 进入数据库，执行命令
+> 可先执行 show slave status\G 命令查看监听状态（默认未开启监听）
+
+```
+CHANGE MASTER TO
+MASTER_HOST='192.168.209.124',   #主库ip
+MASTER_USER='testSlave',         #主库用户名
+MASTER_PASSWORD='AGLAREvv.1',        #主库密码
+MASTER_LOG_FILE='master.000002',    #主库配置文件
+MASTER_LOG_POS=154;              #主库日志偏移量       
+```
+7. 开启监听
+```
+start slave;
+```
+8. 查看监听状态
+```
+show slave status\G;
+```
+> Slave_IO_Running 和 Slave_SQL_Running 参数都为yes表示配置成功，如果失败 Last_Error 参数会显示错误信息
+
+</details>
+
+
+
 ## 基础操作语句
 - 数据库的创建和销毁-语法：
 ```
@@ -377,9 +433,9 @@ update 表名 set 列名 = 新值,列名=新值, ... [where 条件];
 
 事务的特点：
 1. Atomicity 原子性  保证多条SQL要么同时成功，要么同时失败。
-2. Consistency 一致性  事务执行前后，数据的状态是一致的。
-3. Isolation 隔离性  并发访问相同数据时，不同用户是否可以看到另外一个用户未提交的数据。oracle默认只能看到提交后的。
-4. Durability 持久性 一个事务一旦提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响 。
+10. Consistency 一致性  事务执行前后，数据的状态是一致的。
+11. Isolation 隔离性  并发访问相同数据时，不同用户是否可以看到另外一个用户未提交的数据。oracle默认只能看到提交后的。
+12. Durability 持久性 一个事务一旦提交，它对数据库中数据的改变就是永久性的，接下来即使数据库发生故障也不应该对其有任何影响 。
 
 - 视图的创建、使用和销毁-语法：
 ```

@@ -614,6 +614,70 @@ validate-password=ON
 <li>查看是否生成文件</li>
 </ol>
 </details>
+<h2>数据库集群</h2>
+<details>
+<summary>基于log-bin的主从复制</summary>
+<ol>
+<li>主库创建用户并赋予权限</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">grant replication  slave,reload,super on *.*  to 'testslave'@'192.168.209.%' identified by 'AGLAREvv.1';
+</code></pre>
+<blockquote>
+<p>replication slave：拥有此权限可以查看从服务器，从主服务器读取二进制日志。<br>
+super权限：允许用户使用修改全局变量的SET语句以及CHANGE  MASTER语句<br>
+reload权限：必须拥有reload权限，才可以执行flush  [tables | logs | privileges]</p>
+</blockquote>
+<ol start="2">
+<li>主库修改配置文件/etc/my.cnf，添加配置</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">log-bin=/opt/vv/log/master.log
+server-id=124
+</code></pre>
+<ol start="3">
+<li>重启数据库</li>
+<li>进入数据库查看状态</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">show master status\G;
+</code></pre>
+<blockquote>
+<p>关注file和position两条信息，从库配置时使用</p>
+</blockquote>
+<ol start="5">
+<li>从库配置文件添加</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">server-id=126
+</code></pre>
+<blockquote>
+<p>server-id 要唯一</p>
+</blockquote>
+<ol start="5">
+<li>重启数据库</li>
+<li>进入数据库，执行命令</li>
+</ol>
+<blockquote>
+<p>可先执行 show slave status\G 命令查看监听状态（默认未开启监听）</p>
+</blockquote>
+<pre class="notranslate"><code class="notranslate">CHANGE MASTER TO
+MASTER_HOST='192.168.209.124',   #主库ip
+MASTER_USER='testSlave',         #主库用户名
+MASTER_PASSWORD='AGLAREvv.1',        #主库密码
+MASTER_LOG_FILE='master.000002',    #主库配置文件
+MASTER_LOG_POS=154;              #主库日志偏移量       
+</code></pre>
+<ol start="7">
+<li>开启监听</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">start slave;
+</code></pre>
+<ol start="8">
+<li>查看监听状态</li>
+</ol>
+<pre class="notranslate"><code class="notranslate">show slave status\G;
+</code></pre>
+<blockquote>
+<p>Slave_IO_Running 和 Slave_SQL_Running 参数都为yes表示配置成功，如果失败 Last_Error 参数会显示错误信息</p>
+</blockquote>
+</details>
 <h2>基础操作语句</h2>
 <ul>
 <li>数据库的创建和销毁-语法：</li>
