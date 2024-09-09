@@ -313,6 +313,32 @@ HP服务器硬盘位置：</p>
 <p>vim配置文件：</p>
 <pre class="notranslate"><code class="notranslate">个人位置：~/.vimrc
 全局位置：/etc/vimrc
+</code></pre>
+<p>静态ip配置：</p>
+<blockquote>
+<p>vim /etc/sysconfig/netword-scripts/ifcfg-ens33</p>
+</blockquote>
+<pre class="notranslate"><code class="notranslate">TYPE="Ethernet"
+PROXY_METHOD="none"
+BROWSER_ONLY="no"
+BOOTPROTO="none"
+DEFROUTE="yes"
+IPV4_FAILURE_FATAL="no"
+IPV6INIT="yes"
+IPV6_AUTOCONF="yes"
+IPV6_DEFROUTE="yes"
+IPV6_FAILURE_FATAL="no"
+IPV6_ADDR_GEN_MODE="stable-privacy"
+NAME="ens33"
+UUID="b4ce1d74-4e77-419e-9616-823cee6bbaf9"
+DEVICE="ens33"
+ONBOOT="yes"
+IPADDR="192.168.209.138"
+PREFIX="24"
+GATEWAY="192.168.209.2"
+DNS1="8.8.8.8"
+IPV6_PRIVACY="no"
+ZONE=
 </code></pre></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 

@@ -142,6 +142,32 @@ vim配置文件：
 个人位置：~/.vimrc
 全局位置：/etc/vimrc
 ```
+静态ip配置：
+> vim /etc/sysconfig/netword-scripts/ifcfg-ens33
+
+```
+TYPE="Ethernet"
+PROXY_METHOD="none"
+BROWSER_ONLY="no"
+BOOTPROTO="none"
+DEFROUTE="yes"
+IPV4_FAILURE_FATAL="no"
+IPV6INIT="yes"
+IPV6_AUTOCONF="yes"
+IPV6_DEFROUTE="yes"
+IPV6_FAILURE_FATAL="no"
+IPV6_ADDR_GEN_MODE="stable-privacy"
+NAME="ens33"
+UUID="b4ce1d74-4e77-419e-9616-823cee6bbaf9"
+DEVICE="ens33"
+ONBOOT="yes"
+IPADDR="192.168.209.138"
+PREFIX="24"
+GATEWAY="192.168.209.2"
+DNS1="8.8.8.8"
+IPV6_PRIVACY="no"
+ZONE=
+```
 
 
 
