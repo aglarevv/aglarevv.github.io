@@ -1,5 +1,18 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Tue, 27 Aug 2024 08:46:13 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>rk</title><link>https://aglarevv.github.io//post/rk.html</link><description>## Flynn分类法：&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Wed, 11 Sep 2024 10:57:52 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>GitLab</title><link>https://aglarevv.github.io//post/GitLab.html</link><description>GitLab部署步骤：&#13;
+1、关闭防火墙&#13;
+2、下载gitlab，下载连接（夸克网盘）：[gitlab-ce-9.1.0-ce.0.el7.x86_64.rpm](https://pan.quark.cn/s/a3a0509d91db)&#13;
+3、解压&#13;
+```&#13;
+yum -y install gitlab-ce-9.1.0-ce.0.el7.x86_64.rpm&#13;
+```&#13;
+4、重新配置&#13;
+```&#13;
+gitlab-ctl reconfigure&#13;
+```&#13;
+5、进入gitlab服务器地址（本机ip:80）后，设置完密码使用root登录即可完成部署&#13;
+![image](https://github.com/user-attachments/assets/697e903c-5c92-4019-9000-e40d35ffa516)&#13;
+。</description><guid isPermaLink="true">https://aglarevv.github.io//post/GitLab.html</guid><pubDate>Wed, 11 Sep 2024 10:55:42 +0000</pubDate></item><item><title>rk</title><link>https://aglarevv.github.io//post/rk.html</link><description>## Flynn分类法：&#13;
 根据指令流和控制流的不同组合，分为SISD、SIMD、MISD、MIMD&#13;
 计算机指令由操作码和操作数（地址码）组成&#13;
 指令执行过程：取值-分析-执行&#13;
