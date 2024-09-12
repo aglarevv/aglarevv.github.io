@@ -115,7 +115,13 @@ cp jenkins.war /usr/local/tomcat/webapps/
 ```
  /usr/local/tomcat/bin/startup.sh
 ```
-。">
+5、等待片刻，解锁jenkins
+![image](https://github.com/user-attachments/assets/2d793a12-ed80-4eda-87c1-8bb6ee501617)
+6、下载插件，等待安装完成
+![image](https://github.com/user-attachments/assets/82fb5514-91b7-493b-b9ab-6ce5663c7eb9)
+7、创建用户
+8、系统配置Manage Jenkins
+- [ ] system中找到【全局属性】勾选 Environment variables，新增环境变量 JAVA_HOME 和 MAVEN_HOME 后保存。">
 <meta property="og:title" content="使用jenkins实现ci">
 <meta property="og:description" content="# Jenkins安装步骤：
 
@@ -222,7 +228,13 @@ cp jenkins.war /usr/local/tomcat/webapps/
 ```
  /usr/local/tomcat/bin/startup.sh
 ```
-。">
+5、等待片刻，解锁jenkins
+![image](https://github.com/user-attachments/assets/2d793a12-ed80-4eda-87c1-8bb6ee501617)
+6、下载插件，等待安装完成
+![image](https://github.com/user-attachments/assets/82fb5514-91b7-493b-b9ab-6ce5663c7eb9)
+7、创建用户
+8、系统配置Manage Jenkins
+- [ ] system中找到【全局属性】勾选 Environment variables，新增环境变量 JAVA_HOME 和 MAVEN_HOME 后保存。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://aglarevv.github.io//post/shi-yong-jenkins-shi-xian-ci.html">
 <meta property="og:image" content="https://aglarevv.github.io/icon2.svg">
@@ -377,7 +389,77 @@ export TOMCAT_HOME JAVA_HOME PATH
 </code></pre>
 <p>4、启动tomcat并访问（本机ip:8080/jenkins）</p>
 <pre class="notranslate"><code class="notranslate"> /usr/local/tomcat/bin/startup.sh
-</code></pre></div>
+</code></pre>
+<p>5、等待片刻，解锁jenkins<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/2d793a12-ed80-4eda-87c1-8bb6ee501617"><img src="https://github.com/user-attachments/assets/2d793a12-ed80-4eda-87c1-8bb6ee501617" alt="image" style="max-width: 100%;"></a><br>
+6、下载插件，等待安装完成<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/82fb5514-91b7-493b-b9ab-6ce5663c7eb9"><img src="https://github.com/user-attachments/assets/82fb5514-91b7-493b-b9ab-6ce5663c7eb9" alt="image" style="max-width: 100%;"></a><br>
+7、创建用户<br>
+8、系统配置Manage Jenkins</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> system中找到【全局属性】勾选 Environment variables，新增环境变量 JAVA_HOME 和 MAVEN_HOME 后保存。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/cbe13d85-29d0-41f0-9130-df85530e089f"><img src="https://github.com/user-attachments/assets/cbe13d85-29d0-41f0-9130-df85530e089f" alt="image" style="max-width: 100%;"></a></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> tools中找到【maven配置】填写文件路径 /usr/local/maven/conf/settings.xml。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/4be23f56-3068-4eff-8049-7cfae2f62925"><img src="https://github.com/user-attachments/assets/4be23f56-3068-4eff-8049-7cfae2f62925" alt="image" style="max-width: 100%;"></a></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 找到【JDK安装】填写内容。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/393c1554-0530-4b60-becb-b37072f4dac8"><img src="https://github.com/user-attachments/assets/393c1554-0530-4b60-becb-b37072f4dac8" alt="image" style="max-width: 100%;"></a></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 找到【GIt安装】填写内容。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/e501903f-096d-4d5e-8516-a9b7ab5c1ea6"><img src="https://github.com/user-attachments/assets/e501903f-096d-4d5e-8516-a9b7ab5c1ea6" alt="image" style="max-width: 100%;"></a></li>
+<li class="task-list-item"><input type="checkbox" id="" disabled="" class="task-list-item-checkbox"> 找到【Maven 安装】填写内容。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/8fc40f14-cc45-47db-9ead-c603972b630b"><img src="https://github.com/user-attachments/assets/8fc40f14-cc45-47db-9ead-c603972b630b" alt="image" style="max-width: 100%;"></a><br>
+9、点击保存</li>
+</ul>
+<p>10、安装如下插件</p>
+<pre class="notranslate"><code class="notranslate">Maven Integration
+Deploy to container
+GitHub Authentication
+GitHub Branch Source  # 默认已安装
+Publish Over SSH
+</code></pre>
+<p>11、配置ssh</p>
+<ul>
+<li>生成密钥</li>
+</ul>
+<pre class="notranslate"><code class="notranslate">ssh-keygen 
+</code></pre>
+<ul>
+<li>将密钥发送到tomcat服务器</li>
+</ul>
+<blockquote>
+<p>填写服务器ip地址</p>
+</blockquote>
+<pre class="notranslate"><code class="notranslate"> ssh-copy-id -i 192.168.209.11
+</code></pre>
+<ul>
+<li>查看私钥后复制</li>
+</ul>
+<pre class="notranslate"><code class="notranslate">cat ~/.ssh/id_rsa
+</code></pre>
+<ul>
+<li>进入系统配置Manage Jenkins点击【system】，在其中找到【Publish over SSH】，粘贴复制的私钥。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/24811584-5235-48d7-a324-c493d3a16059"><img src="https://github.com/user-attachments/assets/24811584-5235-48d7-a324-c493d3a16059" alt="image" style="max-width: 100%;"></a></li>
+<li>新增ssh server，测试成功后点击保存。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/66176370-48f0-4e77-9e2e-1cce5e031dd6"><img src="https://github.com/user-attachments/assets/66176370-48f0-4e77-9e2e-1cce5e031dd6" alt="image" style="max-width: 100%;"></a></li>
+</ul>
+<p><strong>至此安装完成</strong></p>
+<h2>Jenkins+Maven+Github+Tomcat 自动化构建打包、部署</h2>
+<p>1、创建一个maven工程。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/96d1f4dc-431f-42c2-b9d0-677b0664e551"><img src="https://github.com/user-attachments/assets/96d1f4dc-431f-42c2-b9d0-677b0664e551" alt="image" style="max-width: 100%;"></a><br>
+2、构建maven项目。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/f3f43dfa-ad58-4555-b98d-60c9b08529f4"><img src="https://github.com/user-attachments/assets/f3f43dfa-ad58-4555-b98d-60c9b08529f4" alt="image" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/cd29091e-0f92-4bd5-91fb-7ad204087701"><img src="https://github.com/user-attachments/assets/cd29091e-0f92-4bd5-91fb-7ad204087701" alt="image" style="max-width: 100%;"></a><br>
+3、源码管理，可使用【<a href="https://github.com/bingyue/easy-springmvc-maven.git%E3%80%91%E3%80%82%E4%BE%8B%EF%BC%9A">https://github.com/bingyue/easy-springmvc-maven.git】。例：</a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/68ae1a3a-39c8-4e78-a19e-7acd9c01b890"><img src="https://github.com/user-attachments/assets/68ae1a3a-39c8-4e78-a19e-7acd9c01b890" alt="image" style="max-width: 100%;"></a><br>
+4、构建触发器，默认选择即可。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/2792301e-49ca-4aea-9da0-dcebfb8a53d3"><img src="https://github.com/user-attachments/assets/2792301e-49ca-4aea-9da0-dcebfb8a53d3" alt="image" style="max-width: 100%;"></a><br>
+5、设置build，全局选项可填写【clean package -Dmaven.test.skip=true】。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/90d1d1a3-4fc0-4c2a-839d-380a49619ab6"><img src="https://github.com/user-attachments/assets/90d1d1a3-4fc0-4c2a-839d-380a49619ab6" alt="image" style="max-width: 100%;"></a><br>
+6、构建后操作选择ssh，填写完内容后点击保存。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/f85186a8-97e2-4ec0-abed-175c03f10314"><img src="https://github.com/user-attachments/assets/f85186a8-97e2-4ec0-abed-175c03f10314" alt="image" style="max-width: 100%;"></a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/2292abbc-891a-43fb-b0d7-bd23bd93b848"><img src="https://github.com/user-attachments/assets/2292abbc-891a-43fb-b0d7-bd23bd93b848" alt="image" style="max-width: 100%;"></a><br>
+7、点击左侧 build now，开始构建。例：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/87618709-46c4-46e1-ad9e-8be2a4075057"><img src="https://github.com/user-attachments/assets/87618709-46c4-46e1-ad9e-8be2a4075057" alt="image" style="max-width: 100%;"></a><br>
+<strong>至此完成</strong></p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

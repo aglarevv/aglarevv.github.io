@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Thu, 12 Sep 2024 00:55:12 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>使用jenkins实现ci</title><link>https://aglarevv.github.io//post/shi-yong-jenkins-shi-xian-ci.html</link><description># Jenkins安装步骤：&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Thu, 12 Sep 2024 03:49:26 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>使用jenkins实现ci</title><link>https://aglarevv.github.io//post/shi-yong-jenkins-shi-xian-ci.html</link><description># Jenkins安装步骤：&#13;
 &#13;
 ## 依赖工具下载：&#13;
 &#13;
@@ -104,7 +104,13 @@ cp jenkins.war /usr/local/tomcat/webapps/&#13;
 ```&#13;
  /usr/local/tomcat/bin/startup.sh&#13;
 ```&#13;
-。</description><guid isPermaLink="true">https://aglarevv.github.io//post/shi-yong-jenkins-shi-xian-ci.html</guid><pubDate>Wed, 11 Sep 2024 13:14:03 +0000</pubDate></item><item><title>GitLab</title><link>https://aglarevv.github.io//post/GitLab.html</link><description>GitLab部署步骤：&#13;
+5、等待片刻，解锁jenkins&#13;
+![image](https://github.com/user-attachments/assets/2d793a12-ed80-4eda-87c1-8bb6ee501617)&#13;
+6、下载插件，等待安装完成&#13;
+![image](https://github.com/user-attachments/assets/82fb5514-91b7-493b-b9ab-6ce5663c7eb9)&#13;
+7、创建用户&#13;
+8、系统配置Manage Jenkins&#13;
+- [ ] system中找到【全局属性】勾选 Environment variables，新增环境变量 JAVA_HOME 和 MAVEN_HOME 后保存。</description><guid isPermaLink="true">https://aglarevv.github.io//post/shi-yong-jenkins-shi-xian-ci.html</guid><pubDate>Wed, 11 Sep 2024 13:14:03 +0000</pubDate></item><item><title>GitLab</title><link>https://aglarevv.github.io//post/GitLab.html</link><description>GitLab部署步骤：&#13;
 1、关闭防火墙&#13;
 2、下载gitlab，下载连接（夸克网盘）：[gitlab-ce-9.1.0-ce.0.el7.x86_64.rpm](https://pan.quark.cn/s/a3a0509d91db)&#13;
 3、解压&#13;

@@ -103,3 +103,70 @@ cp jenkins.war /usr/local/tomcat/webapps/
 ```
  /usr/local/tomcat/bin/startup.sh
 ```
+5、等待片刻，解锁jenkins
+![image](https://github.com/user-attachments/assets/2d793a12-ed80-4eda-87c1-8bb6ee501617)
+6、下载插件，等待安装完成
+![image](https://github.com/user-attachments/assets/82fb5514-91b7-493b-b9ab-6ce5663c7eb9)
+7、创建用户
+8、系统配置Manage Jenkins
+- [ ] system中找到【全局属性】勾选 Environment variables，新增环境变量 JAVA_HOME 和 MAVEN_HOME 后保存。例：
+![image](https://github.com/user-attachments/assets/cbe13d85-29d0-41f0-9130-df85530e089f)
+- [ ] tools中找到【maven配置】填写文件路径 /usr/local/maven/conf/settings.xml。例：
+![image](https://github.com/user-attachments/assets/4be23f56-3068-4eff-8049-7cfae2f62925)
+- [ ] 找到【JDK安装】填写内容。例：
+![image](https://github.com/user-attachments/assets/393c1554-0530-4b60-becb-b37072f4dac8)
+- [ ] 找到【GIt安装】填写内容。例：
+![image](https://github.com/user-attachments/assets/e501903f-096d-4d5e-8516-a9b7ab5c1ea6)
+- [ ] 找到【Maven 安装】填写内容。例：
+![image](https://github.com/user-attachments/assets/8fc40f14-cc45-47db-9ead-c603972b630b)
+9、点击保存
+
+10、安装如下插件
+```
+Maven Integration
+Deploy to container
+GitHub Authentication
+GitHub Branch Source  # 默认已安装
+Publish Over SSH
+```
+11、配置ssh
+
+- 生成密钥
+```
+ssh-keygen 
+```
+- 将密钥发送到tomcat服务器
+ > 填写服务器ip地址
+
+```
+ ssh-copy-id -i 192.168.209.11
+```
+- 查看私钥后复制
+```
+cat ~/.ssh/id_rsa
+```
+- 进入系统配置Manage Jenkins点击【system】，在其中找到【Publish over SSH】，粘贴复制的私钥。例：
+![image](https://github.com/user-attachments/assets/24811584-5235-48d7-a324-c493d3a16059)
+- 新增ssh server，测试成功后点击保存。例：
+![image](https://github.com/user-attachments/assets/66176370-48f0-4e77-9e2e-1cce5e031dd6)
+
+**至此安装完成**
+
+## Jenkins+Maven+Github+Tomcat 自动化构建打包、部署
+1、创建一个maven工程。例：
+![image](https://github.com/user-attachments/assets/96d1f4dc-431f-42c2-b9d0-677b0664e551)
+2、构建maven项目。例：
+![image](https://github.com/user-attachments/assets/f3f43dfa-ad58-4555-b98d-60c9b08529f4)
+![image](https://github.com/user-attachments/assets/cd29091e-0f92-4bd5-91fb-7ad204087701)
+3、源码管理，可使用【https://github.com/bingyue/easy-springmvc-maven.git】。例：
+![image](https://github.com/user-attachments/assets/68ae1a3a-39c8-4e78-a19e-7acd9c01b890)
+4、构建触发器，默认选择即可。例：
+![image](https://github.com/user-attachments/assets/2792301e-49ca-4aea-9da0-dcebfb8a53d3)
+5、设置build，全局选项可填写【clean package -Dmaven.test.skip=true】。例：
+![image](https://github.com/user-attachments/assets/90d1d1a3-4fc0-4c2a-839d-380a49619ab6)
+6、构建后操作选择ssh，填写完内容后点击保存。例：
+![image](https://github.com/user-attachments/assets/f85186a8-97e2-4ec0-abed-175c03f10314)
+![image](https://github.com/user-attachments/assets/2292abbc-891a-43fb-b0d7-bd23bd93b848)
+7、点击左侧 build now，开始构建。例：
+![image](https://github.com/user-attachments/assets/87618709-46c4-46e1-ad9e-8be2a4075057)
+**至此完成**
