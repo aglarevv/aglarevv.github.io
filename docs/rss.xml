@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Wed, 11 Sep 2024 13:14:28 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>使用jenkins实现ci</title><link>https://aglarevv.github.io//post/shi-yong-jenkins-shi-xian-ci.html</link><description># Jenkins安装步骤：&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Thu, 12 Sep 2024 00:55:12 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>使用jenkins实现ci</title><link>https://aglarevv.github.io//post/shi-yong-jenkins-shi-xian-ci.html</link><description># Jenkins安装步骤：&#13;
 &#13;
 ## 依赖工具下载：&#13;
 &#13;
@@ -82,7 +82,7 @@ mv jdk-11.0.16 /usr/local/java &amp;&amp; mv apache-tomcat-9.0.79 /usr/local/tom
 TOMCAT_HOME=/usr/local/tomcat&#13;
 JAVA_HOME=/usr/local/java&#13;
 PATH=$TOMCAT_HOME/bin:$JAVA_HOME/bin:$PATH&#13;
-export    TOMCAT_HOME   JAVA_HOME   PATH&#13;
+export TOMCAT_HOME JAVA_HOME PATH&#13;
 ```&#13;
 6、刷新环境变量&#13;
 ```&#13;

@@ -81,7 +81,7 @@ mv jdk-11.0.16 /usr/local/java && mv apache-tomcat-9.0.79 /usr/local/tomcat
 TOMCAT_HOME=/usr/local/tomcat
 JAVA_HOME=/usr/local/java
 PATH=$TOMCAT_HOME/bin:$JAVA_HOME/bin:$PATH
-export    TOMCAT_HOME   JAVA_HOME   PATH
+export TOMCAT_HOME JAVA_HOME PATH
 ```
 6、刷新环境变量
 ```
