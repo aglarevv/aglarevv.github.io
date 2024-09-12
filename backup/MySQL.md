@@ -29,15 +29,17 @@ TCL：事务控制语言：控制事务的SQL
 <details>
 <summary>MySQL安装步骤：</summary>
 
-1. 清理环境
+>
+
+1.清理环境
 ```
 yum erase mariadb mariadb-server mariadb-libs mariadb-devel -y
 ```
-8.创建用户
+2.创建用户
 ```
 useradd -r sql -M -s /sbin/nologin
 ```
-9.下载源码
+3.下载源码
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
@@ -47,15 +49,15 @@ wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
 ```
-10.安装编译工具
+4.安装编译工具
 ```
 yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
 ```
-11.创建MySQL目录
+5.创建MySQL目录
 ```
 mkdir -p /opt/vv/{data,mysql,log}
 ```
-12.解压
+6.解压
 ```
 tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 ```
@@ -66,7 +68,7 @@ tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
 mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 ```
-13.编译安装
+7.编译安装
 ```
 cd /opt/vv/mysql-5.7.26/
 ```
@@ -113,15 +115,15 @@ cmake . \
 make && make install
 ```
 
-14.创建软连接
+8.创建软连接
 ```
 ln -s /opt/vv/mysql/bin/mysql /usr/bin
 ```
-15.更改创建的文件夹所属用户和所属组
+9.更改创建的文件夹所属用户和所属组
 ```
 chown -R sql:sql /opt/vv/{mysql,data,log}
 ```
-16.配置参数
+10.配置参数
 ```
 vi /etc/my.cnf
 ```
@@ -142,16 +144,16 @@ symbolic-links=0
 plugin-load=validate_password.so
 validate-password=ON 
 ```
-17.初始化MySQL
+11.初始化MySQL
 >进入MySQL的bin目录
 ```
 ./mysqld --defaults-file=/etc/my.cnf --basedir=/opt/vv/mysql/ --datadir=/opt/vv/data/mysql/ --user=sql --initialize
 ```
-18.查看临时密码
+12.查看临时密码
 ```
 cat /opt/vv/data/mysql/mysql.err 
 ```
-19.启动MySQL前先开放权限
+13.启动MySQL前先开放权限
 ```
 cp /opt/vv/mysql/support-files/mysql.server /etc/init.d/mysqld 
 ```
@@ -161,16 +163,17 @@ chown 777 /etc/my.cnf
 ```
 chmod +x /etc/init.d/mysqld 
 ```
-13.启动MySQL
+14.启动MySQL
 ```
 service mysqld start
 ```
 >关闭：service mysqld stop
-20.登录MySQL修改密码
+
+15.登录MySQL修改密码
 ```
 set password = password('AGLAREvv.1');
 ```
-21.开启远程连接
+16.开启远程连接
 ```
 use mysql
 ```
@@ -180,7 +183,7 @@ update user set Host='%' where user = "root";
 ```
 flush privileges;
 ```
-22.设置MySQL开机自启
+17.设置MySQL开机自启
 ```
 chkconfig --add mysqld 
 ```
@@ -345,9 +348,6 @@ mysqldump -u root -p -A > /mysql_backup/all.sql
 
 ## 数据库集群
 主从复制：
-> [!TIP] 
-> 原理：
-
 <details>
 <summary>基于log-bin的主从复制</summary>
 

@@ -41,15 +41,17 @@ TCL：事务控制语言：控制事务的SQL
 <details>
 <summary>MySQL安装步骤：</summary>
 
-1. 清理环境
+>
+
+1.清理环境
 ```
 yum erase mariadb mariadb-server mariadb-libs mariadb-devel -y
 ```
-8.创建用户
+2.创建用户
 ```
 useradd -r sql -M -s /sbin/nologin
 ```
-9.下载源码
+3.下载源码
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
@@ -59,15 +61,15 @@ wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
 ```
-10.安装编译工具
+4.安装编译工具
 ```
 yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
 ```
-11.创建MySQL目录
+5.创建MySQL目录
 ```
 mkdir -p /opt/vv/{data,mysql,log}
 ```
-12.解压
+6.解压
 ```
 tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 ```
@@ -78,7 +80,7 @@ tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
 mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 ```
-13.编译安装
+7.编译安装
 ```
 cd /opt/vv/mysql-5.7.26/
 ```
@@ -141,15 +143,17 @@ TCL：事务控制语言：控制事务的SQL
 <details>
 <summary>MySQL安装步骤：</summary>
 
-1. 清理环境
+>
+
+1.清理环境
 ```
 yum erase mariadb mariadb-server mariadb-libs mariadb-devel -y
 ```
-8.创建用户
+2.创建用户
 ```
 useradd -r sql -M -s /sbin/nologin
 ```
-9.下载源码
+3.下载源码
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
@@ -159,15 +163,15 @@ wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
 ```
-10.安装编译工具
+4.安装编译工具
 ```
 yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
 ```
-11.创建MySQL目录
+5.创建MySQL目录
 ```
 mkdir -p /opt/vv/{data,mysql,log}
 ```
-12.解压
+6.解压
 ```
 tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 ```
@@ -178,7 +182,7 @@ tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
 mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 ```
-13.编译安装
+7.编译安装
 ```
 cd /opt/vv/mysql-5.7.26/
 ```
@@ -249,7 +253,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     font-size: 12px;
 }
 </style>
-<style>.markdown-alert{padding:0.5rem 1rem;margin-bottom:1rem;border-left:.25em solid var(--borderColor-default,var(--color-border-default));}.markdown-alert .markdown-alert-title {display:flex;font-weight:var(--base-text-weight-medium,500);align-items:center;line-height:1;}.markdown-alert>:first-child {margin-top:0;}.markdown-alert>:last-child {margin-bottom:0;}</style><style>.markdown-alert.markdown-alert-tip {border-left-color:var(--borderColor-success-emphasis, var(--color-success-emphasis));background-color:var(--color-success-subtle);}.markdown-alert.markdown-alert-tip .markdown-alert-title {color: var(--fgColor-success,var(--color-success-fg));}</style>
+
 
 
 
@@ -307,15 +311,15 @@ TCL：事务控制语言：控制事务的SQL</p>
 <h2>MySQL安装</h2>
 <details>
 <summary>MySQL安装步骤：</summary>
-<ol>
-<li>清理环境</li>
-</ol>
+<blockquote>
+</blockquote>
+<p>1.清理环境</p>
 <pre class="notranslate"><code class="notranslate">yum erase mariadb mariadb-server mariadb-libs mariadb-devel -y
 </code></pre>
-<p>8.创建用户</p>
+<p>2.创建用户</p>
 <pre class="notranslate"><code class="notranslate">useradd -r sql -M -s /sbin/nologin
 </code></pre>
-<p>9.下载源码</p>
+<p>3.下载源码</p>
 <pre class="notranslate"><code class="notranslate">wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 </code></pre>
 <blockquote>
@@ -323,13 +327,13 @@ TCL：事务控制语言：控制事务的SQL</p>
 </blockquote>
 <pre class="notranslate"><code class="notranslate">wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
 </code></pre>
-<p>10.安装编译工具</p>
+<p>4.安装编译工具</p>
 <pre class="notranslate"><code class="notranslate">yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
 </code></pre>
-<p>11.创建MySQL目录</p>
+<p>5.创建MySQL目录</p>
 <pre class="notranslate"><code class="notranslate">mkdir -p /opt/vv/{data,mysql,log}
 </code></pre>
-<p>12.解压</p>
+<p>6.解压</p>
 <pre class="notranslate"><code class="notranslate">tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 </code></pre>
 <blockquote>
@@ -338,7 +342,7 @@ TCL：事务控制语言：控制事务的SQL</p>
 <pre class="notranslate"><code class="notranslate">tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
 mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 </code></pre>
-<p>13.编译安装</p>
+<p>7.编译安装</p>
 <pre class="notranslate"><code class="notranslate">cd /opt/vv/mysql-5.7.26/
 </code></pre>
 <pre class="notranslate"><code class="notranslate">cmake . \
@@ -383,13 +387,13 @@ mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 </blockquote>
 <pre class="notranslate"><code class="notranslate">make &amp;&amp; make install
 </code></pre>
-<p>14.创建软连接</p>
+<p>8.创建软连接</p>
 <pre class="notranslate"><code class="notranslate">ln -s /opt/vv/mysql/bin/mysql /usr/bin
 </code></pre>
-<p>15.更改创建的文件夹所属用户和所属组</p>
+<p>9.更改创建的文件夹所属用户和所属组</p>
 <pre class="notranslate"><code class="notranslate">chown -R sql:sql /opt/vv/{mysql,data,log}
 </code></pre>
-<p>16.配置参数</p>
+<p>10.配置参数</p>
 <pre class="notranslate"><code class="notranslate">vi /etc/my.cnf
 </code></pre>
 <p>填写以下内容</p>
@@ -408,39 +412,39 @@ symbolic-links=0
 plugin-load=validate_password.so
 validate-password=ON 
 </code></pre>
-<p>17.初始化MySQL</p>
+<p>11.初始化MySQL</p>
 <blockquote>
 <p>进入MySQL的bin目录</p>
 </blockquote>
 <pre class="notranslate"><code class="notranslate">./mysqld --defaults-file=/etc/my.cnf --basedir=/opt/vv/mysql/ --datadir=/opt/vv/data/mysql/ --user=sql --initialize
 </code></pre>
-<p>18.查看临时密码</p>
+<p>12.查看临时密码</p>
 <pre class="notranslate"><code class="notranslate">cat /opt/vv/data/mysql/mysql.err 
 </code></pre>
-<p>19.启动MySQL前先开放权限</p>
+<p>13.启动MySQL前先开放权限</p>
 <pre class="notranslate"><code class="notranslate">cp /opt/vv/mysql/support-files/mysql.server /etc/init.d/mysqld 
 </code></pre>
 <pre class="notranslate"><code class="notranslate">chown 777 /etc/my.cnf 
 </code></pre>
 <pre class="notranslate"><code class="notranslate">chmod +x /etc/init.d/mysqld 
 </code></pre>
-<p>13.启动MySQL</p>
+<p>14.启动MySQL</p>
 <pre class="notranslate"><code class="notranslate">service mysqld start
 </code></pre>
 <blockquote>
-<p>关闭：service mysqld stop<br>
-20.登录MySQL修改密码</p>
+<p>关闭：service mysqld stop</p>
 </blockquote>
+<p>15.登录MySQL修改密码</p>
 <pre class="notranslate"><code class="notranslate">set password = password('AGLAREvv.1');
 </code></pre>
-<p>21.开启远程连接</p>
+<p>16.开启远程连接</p>
 <pre class="notranslate"><code class="notranslate">use mysql
 </code></pre>
 <pre class="notranslate"><code class="notranslate">update user set Host='%' where user = "root";
 </code></pre>
 <pre class="notranslate"><code class="notranslate">flush privileges;
 </code></pre>
-<p>22.设置MySQL开机自启</p>
+<p>17.设置MySQL开机自启</p>
 <pre class="notranslate"><code class="notranslate">chkconfig --add mysqld 
 </code></pre>
 </details>
@@ -616,8 +620,6 @@ validate-password=ON
 </details>
 <h2>数据库集群</h2>
 <p>主从复制：</p>
-<div class="markdown-alert markdown-alert-tip"><p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p><p>原理：</p>
-</div>
 <details>
 <summary>基于log-bin的主从复制</summary>
 <ol>
