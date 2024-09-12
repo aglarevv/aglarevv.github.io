@@ -8,7 +8,15 @@
 >
 
 1、下载链接（夸克网盘）：[https://pan.quark.cn/s/6f3b64b84a2c](url)
-2、解压安装
+或者从官网下载
+```
+wget https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz
+```
+2、解压安装并移动
+```
+tar -zxvf apache-maven-3.8.8-src.tar.gz
+mv apache-maven-3.8.8 /usr/local/maven
+```
 3、配置环境变量
 > vim /etc/profile.d/jenkins_tools.sh
 
