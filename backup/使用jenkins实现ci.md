@@ -98,7 +98,7 @@ source /etc/profile.d/java.sh
 </details>
 
 ## 正式开始安装jenkins
-1、下载jenkins，下载链接：[https://pan.quark.cn/s/253559a17241](url)
+1、下载jenkins，下载链接（夸克网盘）：[https://pan.quark.cn/s/f01fe8312095](https://pan.quark.cn/s/f01fe8312095)
 2、删除tomcat下webapp所有文件
 ```
 rm -rf /usr/local/tomcat/webapps/*
