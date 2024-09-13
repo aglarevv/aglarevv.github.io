@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Fri, 13 Sep 2024 00:53:21 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>Linux系统管理</title><link>https://aglarevv.github.io//post/Linux-xi-tong-guan-li.html</link><description>&lt;details&gt;&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>简介</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/icon2.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Fri, 13 Sep 2024 06:17:55 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>Linux系统管理</title><link>https://aglarevv.github.io//post/Linux-xi-tong-guan-li.html</link><description>&lt;details&gt;&#13;
 &lt;summary&gt;Linux系统管理&lt;/summary&gt;&#13;
 &#13;
 &gt;&#13;
@@ -84,7 +84,7 @@
 &#13;
 &gt;&#13;
 &#13;
-1、下载链接（夸克网盘）：[https://pan.quark.cn/s/6f3b64b84a2c](https://pan.quark.cn/s/6f3b64b84a2c)&#13;
+1、下载链接（夸克网盘）：[https://pan.quark.cn/s/1e24cebf5469](https://pan.quark.cn/s/1e24cebf5469)&#13;
 或者从官网下载&#13;
 ```&#13;
 wget https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz&#13;
@@ -115,7 +115,7 @@ source /etc/profile.d/jenkins_tools.sh&#13;
 &#13;
 &gt;&#13;
 &#13;
-下载链接（夸克网盘）：[https://pan.quark.cn/s/d0b1d505ce0b](https://pan.quark.cn/s/d0b1d505ce0b) ，使用此方式下载可跳过第2步&#13;
+下载链接（夸克网盘）：[https://pan.quark.cn/s/ded8b6c5488f](https://pan.quark.cn/s/ded8b6c5488f) ，使用此方式下载可跳过第2步&#13;
 1、安装依赖&#13;
 ```&#13;
 yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker     fontconfig  -y&#13;
@@ -149,8 +149,8 @@ source /etc/bashrc&#13;
 &#13;
 &gt;&#13;
 &#13;
-1、安装JDK11，下载链接（夸克网盘）：[https://pan.quark.cn/s/6fcb6d97feee](https://pan.quark.cn/s/6fcb6d97feee)&#13;
-2、安装tomcat9，下载链接（夸克网盘）：[https://pan.quark.cn/s/88840aab4104](https://pan.quark.cn/s/88840aab4104)&#13;
+1、安装JDK11，下载链接（夸克网盘）：[https://pan.quark.cn/s/695de4a60e36](https://pan.quark.cn/s/695de4a60e36)&#13;
+2、安装tomcat9，下载链接（夸克网盘）：[https://pan.quark.cn/s/d85d7ad18015](https://pan.quark.cn/s/d85d7ad18015)&#13;
 3、解压JDK和tomcat&#13;
 ```&#13;
  tar -zxvf jdk-11.0.16_linux-x64_bin.tar.gz &amp;&amp; tar -zxvf apache-tomcat-9.0.79.tar.gz &#13;
