@@ -3,7 +3,7 @@
 ## 依赖工具下载：
 
 <details>
-<summary>Maven安装</summary>
+<summary>Maven-3.8.8安装</summary>
 
 >
 
@@ -34,7 +34,7 @@ source /etc/profile.d/jenkins_tools.sh
 </details>
 
 <details>
-<summary>Git安装</summary>
+<summary>Git-2.9.5安装</summary>
 
 >
 
@@ -97,7 +97,12 @@ source /etc/profile.d/java.sh
 ```
 </details>
 
-## 正式开始安装jenkins
+## 正式开始安装jenkins-2.422
+<details>
+<summary>安装jenkins-2.422</summary>
+
+>
+
 1、下载jenkins，下载链接（夸克网盘）：[https://pan.quark.cn/s/f01fe8312095](https://pan.quark.cn/s/f01fe8312095)
 2、删除tomcat下webapp所有文件
 ```
@@ -117,16 +122,17 @@ cp jenkins.war /usr/local/tomcat/webapps/
 ![image](https://github.com/user-attachments/assets/82fb5514-91b7-493b-b9ab-6ce5663c7eb9)
 7、创建用户
 8、系统配置Manage Jenkins
-- [ ] system中找到【全局属性】勾选 Environment variables，新增环境变量 JAVA_HOME 和 MAVEN_HOME 后保存。例：
+- system中找到【全局属性】勾选 Environment variables，新增环境变量 JAVA_HOME 和 MAVEN_HOME 后保存。例：
 ![image](https://github.com/user-attachments/assets/cbe13d85-29d0-41f0-9130-df85530e089f)
-- [ ] tools中找到【maven配置】填写文件路径 /usr/local/maven/conf/settings.xml。例：
+- tools中找到【maven配置】填写文件路径 /usr/local/maven/conf/settings.xml。例：
 ![image](https://github.com/user-attachments/assets/4be23f56-3068-4eff-8049-7cfae2f62925)
-- [ ] 找到【JDK安装】填写内容。例：
+- 找到【JDK安装】填写内容。例：
 ![image](https://github.com/user-attachments/assets/393c1554-0530-4b60-becb-b37072f4dac8)
-- [ ] 找到【GIt安装】填写内容。例：
+- 找到【GIt安装】填写内容。例：
 ![image](https://github.com/user-attachments/assets/e501903f-096d-4d5e-8516-a9b7ab5c1ea6)
-- [ ] 找到【Maven 安装】填写内容。例：
+- 找到【Maven 安装】填写内容。例：
 ![image](https://github.com/user-attachments/assets/8fc40f14-cc45-47db-9ead-c603972b630b)
+
 9、点击保存
 
 10、安装如下插件
@@ -159,6 +165,13 @@ cat ~/.ssh/id_rsa
 ![image](https://github.com/user-attachments/assets/66176370-48f0-4e77-9e2e-1cce5e031dd6)
 
 **至此安装完成**
+</details>
+
+## 部署项目
+<details>
+<summary>java项目</summary>
+
+>
 
 ## Jenkins+Maven+Github+Tomcat 自动化构建打包、部署
 1、创建一个maven工程。例：
@@ -178,3 +191,26 @@ cat ~/.ssh/id_rsa
 7、点击左侧 build now，开始构建。例：
 ![image](https://github.com/user-attachments/assets/87618709-46c4-46e1-ad9e-8be2a4075057)
 **至此完成**
+</details>
+
+<details>
+<summary>Vue项目</summary>
+
+>
+
+1、创建【Freestyle project】工程。例：
+![image](https://github.com/user-attachments/assets/1feaa4f7-e45a-4dce-81e1-fe411aab3e3a)
+2、【源码管理】填写项目的仓库地址，并且分支要一致。例：
+![image](https://github.com/user-attachments/assets/3e8c2eaf-29ce-4ebf-bfb2-ed95f172609e)
+3、【构建后操作】选择ssh。例：
+![image](https://github.com/user-attachments/assets/e164f4b4-b4b2-4fde-882f-077b315dae10)
+4、填写内容。例：
+![image](https://github.com/user-attachments/assets/03a947bf-a181-4e86-b9fc-731d31f42a33)
+5、点击保存
+6、点击 build now。例：
+![image](https://github.com/user-attachments/assets/f6a1831c-bf1e-4773-baa5-32414d57e32c)
+**至此完成**
+
+
+
+
