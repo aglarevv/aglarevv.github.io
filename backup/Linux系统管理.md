@@ -71,6 +71,40 @@
 22、Linux系统查看MAC地址？
 - ip a
 
+23、Linux系统新建一个叫oracle的用户的命令？设置密码？
+- useradd oracle 
+- passwd oracle
+
+24、Linux从ip为10.0.4.100远程主机复制/root/script.sh文件到/databases/oracle的命令？
+- scp 10.0.4.100:/root/script.sh /databases/oracle
+
+25、Linux系统查看进程中含有oracle关键字的进行信息？杀死进程id为29324的命令？
+- ps aux | grep oracle
+- kill -9 29324
+
+26、查看Linux系统的磁盘空间情况？将/dev/sdb文件系统挂载到/data2目录下？
+- df -Th
+- mount /dev/sdb /data2
+
+27、输出数字0到100中3的倍数？
+```
+for i in {1..100}
+do
+ if [[$(($i % 3)) -eq 0 ]]; then
+    echo $i
+ fi
+done
+```
+28、假设服务器有6快900G本地硬盘，单块硬盘io约为150M/S，现对硬盘进行RAID划分，6快盘做成RAID5级别后实际存储大小？理论实际io大小？
+```
+理论上6块盘做raid5，1块做冗余，因为有检验位。
+所以实际大小：900 * （6-2） = 3600G
+实际写：150 * 4 = 600M/S
+实际读：150 * (6-1) = 750M/S
+```
+29、http、https、ftp、mysql、redis的默认端口号？
+- 80 443 21 3306 6379
+
 
 
 </details>
