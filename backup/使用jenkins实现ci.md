@@ -7,7 +7,7 @@
 
 >
 
-1、下载链接（夸克网盘）：[https://pan.quark.cn/s/6f3b64b84a2c](url)
+1、下载链接（夸克网盘）：[https://pan.quark.cn/s/6f3b64b84a2c](https://pan.quark.cn/s/6f3b64b84a2c)
 或者从官网下载
 ```
 wget https://dlcdn.apache.org/maven/maven-3/3.8.8/binaries/apache-maven-3.8.8-bin.tar.gz
@@ -38,7 +38,7 @@ source /etc/profile.d/jenkins_tools.sh
 
 >
 
-下载链接：[https://pan.quark.cn/s/d0b1d505ce0b](url) ，使用此方式下载可跳过第2步
+下载链接（夸克网盘）：[https://pan.quark.cn/s/d0b1d505ce0b](https://pan.quark.cn/s/d0b1d505ce0b) ，使用此方式下载可跳过第2步
 1、安装依赖
 ```
 yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker     fontconfig  -y
@@ -72,8 +72,8 @@ source /etc/bashrc
 
 >
 
-1、安装JDK11，下载链接：[https://pan.quark.cn/s/6fcb6d97feee](url)
-2、安装tomcat9，下载链接：[https://pan.quark.cn/s/88840aab4104](url)
+1、安装JDK11，下载链接（夸克网盘）：[https://pan.quark.cn/s/6fcb6d97feee](https://pan.quark.cn/s/6fcb6d97feee)
+2、安装tomcat9，下载链接（夸克网盘）：[https://pan.quark.cn/s/88840aab4104](https://pan.quark.cn/s/88840aab4104)
 3、解压JDK和tomcat
 ```
  tar -zxvf jdk-11.0.16_linux-x64_bin.tar.gz && tar -zxvf apache-tomcat-9.0.79.tar.gz 
