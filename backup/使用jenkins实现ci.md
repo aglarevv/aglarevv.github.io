@@ -3,6 +3,36 @@
 ## 依赖工具下载：
 
 <details>
+<summary>安装JDK11和tomcat9</summary>
+
+>
+
+1、安装JDK11，下载链接（夸克网盘）：[https://pan.quark.cn/s/695de4a60e36](https://pan.quark.cn/s/695de4a60e36)
+2、安装tomcat9，下载链接（夸克网盘）：[https://pan.quark.cn/s/d85d7ad18015](https://pan.quark.cn/s/d85d7ad18015)
+3、解压JDK和tomcat
+```
+ tar -zxvf jdk-11.0.16_linux-x64_bin.tar.gz && tar -zxvf apache-tomcat-9.0.79.tar.gz 
+```
+4、移动并重命名
+```
+mv jdk-11.0.16 /usr/local/java && mv apache-tomcat-9.0.79 /usr/local/tomcat
+```
+5、添加环境变量
+> vim /etc/profile.d/java.sh
+
+```
+TOMCAT_HOME=/usr/local/tomcat
+JAVA_HOME=/usr/local/java
+PATH=$TOMCAT_HOME/bin:$JAVA_HOME/bin:$PATH
+export TOMCAT_HOME JAVA_HOME PATH
+```
+6、刷新环境变量
+```
+source /etc/profile.d/java.sh
+```
+</details>
+
+<details>
 <summary>Maven-3.8.8安装</summary>
 
 >
@@ -64,36 +94,6 @@ PATH=$PATH:$HOME/bin:/usr/local/git/bin
 6、刷新环境变量
 ```
 source /etc/bashrc
-```
-</details>
-
-<details>
-<summary>安装JDK11和tomcat9</summary>
-
->
-
-1、安装JDK11，下载链接（夸克网盘）：[https://pan.quark.cn/s/695de4a60e36](https://pan.quark.cn/s/695de4a60e36)
-2、安装tomcat9，下载链接（夸克网盘）：[https://pan.quark.cn/s/d85d7ad18015](https://pan.quark.cn/s/d85d7ad18015)
-3、解压JDK和tomcat
-```
- tar -zxvf jdk-11.0.16_linux-x64_bin.tar.gz && tar -zxvf apache-tomcat-9.0.79.tar.gz 
-```
-4、移动并重命名
-```
-mv jdk-11.0.16 /usr/local/java && mv apache-tomcat-9.0.79 /usr/local/tomcat
-```
-5、添加环境变量
-> vim /etc/profile.d/java.sh
-
-```
-TOMCAT_HOME=/usr/local/tomcat
-JAVA_HOME=/usr/local/java
-PATH=$TOMCAT_HOME/bin:$JAVA_HOME/bin:$PATH
-export TOMCAT_HOME JAVA_HOME PATH
-```
-6、刷新环境变量
-```
-source /etc/profile.d/java.sh
 ```
 </details>
 
