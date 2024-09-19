@@ -10,7 +10,15 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="## 安装步骤
+<meta name="description" content="# zabbix
+
+<details>
+<summary>安装步骤</summary>
+
+>
+
+**zabbix服务器上：**
+
 1、下载
  ```
 rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
@@ -114,10 +122,63 @@ systemctl enable zabbix-server zabbix-agent httpd rh-php72-php-fpm
 
 > ![image](https://github.com/user-attachments/assets/dbec2026-015b-4530-99c0-35f1da04f2e0)
 
+> ![image](https://github.com/user-attachments/assets/a6c99e84-3246-4156-bec6-533143819b3e)
 
+**被监控主机上：**
+1、设置主机名
+```
+hostname  web1
+```
+2、关闭防火墙，selinux
+3、准备镜像源
+> vim /etc/yum.repos.d/zabbix.repo 
+
+```
+[zabbix]
+name=alibaba zabbix
+baseurl=https://mirrors.aliyun.com/zabbix/zabbix/5.0/rhel/7/x86_64/
+gpgcheck=0
+enabled=1
+
+[zabbix2]
+name=alibaba zabbix frontend
+baseurl=https://mirrors.aliyun.com/zabbix/zabbix/5.0/rhel/7/x86_64/frontend/
+gpgcheck=0
+enabled=1
+```
+4、安装
+```
+yum -y install zabbix-agent
+```
+5、修改服务器地址
+> vim /etc/zabbix/zabbix_agentd.conf
+修改Server、ServerActive、Hostname值
+
+```
+Server=192.168.209.143,192.168.100.11             被动模式 zabbix-server-ip    
+ServerActive=192.168.209.143,192.168.100.11    主动模式  zabbix-server-ip    
+Hostname=web1 
+```
+6、启动zabbix-agent
+```
+systemctl start zabbix-agent
+```
+```
+systemctl enable zabbix-agent
+```
+**至此结束**
+</details>
 。">
 <meta property="og:title" content="zabbix">
-<meta property="og:description" content="## 安装步骤
+<meta property="og:description" content="# zabbix
+
+<details>
+<summary>安装步骤</summary>
+
+>
+
+**zabbix服务器上：**
+
 1、下载
  ```
 rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
@@ -221,7 +282,52 @@ systemctl enable zabbix-server zabbix-agent httpd rh-php72-php-fpm
 
 > ![image](https://github.com/user-attachments/assets/dbec2026-015b-4530-99c0-35f1da04f2e0)
 
+> ![image](https://github.com/user-attachments/assets/a6c99e84-3246-4156-bec6-533143819b3e)
 
+**被监控主机上：**
+1、设置主机名
+```
+hostname  web1
+```
+2、关闭防火墙，selinux
+3、准备镜像源
+> vim /etc/yum.repos.d/zabbix.repo 
+
+```
+[zabbix]
+name=alibaba zabbix
+baseurl=https://mirrors.aliyun.com/zabbix/zabbix/5.0/rhel/7/x86_64/
+gpgcheck=0
+enabled=1
+
+[zabbix2]
+name=alibaba zabbix frontend
+baseurl=https://mirrors.aliyun.com/zabbix/zabbix/5.0/rhel/7/x86_64/frontend/
+gpgcheck=0
+enabled=1
+```
+4、安装
+```
+yum -y install zabbix-agent
+```
+5、修改服务器地址
+> vim /etc/zabbix/zabbix_agentd.conf
+修改Server、ServerActive、Hostname值
+
+```
+Server=192.168.209.143,192.168.100.11             被动模式 zabbix-server-ip    
+ServerActive=192.168.209.143,192.168.100.11    主动模式  zabbix-server-ip    
+Hostname=web1 
+```
+6、启动zabbix-agent
+```
+systemctl start zabbix-agent
+```
+```
+systemctl enable zabbix-agent
+```
+**至此结束**
+</details>
 。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://aglarevv.github.io//post/zabbix.html">
@@ -293,7 +399,12 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h2>安装步骤</h2>
+<div class="markdown-body" id="postBody"><h1>zabbix</h1>
+<details>
+<summary>安装步骤</summary>
+<blockquote>
+</blockquote>
+<p><strong>zabbix服务器上：</strong></p>
 <p>1、下载</p>
 <pre class="notranslate"><code class="notranslate">rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
 </code></pre>
@@ -381,7 +492,50 @@ DBPassword=AGLAREvv.1
 </blockquote>
 <blockquote>
 <p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/dbec2026-015b-4530-99c0-35f1da04f2e0"><img src="https://github.com/user-attachments/assets/dbec2026-015b-4530-99c0-35f1da04f2e0" alt="image" style="max-width: 100%;"></a></p>
-</blockquote></div>
+</blockquote>
+<blockquote>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/a6c99e84-3246-4156-bec6-533143819b3e"><img src="https://github.com/user-attachments/assets/a6c99e84-3246-4156-bec6-533143819b3e" alt="image" style="max-width: 100%;"></a></p>
+</blockquote>
+<p><strong>被监控主机上：</strong><br>
+1、设置主机名</p>
+<pre class="notranslate"><code class="notranslate">hostname  web1
+</code></pre>
+<p>2、关闭防火墙，selinux<br>
+3、准备镜像源</p>
+<blockquote>
+<p>vim /etc/yum.repos.d/zabbix.repo</p>
+</blockquote>
+<pre class="notranslate"><code class="notranslate">[zabbix]
+name=alibaba zabbix
+baseurl=https://mirrors.aliyun.com/zabbix/zabbix/5.0/rhel/7/x86_64/
+gpgcheck=0
+enabled=1
+
+[zabbix2]
+name=alibaba zabbix frontend
+baseurl=https://mirrors.aliyun.com/zabbix/zabbix/5.0/rhel/7/x86_64/frontend/
+gpgcheck=0
+enabled=1
+</code></pre>
+<p>4、安装</p>
+<pre class="notranslate"><code class="notranslate">yum -y install zabbix-agent
+</code></pre>
+<p>5、修改服务器地址</p>
+<blockquote>
+<p>vim /etc/zabbix/zabbix_agentd.conf<br>
+修改Server、ServerActive、Hostname值</p>
+</blockquote>
+<pre class="notranslate"><code class="notranslate">Server=192.168.209.143,192.168.100.11             被动模式 zabbix-server-ip    
+ServerActive=192.168.209.143,192.168.100.11    主动模式  zabbix-server-ip    
+Hostname=web1 
+</code></pre>
+<p>6、启动zabbix-agent</p>
+<pre class="notranslate"><code class="notranslate">systemctl start zabbix-agent
+</code></pre>
+<pre class="notranslate"><code class="notranslate">systemctl enable zabbix-agent
+</code></pre>
+<p><strong>至此结束</strong></p>
+</details></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>

@@ -1,4 +1,12 @@
-## 安装步骤
+# zabbix
+
+<details>
+<summary>安装步骤</summary>
+
+>
+
+**zabbix服务器上：**
+
 1、下载
  ```
 rpm -Uvh https://repo.zabbix.com/zabbix/5.0/rhel/7/x86_64/zabbix-release-5.0-1.el7.noarch.rpm
@@ -102,4 +110,49 @@ systemctl enable zabbix-server zabbix-agent httpd rh-php72-php-fpm
 
 > ![image](https://github.com/user-attachments/assets/dbec2026-015b-4530-99c0-35f1da04f2e0)
 
+> ![image](https://github.com/user-attachments/assets/a6c99e84-3246-4156-bec6-533143819b3e)
 
+**被监控主机上：**
+1、设置主机名
+```
+hostname  web1
+```
+2、关闭防火墙，selinux
+3、准备镜像源
+> vim /etc/yum.repos.d/zabbix.repo 
+
+```
+[zabbix]
+name=alibaba zabbix
+baseurl=https://mirrors.aliyun.com/zabbix/zabbix/5.0/rhel/7/x86_64/
+gpgcheck=0
+enabled=1
+
+[zabbix2]
+name=alibaba zabbix frontend
+baseurl=https://mirrors.aliyun.com/zabbix/zabbix/5.0/rhel/7/x86_64/frontend/
+gpgcheck=0
+enabled=1
+```
+4、安装
+```
+yum -y install zabbix-agent
+```
+5、修改服务器地址
+> vim /etc/zabbix/zabbix_agentd.conf
+修改Server、ServerActive、Hostname值
+
+```
+Server=192.168.209.143,192.168.100.11             被动模式 zabbix-server-ip    
+ServerActive=192.168.209.143,192.168.100.11    主动模式  zabbix-server-ip    
+Hostname=web1 
+```
+6、启动zabbix-agent
+```
+systemctl start zabbix-agent
+```
+```
+systemctl enable zabbix-agent
+```
+**至此结束**
+</details>
