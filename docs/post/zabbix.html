@@ -168,6 +168,32 @@ systemctl enable zabbix-agent
 ```
 **至此结束**
 </details>
+
+<details>
+<summary>中文乱码解决</summary>
+
+>
+
+1、复制字体文件
+- win+r 输入fonts，复制 微软雅黑 字体文件并重命名为msyh.ttf
+
+2、上传到服务器字体目录下
+- /usr/share/zabbix/fonts/
+
+3、修改文件权限
+```
+chmod 777  /usr/share/zabbix/assets/fonts/msyh.ttf
+```
+4、替换
+```
+sed -i 's/graphfont/msyh/g' /usr/share/zabbix/include/defines.inc.php
+```
+5、确认替换结果
+```
+grep FONT_NAME /usr/share/zabbix/include/defines.inc.php  -n
+```
+**至此结束**
+</details>
 。">
 <meta property="og:title" content="zabbix">
 <meta property="og:description" content="# zabbix
@@ -325,6 +351,32 @@ systemctl start zabbix-agent
 ```
 ```
 systemctl enable zabbix-agent
+```
+**至此结束**
+</details>
+
+<details>
+<summary>中文乱码解决</summary>
+
+>
+
+1、复制字体文件
+- win+r 输入fonts，复制 微软雅黑 字体文件并重命名为msyh.ttf
+
+2、上传到服务器字体目录下
+- /usr/share/zabbix/fonts/
+
+3、修改文件权限
+```
+chmod 777  /usr/share/zabbix/assets/fonts/msyh.ttf
+```
+4、替换
+```
+sed -i 's/graphfont/msyh/g' /usr/share/zabbix/include/defines.inc.php
+```
+5、确认替换结果
+```
+grep FONT_NAME /usr/share/zabbix/include/defines.inc.php  -n
 ```
 **至此结束**
 </details>
@@ -533,6 +585,29 @@ Hostname=web1
 <pre class="notranslate"><code class="notranslate">systemctl start zabbix-agent
 </code></pre>
 <pre class="notranslate"><code class="notranslate">systemctl enable zabbix-agent
+</code></pre>
+<p><strong>至此结束</strong></p>
+</details>
+<details>
+<summary>中文乱码解决</summary>
+<blockquote>
+</blockquote>
+<p>1、复制字体文件</p>
+<ul>
+<li>win+r 输入fonts，复制 微软雅黑 字体文件并重命名为msyh.ttf</li>
+</ul>
+<p>2、上传到服务器字体目录下</p>
+<ul>
+<li>/usr/share/zabbix/fonts/</li>
+</ul>
+<p>3、修改文件权限</p>
+<pre class="notranslate"><code class="notranslate">chmod 777  /usr/share/zabbix/assets/fonts/msyh.ttf
+</code></pre>
+<p>4、替换</p>
+<pre class="notranslate"><code class="notranslate">sed -i "s/graphfont/msyh/g" /usr/share/zabbix/include/defines.inc.php
+</code></pre>
+<p>5、确认替换结果</p>
+<pre class="notranslate"><code class="notranslate">grep FONT_NAME /usr/share/zabbix/include/defines.inc.php  -n
 </code></pre>
 <p><strong>至此结束</strong></p>
 </details></div>

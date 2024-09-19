@@ -156,3 +156,29 @@ systemctl enable zabbix-agent
 ```
 **至此结束**
 </details>
+
+<details>
+<summary>中文乱码解决</summary>
+
+>
+
+1、复制字体文件
+- win+r 输入fonts，复制 微软雅黑 字体文件并重命名为msyh.ttf
+
+2、上传到服务器字体目录下
+- /usr/share/zabbix/fonts/
+
+3、修改文件权限
+```
+chmod 777  /usr/share/zabbix/assets/fonts/msyh.ttf
+```
+4、替换
+```
+sed -i "s/graphfont/msyh/g" /usr/share/zabbix/include/defines.inc.php
+```
+5、确认替换结果
+```
+grep FONT_NAME /usr/share/zabbix/include/defines.inc.php  -n
+```
+**至此结束**
+</details>
