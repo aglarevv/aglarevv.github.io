@@ -481,6 +481,52 @@ uniq：检查重复行
 <li>tcpdump -i eth0 host 192.168.0.1 port 80</li>
 <li>tcpdump src 192.168.1.10 tcp port 80</li>
 </ul>
+<p>42、符号链接和硬链接的区别？</p>
+<ul>
+<li>硬链接和源文件是同一个文件，软链接和源文件是2个不同文件</li>
+<li>大部分系统不能创建目录的硬链接，软链接没有这个限制</li>
+<li>硬链接不能跨文件系统（分区），软链接没有这个限制</li>
+</ul>
+<p>43、磁盘空间满了，删除一部分Nginxaccess日志，发现磁盘空间还是满的，为什么？</p>
+<ul>
+<li>在Linux系统中，通过rm或者文件管理器删除文件是 从文件系统的目录结构上解除链接，然而如果有一个进程正在使用，则该进程仍然可以读取该文件，磁盘空间也一直被占用。删除nginx的log文件时，文件应该正在被使用。</li>
+<li>解决：查看进程，kill掉进程，再删除</li>
+</ul>
+<p>44、进程查看和调度分别使用什么命令？</p>
+<ul>
+<li>进程查看：ps、top</li>
+<li>进程调度：at、crontab、kill</li>
+</ul>
+<p>45、A需要链接B的端口8080，登录了的8080端口是否健康运行，使用命令？</p>
+<ul>
+<li>netstat -tnlp | grep 8080 或者 ss -anpt | grep 8080</li>
+</ul>
+<p>46、快速定位当前目录下size最大的文件？</p>
+<ul>
+<li>du -sk * | sort -rn | head -1 awk '{print $2}'</li>
+</ul>
+<p>47、快速定位catalina.out日志中最近发生的依稀异常？</p>
+<ul>
+<li>cat catalina.out | grep error</li>
+</ul>
+<p>48、在一台数据库服务器上发现木马，症状是不定期向外网发包，影响服务器性能，如何快速找到该木马进程？</p>
+<ul>
+<li>查看异常用户：cat /etc/passwd</li>
+<li>查看异常进程：ps</li>
+<li>查看异常定时任务：crontab -e</li>
+</ul>
+<p>49、/code/java目录下的java工程中，其中有个文件里有一个包含HelloWorld字符，如何快速找到该文件？</p>
+<ul>
+<li>find /code/java -name HelloWorld</li>
+</ul>
+<p>50、新增一个禁止登录的用户？</p>
+<ul>
+<li>useradd -s /sbin/nologin </li>
+</ul>
+<p>51、查看系统开启了端口？</p>
+<ul>
+<li>ss -tuln 或者 netstat -tuln</li>
+</ul>
 </details></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 

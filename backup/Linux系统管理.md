@@ -170,6 +170,42 @@ tcp提供可靠连接。
 - tcpdump -i eth0 host 192.168.0.1 port 80 
 - tcpdump src 192.168.1.10 tcp port 80
 
+42、符号链接和硬链接的区别？
+- 硬链接和源文件是同一个文件，软链接和源文件是2个不同文件
+- 大部分系统不能创建目录的硬链接，软链接没有这个限制
+- 硬链接不能跨文件系统（分区），软链接没有这个限制
+
+43、磁盘空间满了，删除一部分Nginxaccess日志，发现磁盘空间还是满的，为什么？
+- 在Linux系统中，通过rm或者文件管理器删除文件是 从文件系统的目录结构上解除链接，然而如果有一个进程正在使用，则该进程仍然可以读取该文件，磁盘空间也一直被占用。删除nginx的log文件时，文件应该正在被使用。
+- 解决：查看进程，kill掉进程，再删除
+
+44、进程查看和调度分别使用什么命令？
+- 进程查看：ps、top
+- 进程调度：at、crontab、kill
+
+45、A需要链接B的端口8080，登录了的8080端口是否健康运行，使用命令？
+- netstat -tnlp | grep 8080 或者 ss -anpt | grep 8080
+
+46、快速定位当前目录下size最大的文件？
+- du -sk * | sort -rn | head -1 awk '{print $2}'
+
+47、快速定位catalina.out日志中最近发生的依稀异常？
+- cat catalina.out | grep error
+
+48、在一台数据库服务器上发现木马，症状是不定期向外网发包，影响服务器性能，如何快速找到该木马进程？
+- 查看异常用户：cat /etc/passwd
+- 查看异常进程：ps
+- 查看异常定时任务：crontab -e
+
+49、/code/java目录下的java工程中，其中有个文件里有一个包含HelloWorld字符，如何快速找到该文件？
+- find /code/java -name HelloWorld
+
+50、新增一个禁止登录的用户？
+- useradd -s /sbin/nologin <username>
+
+51、查看系统开启了端口？
+- ss -tuln 或者 netstat -tuln
+
 
 
 </details>
