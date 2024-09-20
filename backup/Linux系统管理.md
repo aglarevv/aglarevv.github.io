@@ -151,17 +151,24 @@ uniq：检查重复行
 38、tcp三次握手过程？
 ```
 tcp提供可靠连接。
-第一次握手：建立连接时，客户端发送syn（同步序列编号（Synchronize Sequence Numbers））包（syn=j）到服务器，并进入SYN_SEND状态，等待服务器确认。
+第一次握手：
+建立连接时，客户端发送syn（同步序列编号（Synchronize Sequence Numbers））包（syn=j）
+到服务器，并进入SYN_SEND状态，等待服务器确认。
 
-第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态。
+第二次握手：服务器收到syn包，必须确认客户的SYN（ack=j+1），同时自己也发送一个SYN
+包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态。
 
-第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK（ack=k+1），发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手，开始传输数据
+第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK（ack=k+1），
+发送完毕，客户端和服务器进入ESTABLISHED状态，完成三次握手，开始传输数据
 ```
 39、二层交换机和三层交换机的区别？
 ```
 二层交换机工作于OSI模型的第2层（数据链路层），故称为二层交换机
 
-三层交换机最重要目的是加快大型局域网内部的数据交换，所具有的路由功能也是为这目的服务的，能够做到一次路由，多次转发。对于数据包转发等规律性的过程由硬件高速实现，而像路由信息更新、路由表维护、路由计算、路由确定等功能，由软件实现。三层交换技术就是二层交换技术+三层转发技术。
+三层交换机最重要目的是加快大型局域网内部的数据交换，所具有的路由功能也是为这目的服务
+的，能够做到一次路由，多次转发。对于数据包转发等规律性的过程由硬件高速实现，而像路由
+信息更新、路由表维护、路由计算、路由确定等功能，由软件实现。三层交换技术就是二层交换
+技术+三层转发技术。
 ```
 40、centos7默认防火墙允许80端口外网访问，写出相应安全策略？
 - firewall-cmd --zone=public --add-port=80/tcp --permanent
@@ -206,6 +213,47 @@ tcp提供可靠连接。
 51、查看系统开启了端口？
 - ss -tuln 或者 netstat -tuln
 
+52、查看系统进程？
+- ps 或者 top
 
+53、获取tomcatPid并杀死？
+- 获取：ps aux | grp tomcat 
+- 杀死：kill -9 pid 
+
+54、使用rsync同步/var/log目录到test的log模块，并记录log？
+- rsync -avz user@ip:/var/log /test/log
+
+55、服务的默认端口？
+```
+https：443
+ftp：21/22
+mysql：3306
+pop3：110
+smtp：25
+redis：6379
+```
+
+56、使用find删除/data/web下所有.svn文件？
+- find /data/web *.svn -exec rm -rf {} \
+
+57、使用sed将file.txt文件中test替换为abc.com？
+- sed -i 's/test/abc.com/g'
+
+58、使用iptables拒绝8.8.8.8访问本机的53端口？
+- iptables -I INPUT -s 8.8.8.8 -ptcp --dport 53 -j DROP
+
+59、Linux系统开机启动顺序？
+```
+加载BIOS
+读取MBR Boot Loader 
+加载内核
+用户层init依据inittab文件设定运行等级
+init进程执行rc.sysinit
+启动内核模块
+执行不同运行级别的脚本程序
+执行/etc/rc.d/rc.local
+执行/bin/login程序
+进入登录状态
+```
 
 </details>
