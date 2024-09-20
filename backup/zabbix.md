@@ -182,3 +182,134 @@ grep FONT_NAME /usr/share/zabbix/include/defines.inc.php  -n
 ```
 **至此结束**
 </details>
+
+<details>
+<summary>微信告警</summary>
+
+>
+
+1、注册企业微信
+2、创建自己的应用。例：
+![image](https://github.com/user-attachments/assets/7c6bb3dc-cb62-42b4-aecb-f782108d1e99)
+3、记住 AgentId 和 Secret 。例：
+![image](https://github.com/user-attachments/assets/d2d65ff8-ff86-46cc-869f-de7efa4b30a9)
+4、记住企业id。例：
+![image](https://github.com/user-attachments/assets/2653c2e3-c972-49b1-a324-9932435454f0)
+5、记住部门id。例：
+![image](https://github.com/user-attachments/assets/165f96f8-6dea-4a3c-a9a1-e1433d4d0548)
+6、在zabbix-server服务器上创建脚本。
+> vim   /usr/lib/zabbix/alertscripts/wechat.py
+修改如下内容：
+- self.__corpid = '公司的corpid'
+- ​self.__secret = '应用的secret' 
+- 'toparty':部门id,
+- ​'agentid':"应用id", 
+
+```
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import urllib,urllib2,json
+import sys
+reload(sys)
+sys.setdefaultencoding( "utf-8" )
+
+
+class WeChat(object):
+        __token_id = ''
+        # init attribute
+        def __init__(self,url):
+                self.__url = url.rstrip('/')
+                self.__corpid = '公司的corpid'
+                self.__secret = '应用的secret'
+
+
+        # Get TokenID
+        def authID(self):
+                params = {'corpid':self.__corpid, 'corpsecret':self.__secret}
+                data = urllib.urlencode(params)
+
+
+                content = self.getToken(data)
+
+
+                try:
+                        self.__token_id = content['access_token']
+                        # print content['access_token']
+                except KeyError:
+                        raise KeyError
+
+
+        # Establish a connection
+        def getToken(self,data,url_prefix='/'):
+                url = self.__url + url_prefix + 'gettoken?'
+                try:
+                        response = urllib2.Request(url + data)
+                except KeyError:
+                        raise KeyError
+                result = urllib2.urlopen(response)
+                content = json.loads(result.read())
+                return content
+
+
+        # Get sendmessage url
+        def postData(self,data,url_prefix='/'):
+                url = self.__url + url_prefix + 'message/send?access_token=%s' % self.__token_id
+                request = urllib2.Request(url,data)
+                try:
+                        result = urllib2.urlopen(request)
+                except urllib2.HTTPError as e:
+                        if hasattr(e,'reason'):
+                                print 'reason',e.reason
+                        elif hasattr(e,'code'):
+                                print 'code',e.code
+                        return 0
+                else:
+                        content = json.loads(result.read())
+                        result.close()
+                return content
+
+        # send message
+        def sendMessage(self,touser,message):
+                self.authID()
+                data = json.dumps({
+                        'touser':touser,
+                        'toparty':部门id,
+                        'msgtype':"text",
+                        'agentid':"应用id",
+                        'text':{
+                                'content':message
+                        },
+                        'safe':"0"
+                },ensure_ascii=False)
+
+
+                response = self.postData(data)
+                print response
+
+if __name__ == '__main__':
+        a = WeChat('https://qyapi.weixin.qq.com/cgi-bin')
+        a.sendMessage(sys.argv[1],sys.argv[3])
+```
+7、修改权限
+```
+ chown zabbix.zabbix /usr/lib/zabbix/alertscripts/wechat.py
+```
+```
+chmod 777 /usr/lib/zabbix/alertscripts/wechat.py
+```
+8、添加可信域名。例：
+![image](https://github.com/user-attachments/assets/eac8ce18-83ac-4d2b-8af7-a2cb73991a62)
+![image](https://github.com/user-attachments/assets/234fb640-9482-4ae8-94f6-573c4af39001)
+![image](https://github.com/user-attachments/assets/9cff4bd4-8f16-46f3-a02a-409ff3d22518)
+9、下载文件，上传到域名对应的服务器上。例：
+![image](https://github.com/user-attachments/assets/315e2a8b-b394-4c96-8688-69fe86b96e1d)
+10、添加可信ip。例：
+![image](https://github.com/user-attachments/assets/dace0398-413a-4ee1-af32-c5d76e3b0b39)
+11、测试脚本
+> cd /usr/lib/zabbix/alertscripts
+```
+./wechat.py jack test test {u'invalidparty': u'2', u'invaliduser': u'wusong', u'errcode': 0, u'errmsg': u'ok'}
+```
+**至此结束**
+</details>
