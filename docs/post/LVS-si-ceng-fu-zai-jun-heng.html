@@ -11,9 +11,9 @@
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
 <meta name="description" content="# LVS四层负载均衡
-
+## NET转发模式
 <details>
-<summary>net模式</summary>
+<summary>配置步骤</summary>
  
   >
 
@@ -39,9 +39,9 @@ ipvsadm -A -t 192.168.209.143:80  -s rr
 -m    指定调度算法为“轮询”模式,即请求将被均匀地分发到配置的所有真实服务器上。">
 <meta property="og:title" content="LVS四层负载均衡">
 <meta property="og:description" content="# LVS四层负载均衡
-
+## NET转发模式
 <details>
-<summary>net模式</summary>
+<summary>配置步骤</summary>
  
   >
 
@@ -105,7 +105,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     font-size: 12px;
 }
 </style>
-
+<style>#postBody{font-size:20px}</style>
 
 
 
@@ -136,8 +136,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
     <div id="content">
 <div class="markdown-body" id="postBody"><h1>LVS四层负载均衡</h1>
+<h2>NET转发模式</h2>
 <details>
-<summary>net模式</summary>
+<summary>配置步骤</summary>
 <blockquote>
 </blockquote>
 <p>1、lvs-server下载ipvsadm</p>
@@ -159,7 +160,8 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <blockquote>
 <p>-a  添加一个真实lvs服务ip<br>
 -r  真实服务器IP 地址<br>
--m    指定调度算法为“轮询”模式,即请求将被均匀地分发到配置的所有真实服务器上。</p>
+-m    指定调度算法为“轮询”模式,即请求将被均匀地分发到配置的所有真实服务器上。<br>
+真实服务器设置为仅主机模式</p>
 </blockquote>
 <pre class="notranslate"><code class="notranslate">ipvsadm -a -t 192.168.209.143:80 -r 192.168.200.4:80 -m
 </code></pre>
@@ -173,6 +175,12 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <pre class="notranslate"><code class="notranslate">ipvsadm -Lnc
 </code></pre>
 <p><strong>至此结束</strong></p>
+</details>
+<h2>DR直接路由模式</h2>
+<details>
+<summary>配置步骤</summary>
+<blockquote>
+</blockquote>
 </details></div>
 <div style="font-size:small;margin-top:8px;float:right;">❤️ 转载文章请注明出处，谢谢！❤️</div>
 
@@ -337,6 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
-
+<script async src='//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js'></script>
 
 </html>

@@ -1,7 +1,7 @@
 # LVS四层负载均衡
-
+## NET转发模式
 <details>
-<summary>net模式</summary>
+<summary>配置步骤</summary>
  
   >
 
@@ -25,6 +25,7 @@ ipvsadm -A -t 192.168.209.143:80  -s rr
 >-a  添加一个真实lvs服务ip
 -r  真实服务器IP 地址
 -m    指定调度算法为“轮询”模式,即请求将被均匀地分发到配置的所有真实服务器上。
+真实服务器设置为仅主机模式
 ```
 ipvsadm -a -t 192.168.209.143:80 -r 192.168.200.4:80 -m
 ```
@@ -38,4 +39,14 @@ ipvsadm -Ln
 ipvsadm -Lnc
 ```
 **至此结束**
+</details>
+
+## DR直接路由模式
+<details>
+<summary>配置步骤</summary>
+
+>
+
+
+
 </details>
