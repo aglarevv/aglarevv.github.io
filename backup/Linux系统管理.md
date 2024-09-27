@@ -293,7 +293,52 @@ init进程执行rc.sysinit
 - mv *2017
 - rm -rf * 2017 *
 
+68、配置zookeeper节点需要修改的配置文件？
+-zoo.cfg里面的myid和hosts
 
+69、进行字符串查找？
+- grep命令
+
+70、Squid有什么用？
+- Squid是一个代理缓存服务器，可以加快网络访问速度，squid不仅支持http协议，还支持ftp，gopher，ssl和wais等协议，还能做反向代理服务器
+
+71、Linux系统的主流文件系统？
+- ext4，xfs
+
+72、安装Linux系统时，swap分区设置大小？
+- 物理内存在8G以下，swap设置为与物理内存一样大，也可以设置为物理内存的2倍。
+- 物理内存在8G以上，swap设置为8G即可
+
+73、在/etc/fatab文件中指定的文件系统加载参数块，什么参数一般用于CD-ROM等移动设备？
+- noauto
+
+74、使用mkdir创建新目录时，其父目录不存在时先创建父目录？
+- mkdir -p
+
+75、一个文件名为rr.Z可以用来解压的命令？
+- uncompress
+
+76、你对运维工程师的理解？
+- 运维工程师需要保障公司系统服务的正常运行，需要配合其他部门比如研发部门的发布工作，需要给公司进行系统搭建等
+
+77、对于一个web服务器，应该调整哪些Linux内核参数？
+```
+net.ipv4.tcp_syncookies = 1
+#表示开启SYN Cookies。当出现SYN等待队列溢出时，启用Cookies来处理，可防范少量SYN攻击。
+net.ipv4.tcp_tw_reuse = 1
+#表示开启重用。允许将TIME-WAIT 状态超过1秒的连接给新的连接重用。
+net.ipv4.tcp_tw_recycle = 1
+#表示开启TCP连接中TIME-WAIT sockets的快速回收。
+net.ipv4.tcp_fin_timeout = 30
+#表示如果套接字由本端要求关闭，这个参数决定了它保持在FIN-WAIT-2状态的时间。
+net.ipv4.tcp_keepalive_time = 1200
+#表示当keepalive启用的适合，TCP发送keepalive消息的频度。缺省是2小时，改为20分钟
+net.ipv4.ip_local_port_range = 1024 65000
+#表示用于向外连接的端口范围。缺省是32768到61000，改为1024到65000
+net.ipv4.tcp_max_tw_buckets = 5000
+#表示系统同时保持TIME-WAIT套接字的最大数量，如果超过这个数量，TIME-WAIT套接字将立刻被清除
+并打印警告信息。缺省是180000，改为5000
+```
 
 
 </details>
