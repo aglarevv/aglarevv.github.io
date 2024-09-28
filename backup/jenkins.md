@@ -2,7 +2,7 @@
 
 ### 依赖工具下载
 
-##### 安装JDK11和tomcat9
+#### 安装JDK11和tomcat9
 
 <details>
 <summary>安装JDK11和tomcat9</summary>
@@ -85,7 +85,7 @@ source /etc/profile.d/jenkins_tools.sh
 
 </details>
 
-##### Git-2.9.5安装
+#### Git-2.9.5安装
 
 <details>
 <summary>Git-2.9.5安装</summary>
@@ -135,7 +135,7 @@ source /etc/bashrc
 
 ## 正式开始安装jenkins-2.422
 
-##### 安装jenkins-2.422
+#### 安装jenkins-2.422
 
 <details>
 <summary>安装jenkins-2.422</summary>
@@ -224,7 +224,7 @@ cat ~/.ssh/id_rsa
 
 ## 部署项目
 
-##### 部署java项目
+#### 部署java项目
 
 <details>
 <summary>java项目</summary>
@@ -253,7 +253,7 @@ cat ~/.ssh/id_rsa
 
 </details>
 
-##### 部署Vue项目
+#### 部署Vue项目
 
 <details>
 <summary>Vue项目</summary>
