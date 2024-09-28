@@ -54,7 +54,11 @@
 
   // 滚动事件处理
   function toggleButtonVisibility() {
+      if (window.pageYOffset > 100) {
       btn.style.display = 'flex';
+    } else {
+      btn.style.display = 'none';
+    }
   }
 
   window.addEventListener('scroll', toggleButtonVisibility);
