@@ -13,13 +13,13 @@
 <meta name="description" content="## 什么是数据库？
 数据库是专门用于存放计算机数据的软件仓库，这个仓库安装一定的数据结构对数据进行组织和存储
 ## 数据库的分类
-**1、关系型数据库**
+#### 1、关系型数据库
 遵循ACID理论
 常见的有：Oracle、MySQL、MariaDB、Microsoft SQL Server
-**2、非关系型数据库**
+#### 2、非关系型数据库
 也称为NoSQL数据库，是作为关系型数据库的一个有效补充
 常见的有：Memcached、Redis、MongoDB
-**关系型数据库与非关系型数据库的优缺点:**
+#### 关系型数据库与非关系型数据库的优缺点
 关系型数据库：
 优点：易于维护、使用方便、支持复杂sql操作
 缺点：读写性能较差，灵活性欠缺，存在硬盘I/O瓶颈
@@ -29,7 +29,7 @@
 
 > SQL（Structured Query Language）结构化查询语言
 
-## SQL分类：
+## SQL分类
 DQL：数据查询语言：查询操作的SQL
 DCL：数据控制语言，设定用户及权限的SQL
 DDL：数据定义语言：表、序列、视图、索引的创建和销毁的SQL
@@ -43,15 +43,15 @@ TCL：事务控制语言：控制事务的SQL
 
 >
 
-1.清理环境
+##### 1.清理环境
 ```
 yum erase mariadb mariadb-server mariadb-libs mariadb-devel -y
 ```
-2.创建用户
+##### 2.创建用户
 ```
 useradd -r sql -M -s /sbin/nologin
 ```
-3.下载源码
+##### 3.下载源码
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
@@ -61,15 +61,15 @@ wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
 ```
-4.安装编译工具
+##### 4.安装编译工具
 ```
 yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
 ```
-5.创建MySQL目录
+##### 5.创建MySQL目录
 ```
 mkdir -p /opt/vv/{data,mysql,log}
 ```
-6.解压
+##### 6.解压
 ```
 tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 ```
@@ -80,7 +80,7 @@ tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
 mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 ```
-7.编译安装
+##### 7.编译安装
 ```
 cd /opt/vv/mysql-5.7.26/
 ```
@@ -115,13 +115,13 @@ cmake . \
 <meta property="og:description" content="## 什么是数据库？
 数据库是专门用于存放计算机数据的软件仓库，这个仓库安装一定的数据结构对数据进行组织和存储
 ## 数据库的分类
-**1、关系型数据库**
+#### 1、关系型数据库
 遵循ACID理论
 常见的有：Oracle、MySQL、MariaDB、Microsoft SQL Server
-**2、非关系型数据库**
+#### 2、非关系型数据库
 也称为NoSQL数据库，是作为关系型数据库的一个有效补充
 常见的有：Memcached、Redis、MongoDB
-**关系型数据库与非关系型数据库的优缺点:**
+#### 关系型数据库与非关系型数据库的优缺点
 关系型数据库：
 优点：易于维护、使用方便、支持复杂sql操作
 缺点：读写性能较差，灵活性欠缺，存在硬盘I/O瓶颈
@@ -131,7 +131,7 @@ cmake . \
 
 > SQL（Structured Query Language）结构化查询语言
 
-## SQL分类：
+## SQL分类
 DQL：数据查询语言：查询操作的SQL
 DCL：数据控制语言，设定用户及权限的SQL
 DDL：数据定义语言：表、序列、视图、索引的创建和销毁的SQL
@@ -145,15 +145,15 @@ TCL：事务控制语言：控制事务的SQL
 
 >
 
-1.清理环境
+##### 1.清理环境
 ```
 yum erase mariadb mariadb-server mariadb-libs mariadb-devel -y
 ```
-2.创建用户
+##### 2.创建用户
 ```
 useradd -r sql -M -s /sbin/nologin
 ```
-3.下载源码
+##### 3.下载源码
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
@@ -163,15 +163,15 @@ wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
 ```
-4.安装编译工具
+##### 4.安装编译工具
 ```
 yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
 ```
-5.创建MySQL目录
+##### 5.创建MySQL目录
 ```
 mkdir -p /opt/vv/{data,mysql,log}
 ```
-6.解压
+##### 6.解压
 ```
 tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 ```
@@ -182,7 +182,7 @@ tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
 mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 ```
-7.编译安装
+##### 7.编译安装
 ```
 cd /opt/vv/mysql-5.7.26/
 ```
@@ -286,14 +286,14 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="markdown-body" id="postBody"><h2>什么是数据库？</h2>
 <p>数据库是专门用于存放计算机数据的软件仓库，这个仓库安装一定的数据结构对数据进行组织和存储</p>
 <h2>数据库的分类</h2>
-<p><strong>1、关系型数据库</strong><br>
-遵循ACID理论<br>
-常见的有：Oracle、MySQL、MariaDB、Microsoft SQL Server<br>
-<strong>2、非关系型数据库</strong><br>
-也称为NoSQL数据库，是作为关系型数据库的一个有效补充<br>
-常见的有：Memcached、Redis、MongoDB<br>
-<strong>关系型数据库与非关系型数据库的优缺点:</strong><br>
-关系型数据库：<br>
+<h4>1、关系型数据库</h4>
+<p>遵循ACID理论<br>
+常见的有：Oracle、MySQL、MariaDB、Microsoft SQL Server</p>
+<h4>2、非关系型数据库</h4>
+<p>也称为NoSQL数据库，是作为关系型数据库的一个有效补充<br>
+常见的有：Memcached、Redis、MongoDB</p>
+<h4>关系型数据库与非关系型数据库的优缺点</h4>
+<p>关系型数据库：<br>
 优点：易于维护、使用方便、支持复杂sql操作<br>
 缺点：读写性能较差，灵活性欠缺，存在硬盘I/O瓶颈<br>
 非关系型数据库：<br>
@@ -302,7 +302,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <blockquote>
 <p>SQL（Structured Query Language）结构化查询语言</p>
 </blockquote>
-<h2>SQL分类：</h2>
+<h2>SQL分类</h2>
 <p>DQL：数据查询语言：查询操作的SQL<br>
 DCL：数据控制语言，设定用户及权限的SQL<br>
 DDL：数据定义语言：表、序列、视图、索引的创建和销毁的SQL<br>
@@ -313,13 +313,13 @@ TCL：事务控制语言：控制事务的SQL</p>
 <summary>MySQL安装步骤：</summary>
 <blockquote>
 </blockquote>
-<p>1.清理环境</p>
+<h5>1.清理环境</h5>
 <pre class="notranslate"><code class="notranslate">yum erase mariadb mariadb-server mariadb-libs mariadb-devel -y
 </code></pre>
-<p>2.创建用户</p>
+<h5>2.创建用户</h5>
 <pre class="notranslate"><code class="notranslate">useradd -r sql -M -s /sbin/nologin
 </code></pre>
-<p>3.下载源码</p>
+<h5>3.下载源码</h5>
 <pre class="notranslate"><code class="notranslate">wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 </code></pre>
 <blockquote>
@@ -327,13 +327,13 @@ TCL：事务控制语言：控制事务的SQL</p>
 </blockquote>
 <pre class="notranslate"><code class="notranslate">wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
 </code></pre>
-<p>4.安装编译工具</p>
+<h5>4.安装编译工具</h5>
 <pre class="notranslate"><code class="notranslate">yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
 </code></pre>
-<p>5.创建MySQL目录</p>
+<h5>5.创建MySQL目录</h5>
 <pre class="notranslate"><code class="notranslate">mkdir -p /opt/vv/{data,mysql,log}
 </code></pre>
-<p>6.解压</p>
+<h5>6.解压</h5>
 <pre class="notranslate"><code class="notranslate">tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 </code></pre>
 <blockquote>
@@ -342,7 +342,7 @@ TCL：事务控制语言：控制事务的SQL</p>
 <pre class="notranslate"><code class="notranslate">tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
 mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 </code></pre>
-<p>7.编译安装</p>
+<h5>7.编译安装</h5>
 <pre class="notranslate"><code class="notranslate">cd /opt/vv/mysql-5.7.26/
 </code></pre>
 <pre class="notranslate"><code class="notranslate">cmake . \
@@ -387,13 +387,13 @@ mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 </blockquote>
 <pre class="notranslate"><code class="notranslate">make &amp;&amp; make install
 </code></pre>
-<p>8.创建软连接</p>
+<h5>8.创建软连接</h5>
 <pre class="notranslate"><code class="notranslate">ln -s /opt/vv/mysql/bin/mysql /usr/bin
 </code></pre>
-<p>9.更改创建的文件夹所属用户和所属组</p>
+<h5>9.更改创建的文件夹所属用户和所属组</h5>
 <pre class="notranslate"><code class="notranslate">chown -R sql:sql /opt/vv/{mysql,data,log}
 </code></pre>
-<p>10.配置参数</p>
+<h5>10.配置参数</h5>
 <pre class="notranslate"><code class="notranslate">vi /etc/my.cnf
 </code></pre>
 <p>填写以下内容</p>
@@ -412,39 +412,39 @@ symbolic-links=0
 plugin-load=validate_password.so
 validate-password=ON 
 </code></pre>
-<p>11.初始化MySQL</p>
+<h5>11.初始化MySQL</h5>
 <blockquote>
 <p>进入MySQL的bin目录</p>
 </blockquote>
 <pre class="notranslate"><code class="notranslate">./mysqld --defaults-file=/etc/my.cnf --basedir=/opt/vv/mysql/ --datadir=/opt/vv/data/mysql/ --user=sql --initialize
 </code></pre>
-<p>12.查看临时密码</p>
+<h5>12.查看临时密码</h5>
 <pre class="notranslate"><code class="notranslate">cat /opt/vv/data/mysql/mysql.err 
 </code></pre>
-<p>13.启动MySQL前先开放权限</p>
+<h5>13.启动MySQL前先开放权限</h5>
 <pre class="notranslate"><code class="notranslate">cp /opt/vv/mysql/support-files/mysql.server /etc/init.d/mysqld 
 </code></pre>
 <pre class="notranslate"><code class="notranslate">chown 777 /etc/my.cnf 
 </code></pre>
 <pre class="notranslate"><code class="notranslate">chmod +x /etc/init.d/mysqld 
 </code></pre>
-<p>14.启动MySQL</p>
+<h5>14.启动MySQL</h5>
 <pre class="notranslate"><code class="notranslate">service mysqld start
 </code></pre>
 <blockquote>
 <p>关闭：service mysqld stop</p>
 </blockquote>
-<p>15.登录MySQL修改密码</p>
+<h5>15.登录MySQL修改密码</h5>
 <pre class="notranslate"><code class="notranslate">set password = password('AGLAREvv.1');
 </code></pre>
-<p>16.开启远程连接</p>
+<h5>16.开启远程连接</h5>
 <pre class="notranslate"><code class="notranslate">use mysql
 </code></pre>
 <pre class="notranslate"><code class="notranslate">update user set Host='%' where user = "root";
 </code></pre>
 <pre class="notranslate"><code class="notranslate">flush privileges;
 </code></pre>
-<p>17.设置MySQL开机自启</p>
+<h5>17.设置MySQL开机自启</h5>
 <pre class="notranslate"><code class="notranslate">chkconfig --add mysqld 
 </code></pre>
 </details>

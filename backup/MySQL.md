@@ -1,13 +1,13 @@
 ## 什么是数据库？
 数据库是专门用于存放计算机数据的软件仓库，这个仓库安装一定的数据结构对数据进行组织和存储
 ## 数据库的分类
-**1、关系型数据库**
+#### 1、关系型数据库
 遵循ACID理论
 常见的有：Oracle、MySQL、MariaDB、Microsoft SQL Server
-**2、非关系型数据库**
+#### 2、非关系型数据库
 也称为NoSQL数据库，是作为关系型数据库的一个有效补充
 常见的有：Memcached、Redis、MongoDB
-**关系型数据库与非关系型数据库的优缺点:**
+#### 关系型数据库与非关系型数据库的优缺点
 关系型数据库：
 优点：易于维护、使用方便、支持复杂sql操作
 缺点：读写性能较差，灵活性欠缺，存在硬盘I/O瓶颈
@@ -17,7 +17,7 @@
 
 > SQL（Structured Query Language）结构化查询语言
 
-## SQL分类：
+## SQL分类
 DQL：数据查询语言：查询操作的SQL
 DCL：数据控制语言，设定用户及权限的SQL
 DDL：数据定义语言：表、序列、视图、索引的创建和销毁的SQL
@@ -31,15 +31,15 @@ TCL：事务控制语言：控制事务的SQL
 
 >
 
-1.清理环境
+##### 1.清理环境
 ```
 yum erase mariadb mariadb-server mariadb-libs mariadb-devel -y
 ```
-2.创建用户
+##### 2.创建用户
 ```
 useradd -r sql -M -s /sbin/nologin
 ```
-3.下载源码
+##### 3.下载源码
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
@@ -49,15 +49,15 @@ wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26.tar.gz
 ```
 wget https://downloads.mysql.com/archives/get/p/23/file/mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz
 ```
-4.安装编译工具
+##### 4.安装编译工具
 ```
 yum -y install ncurses ncurses-devel openssl-devel bison gcc gcc-c++ make cmake
 ```
-5.创建MySQL目录
+##### 5.创建MySQL目录
 ```
 mkdir -p /opt/vv/{data,mysql,log}
 ```
-6.解压
+##### 6.解压
 ```
 tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 ```
@@ -68,7 +68,7 @@ tar xzvf mysql-5.7.26.tar.gz -C /opt/vv/
 tar xzvf mysql-5.7.26-linux-glibc2.12-x86_64.tar.gz 
 mv mysql-5.7.26-linux-glibc2.12-x86_64/* /opt/vv/mysql
 ```
-7.编译安装
+##### 7.编译安装
 ```
 cd /opt/vv/mysql-5.7.26/
 ```
@@ -115,15 +115,15 @@ cmake . \
 make && make install
 ```
 
-8.创建软连接
+##### 8.创建软连接
 ```
 ln -s /opt/vv/mysql/bin/mysql /usr/bin
 ```
-9.更改创建的文件夹所属用户和所属组
+##### 9.更改创建的文件夹所属用户和所属组
 ```
 chown -R sql:sql /opt/vv/{mysql,data,log}
 ```
-10.配置参数
+##### 10.配置参数
 ```
 vi /etc/my.cnf
 ```
@@ -144,16 +144,16 @@ symbolic-links=0
 plugin-load=validate_password.so
 validate-password=ON 
 ```
-11.初始化MySQL
+##### 11.初始化MySQL
 >进入MySQL的bin目录
 ```
 ./mysqld --defaults-file=/etc/my.cnf --basedir=/opt/vv/mysql/ --datadir=/opt/vv/data/mysql/ --user=sql --initialize
 ```
-12.查看临时密码
+##### 12.查看临时密码
 ```
 cat /opt/vv/data/mysql/mysql.err 
 ```
-13.启动MySQL前先开放权限
+##### 13.启动MySQL前先开放权限
 ```
 cp /opt/vv/mysql/support-files/mysql.server /etc/init.d/mysqld 
 ```
@@ -163,17 +163,17 @@ chown 777 /etc/my.cnf
 ```
 chmod +x /etc/init.d/mysqld 
 ```
-14.启动MySQL
+##### 14.启动MySQL
 ```
 service mysqld start
 ```
 >关闭：service mysqld stop
 
-15.登录MySQL修改密码
+##### 15.登录MySQL修改密码
 ```
 set password = password('AGLAREvv.1');
 ```
-16.开启远程连接
+##### 16.开启远程连接
 ```
 use mysql
 ```
@@ -183,7 +183,7 @@ update user set Host='%' where user = "root";
 ```
 flush privileges;
 ```
-17.设置MySQL开机自启
+##### 17.设置MySQL开机自启
 ```
 chkconfig --add mysqld 
 ```
