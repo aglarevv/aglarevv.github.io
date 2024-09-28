@@ -10,7 +10,8 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="多虚拟主机配置：
+<meta name="description" content="## 多虚拟主机配置
+
 ```
 > 多端口
 1. 不同server监听不同端口
@@ -19,7 +20,8 @@
 2.不同server监听不同ip:port
 3.关闭nginx并重新启动
 ```
-location匹配机制：
+
+## location匹配机制
 
 > **匹配优先级按序递减**
 
@@ -30,7 +32,8 @@ location匹配机制：
 4. 空 路径匹配
 5. / 通配
 ```
-状态页配置：
+
+## 状态页配置
 
 > 在location中添加：
 
@@ -38,16 +41,19 @@ location匹配机制：
 stub_status on; #开启状态页
 access_log off; #关闭日志
 ```
-目录浏览：
+
+## 目录浏览
 
 > 在location中添加：
 
 - 并且不允许有默认访问路径index
 - 二者不能同时存在
+
 ```
-autoindex on; 
+autoindex on;
 ```
-静态资源压缩：
+
+## 静态资源压缩
 
 > 在nginx配置文件中http中添加：
 
@@ -59,7 +65,9 @@ gzip_types text/plain application/javascript application/x-javascript
 text/css application/xml text/javascript application/x-httpd-php image/jpeg
 image/gif image/png;
 ```
-url重写：
+
+## url重写
+
 ```
 在location中添加：rewrite ^/(.*) 要转发的url/$1 flag标记
 flag：
@@ -68,7 +76,8 @@ flag：
 3. redirect 临时重定向，爬虫不更新
 4. permanent 永久重定向，爬虫更新
 ```
-访问认证：
+
+## 访问认证
 
 > 需下载httpd-tools工具包
 
@@ -78,7 +87,8 @@ flag：
 auth_basic 'sample auth';
 auth_basic_user_file 上面生成的文件位置；
 ```
-反向代理集群配置：
+
+## 反向代理集群配置
 
 > weight:	内容为数字，权重比，数字越大，所获得的请求越多
 > max_fails: 内容为数字，nginx尝试连接该节点的失败次数
@@ -94,7 +104,9 @@ localtion /{
     proxy_pass http://my_cluter;
 }
 ```
-负载均衡策略：
+
+## 负载均衡策略
+
 ```
 轮询：默认
 权重：使用较多
@@ -102,9 +114,11 @@ ip_hash：临时存储，使用redis代替
 fair：智能加载
 least_conn：最闲连接
 url_hash：固定业务，用于分布式微服务
-```。">
+```
+。">
 <meta property="og:title" content="nginx">
-<meta property="og:description" content="多虚拟主机配置：
+<meta property="og:description" content="## 多虚拟主机配置
+
 ```
 > 多端口
 1. 不同server监听不同端口
@@ -113,7 +127,8 @@ url_hash：固定业务，用于分布式微服务
 2.不同server监听不同ip:port
 3.关闭nginx并重新启动
 ```
-location匹配机制：
+
+## location匹配机制
 
 > **匹配优先级按序递减**
 
@@ -124,7 +139,8 @@ location匹配机制：
 4. 空 路径匹配
 5. / 通配
 ```
-状态页配置：
+
+## 状态页配置
 
 > 在location中添加：
 
@@ -132,16 +148,19 @@ location匹配机制：
 stub_status on; #开启状态页
 access_log off; #关闭日志
 ```
-目录浏览：
+
+## 目录浏览
 
 > 在location中添加：
 
 - 并且不允许有默认访问路径index
 - 二者不能同时存在
+
 ```
-autoindex on; 
+autoindex on;
 ```
-静态资源压缩：
+
+## 静态资源压缩
 
 > 在nginx配置文件中http中添加：
 
@@ -153,7 +172,9 @@ gzip_types text/plain application/javascript application/x-javascript
 text/css application/xml text/javascript application/x-httpd-php image/jpeg
 image/gif image/png;
 ```
-url重写：
+
+## url重写
+
 ```
 在location中添加：rewrite ^/(.*) 要转发的url/$1 flag标记
 flag：
@@ -162,7 +183,8 @@ flag：
 3. redirect 临时重定向，爬虫不更新
 4. permanent 永久重定向，爬虫更新
 ```
-访问认证：
+
+## 访问认证
 
 > 需下载httpd-tools工具包
 
@@ -172,7 +194,8 @@ flag：
 auth_basic 'sample auth';
 auth_basic_user_file 上面生成的文件位置；
 ```
-反向代理集群配置：
+
+## 反向代理集群配置
 
 > weight:	内容为数字，权重比，数字越大，所获得的请求越多
 > max_fails: 内容为数字，nginx尝试连接该节点的失败次数
@@ -188,7 +211,9 @@ localtion /{
     proxy_pass http://my_cluter;
 }
 ```
-负载均衡策略：
+
+## 负载均衡策略
+
 ```
 轮询：默认
 权重：使用较多
@@ -196,7 +221,8 @@ ip_hash：临时存储，使用redis代替
 fair：智能加载
 least_conn：最闲连接
 url_hash：固定业务，用于分布式微服务
-```。">
+```
+。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://aglarevv.github.io//post/nginx.html">
 <meta property="og:image" content="https://aglarevv.github.io/assets/icon2.svg">
@@ -267,7 +293,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><p>多虚拟主机配置：</p>
+<div class="markdown-body" id="postBody"><h2>多虚拟主机配置</h2>
 <pre class="notranslate"><code class="notranslate">&gt; 多端口
 1. 不同server监听不同端口
 &gt; 多ip
@@ -275,7 +301,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 2.不同server监听不同ip:port
 3.关闭nginx并重新启动
 </code></pre>
-<p>location匹配机制：</p>
+<h2>location匹配机制</h2>
 <blockquote>
 <p><strong>匹配优先级按序递减</strong></p>
 </blockquote>
@@ -285,14 +311,14 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 4. 空 路径匹配
 5. / 通配
 </code></pre>
-<p>状态页配置：</p>
+<h2>状态页配置</h2>
 <blockquote>
 <p>在location中添加：</p>
 </blockquote>
 <pre class="notranslate"><code class="notranslate">stub_status on; #开启状态页
 access_log off; #关闭日志
 </code></pre>
-<p>目录浏览：</p>
+<h2>目录浏览</h2>
 <blockquote>
 <p>在location中添加：</p>
 </blockquote>
@@ -300,9 +326,9 @@ access_log off; #关闭日志
 <li>并且不允许有默认访问路径index</li>
 <li>二者不能同时存在</li>
 </ul>
-<pre class="notranslate"><code class="notranslate">autoindex on; 
+<pre class="notranslate"><code class="notranslate">autoindex on;
 </code></pre>
-<p>静态资源压缩：</p>
+<h2>静态资源压缩</h2>
 <blockquote>
 <p>在nginx配置文件中http中添加：</p>
 </blockquote>
@@ -313,7 +339,7 @@ gzip_types text/plain application/javascript application/x-javascript
 text/css application/xml text/javascript application/x-httpd-php image/jpeg
 image/gif image/png;
 </code></pre>
-<p>url重写：</p>
+<h2>url重写</h2>
 <pre class="notranslate"><code class="notranslate">在location中添加：rewrite ^/(.*) 要转发的url/$1 flag标记
 flag：
 1. last 匹配最后一个符合的
@@ -321,7 +347,7 @@ flag：
 3. redirect 临时重定向，爬虫不更新
 4. permanent 永久重定向，爬虫更新
 </code></pre>
-<p>访问认证：</p>
+<h2>访问认证</h2>
 <blockquote>
 <p>需下载httpd-tools工具包</p>
 </blockquote>
@@ -330,7 +356,7 @@ flag：
 auth_basic "sample auth";
 auth_basic_user_file 上面生成的文件位置；
 </code></pre>
-<p>反向代理集群配置：</p>
+<h2>反向代理集群配置</h2>
 <blockquote>
 <p>weight:	内容为数字，权重比，数字越大，所获得的请求越多<br>
 max_fails: 内容为数字，nginx尝试连接该节点的失败次数<br>
@@ -345,7 +371,7 @@ localtion /{
     proxy_pass http://my_cluter;
 }
 </code></pre>
-<p>负载均衡策略：</p>
+<h2>负载均衡策略</h2>
 <pre class="notranslate"><code class="notranslate">轮询：默认
 权重：使用较多
 ip_hash：临时存储，使用redis代替
