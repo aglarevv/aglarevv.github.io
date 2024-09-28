@@ -1,16 +1,18 @@
-function createTOC() {
-    var tocElement = document.createElement('div');
-    tocElement.className = 'toc';
-    var contentContainer = document.getElementById('content');
-    
-    const headings = contentContainer.querySelectorAll('h1, h2, h3, h4, h5, h6');
-    
-    if (headings.length === 0) {
-        return;  // 如果没有标题元素，则不创建TOC
+function loadResource(type, attributes) {
+    if (type === 'style') {
+        const style = document.createElement('style');
+        style.textContent = attributes.css;
+        document.head.appendChild(style);
     }
-    
-    tocElement.insertAdjacentHTML('afterbegin', '<div class="toc-title">文章目录</div>');
-    
+}
+
+function createTOC() {
+    const tocElement = document.createElement('div');
+    tocElement.className = 'toc';
+    const contentContainer = document.querySelector('.markdown-body');
+    contentContainer.appendChild(tocElement);
+
+    const headings = contentContainer.querySelectorAll('h1, h2, h3, h4, h5, h6');
     headings.forEach(heading => {
         if (!heading.id) {
             heading.id = heading.textContent.trim().replace(/\s+/g, '-').toLowerCase();
@@ -22,15 +24,22 @@ function createTOC() {
         link.style.paddingLeft = `${(parseInt(heading.tagName.charAt(1)) - 1) * 10}px`;
         tocElement.appendChild(link);
     });
-    
-    tocElement.insertAdjacentHTML('beforeend', '<a class="toc-end" onclick="window.scrollTo({top:0,behavior: \'smooth\'});">Top</a>');
-    contentContainer.prepend(tocElement);
+}
+
+function toggleTOC() {
+    const tocElement = document.querySelector('.toc');
+    const tocIcon = document.querySelector('.toc-icon');
+    if (tocElement) {
+        tocElement.classList.toggle('show');
+        tocIcon.classList.toggle('active');
+        tocIcon.textContent = tocElement.classList.contains('show') ? '✖' : '☰';
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function() {
     createTOC();
-    var css = `
-     :root {
+    const css = `
+        :root {
             --toc-bg: #fff;
             --toc-border: #e1e4e8;
             --toc-text: #24292e;
@@ -129,19 +138,21 @@ document.addEventListener("DOMContentLoaded", function() {
             transform: rotate(90deg);
         }
     `;
+    loadResource('style', {css: css});
 
-    const style = document.createElement('style');
-    style.textContent = css;
-    document.head.appendChild(style);
-
-    window.onscroll = function() {
-        const backToTopButton = document.querySelector('.toc-end');
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            backToTopButton.style="visibility: visible;"
-        } else {
-            backToTopButton.style="visibility: hidden;"
-        }
+    const tocIcon = document.createElement('div');
+    tocIcon.className = 'toc-icon';
+    tocIcon.textContent = '☰';
+    tocIcon.onclick = (e) => {
+        e.stopPropagation();
+        toggleTOC();
     };
+    document.body.appendChild(tocIcon);
 
-    console.log("\n %c GmeekTOC Plugins https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#C333D0;color:#fff");
+    document.addEventListener('click', (e) => {
+        const tocElement = document.querySelector('.toc');
+        if (tocElement && tocElement.classList.contains('show') && !tocElement.contains(e.target) && !e.target.classList.contains('toc-icon')) {
+            toggleTOC();
+        }
+    });
 });
