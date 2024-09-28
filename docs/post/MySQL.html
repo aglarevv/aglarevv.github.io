@@ -45,10 +45,10 @@ TCL：事务控制语言：控制事务的SQL
 
 ## MySQL安装
 
-### MySQL安装步骤：
+### MySQL安装步骤
 
 <details>
-<summary>MySQL安装步骤：</summary>
+<summary>MySQL安装步骤</summary>
 
 > 
 
@@ -165,10 +165,10 @@ TCL：事务控制语言：控制事务的SQL
 
 ## MySQL安装
 
-### MySQL安装步骤：
+### MySQL安装步骤
 
 <details>
-<summary>MySQL安装步骤：</summary>
+<summary>MySQL安装步骤</summary>
 
 > 
 
@@ -360,9 +360,9 @@ DDL：数据定义语言：表、序列、视图、索引的创建和销毁的SQ
 DML：数据操作语言：CRUD<br>
 TCL：事务控制语言：控制事务的SQL</p>
 <h2>MySQL安装</h2>
-<h3>MySQL安装步骤：</h3>
+<h3>MySQL安装步骤</h3>
 <details>
-<summary>MySQL安装步骤：</summary>
+<summary>MySQL安装步骤</summary>
 <blockquote>
 </blockquote>
 <p>1.清理环境</p>
@@ -547,9 +547,9 @@ validate-password=ON
 <pre class="notranslate"><code class="notranslate">yum install  percona-xtrabackup-24-2.4.9-1.el6.x86\_64.rpm -y
 </code></pre>
 <p><strong>安装至此完成</strong></p>
-<h2>三种备份方式：</h2>
-<h3>1-1.完整备份</h3>
-<h4>创建备份</h4>
+<h3>三种备份方式</h3>
+<h4>1-1.完整备份</h4>
+<h5>创建备份</h5>
 <ol>
 <li>创建备份目录</li>
 </ol>
@@ -565,7 +565,7 @@ validate-password=ON
 --password: 密码<br>
 -S :数据库套接文件地址，在/etc/my.cnf的socket中获取</p>
 </blockquote>
-<h4>恢复备份</h4>
+<h5>恢复备份</h5>
 <ol>
 <li>关闭数据库</li>
 <li>删除数据库所有数据</li>
@@ -587,8 +587,8 @@ validate-password=ON
 <ol start="7">
 <li>启动数据库</li>
 </ol>
-<h3>1-2.增量备份</h3>
-<h4>创建备份</h4>
+<h4>1-2.增量备份</h4>
+<h5>创建备份</h5>
 <ol>
 <li>先创建完整备份</li>
 <li>修改数据库数据</li>
@@ -600,7 +600,7 @@ validate-password=ON
 <p>--incremental：指定增量备份生成位置<br>
 --incremental-basedir：指定以哪个备份为基础做增量备份，注意：所选备份应为一个完整备份或增量备份</p>
 </blockquote>
-<h4>恢复备份</h4>
+<h5>恢复备份</h5>
 <ol>
 <li>关闭数据库</li>
 <li>删除数据库所有数据</li>
@@ -629,7 +629,7 @@ validate-password=ON
 <ol start="7">
 <li>启动数据库，查看数据</li>
 </ol>
-<h3>1-3.逻辑备份</h3>
+<h4>1-3.逻辑备份</h4>
 <p>使用mysqldump工具，是MySQL自带的逻辑备份工具</p>
 <blockquote>
 <p>本身为客户端工具:<br>
@@ -669,7 +669,7 @@ validate-password=ON
 <p><strong>至此完成</strong></p>
 </details>
 <h2>数据库集群</h2>
-<h3>基于log-bin的主从复制：</h3>
+<h3>基于log-bin的主从复制</h3>
 <details>
 <summary>基于log-bin的主从复制</summary>
 <blockquote>
@@ -737,18 +737,18 @@ MASTER_LOG_POS=154;              #主库日志偏移量
 <p><strong>至此完成</strong></p>
 </details>
 <h2>基础操作语句</h2>
-<h5>数据库的创建和销毁-语法：</h5>
+<h5>数据库的创建和销毁-语法</h5>
 <pre class="notranslate"><code class="notranslate">create database [if not exists] 数据库名 [default charset 字符集]
 drop database [if exists] 数据库名;
 </code></pre>
-<h5>表的创建和销毁-语法：</h5>
+<h5>表的创建和销毁-语法</h5>
 <pre class="notranslate"><code class="notranslate">create table [if not exists] 表名( 字段名 数据类型  [约束],  ... );
 drop table [if exists] 表名;
 </code></pre>
-<h5>添加数据-语法：</h5>
+<h5>添加数据-语法</h5>
 <pre class="notranslate"><code class="notranslate">insert into 表名(列名,列名，列名,...) values(值，值，值，...);
 </code></pre>
-<h5>删除数据-语法：</h5>
+<h5>删除数据-语法</h5>
 <pre class="notranslate"><code class="notranslate">delete from 表名 [where 条件];
 </code></pre>
 <blockquote>
@@ -756,14 +756,14 @@ drop table [if exists] 表名;
 表截断：直接在物理空间中，将保存数据的空间截断，效率更高<br>
 delete from 表：一行一行的删除，效率比较低。</p>
 </blockquote>
-<h5>更改数据-语法：</h5>
+<h5>更改数据-语法</h5>
 <pre class="notranslate"><code class="notranslate">update 表名 set 列名 = 新值,列名=新值, ... [where 条件];
 </code></pre>
-<h2>事务：</h2>
+<h2>事务</h2>
 <p>开启：begin<br>
 成功：commit<br>
 失败：rollback</p>
-<h4>事务的特点：</h4>
+<h4>事务的特点</h4>
 <markdown-accessiblity-table><table role="table">
 <thead>
 <tr>
@@ -795,7 +795,7 @@ delete from 表：一行一行的删除，效率比较低。</p>
 </tr>
 </tbody>
 </table></markdown-accessiblity-table>
-<h2>视图的创建、使用和销毁-语法：</h2>
+<h2>视图的创建、使用和销毁-语法</h2>
 <pre class="notranslate"><code class="notranslate">create view 视图名  as  查询SQL;
 select 列，列,... from 视图名 [where 条件] ...
 drop view 视图名;
@@ -806,8 +806,8 @@ drop view 视图名;
 视图本身不是表，不存储数据<br>
 视图本身可用于屏蔽底层表的机密列</p>
 </blockquote>
-<h2>索引的创建和销毁-语法：</h2>
-<h5>普通索引：</h5>
+<h2>索引的创建和销毁-语法</h2>
+<h5>普通索引</h5>
 <pre class="notranslate"><code class="notranslate">创建：
 ALTER TABLE student3 ADD INDEX nameIndex(name(50));
 alter table 表名 add index 索引名(字段名）
@@ -829,11 +829,11 @@ alter table 表名 add PRIMARY KEY (字段名）
 ALTER TABLE student7 DROP PRIMARY KEY;
 alter table 表名 drop primary key
 </code></pre>
-<h5>查看索引：</h5>
+<h5>查看索引</h5>
 <pre class="notranslate"><code class="notranslate">show index from tab_name;
 </code></pre>
 <h2>慢查询</h2>
-<h4>命令开启（数据库重启失效）：</h4>
+<h4>命令开启（数据库重启失效）</h4>
 <p>查询是否开启：</p>
 <pre class="notranslate"><code class="notranslate">show variables like "%slow%";
 </code></pre>
@@ -846,19 +846,19 @@ alter table 表名 drop primary key
 <p>开启慢查询：</p>
 <pre class="notranslate"><code class="notranslate">set global slow_query_log='ON';
 </code></pre>
-<h4>配置文件开启（永久生效）：</h4>
-<h5>打开配置文件/etc/my.cnf，添加配置：</h5>
+<h4>配置文件开启（永久生效）</h4>
+<h5>打开配置文件/etc/my.cnf，添加配置</h5>
 <pre class="notranslate"><code class="notranslate">slow_query_log=1  #设置开启慢查询 值可以为1也可以为ON
 slow_query_log_file=/opt/vv/log/mysql/mysql-slow.log  #设置慢查询日志位置,保证数据库所在用户拥有该位置权限
 long_query_time=2  #设置慢查询阈值时间，单位s
 </code></pre>
 <h2>权限管理</h2>
-<h5>赋予权限：</h5>
+<h5>赋予权限</h5>
 <p>grant 权限名 on 库名.表名 to 用户名@'登录地址限制' identified by '新的密码'；</p>
 <pre class="notranslate"><code class="notranslate">grant select on test.user to gsc@'%' identfied by '111111';
 将对test库中的user表的查询权限授予gsc,并设置gsc可在任意主机登录，并且密码改为111111
 </code></pre>
-<h5>回收权限：</h5>
+<h5>回收权限</h5>
 <pre class="notranslate"><code class="notranslate">revoke 权限名 on 库名.表明 from 用户名;
 </code></pre>
 <blockquote>
