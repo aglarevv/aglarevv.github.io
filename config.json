@@ -12,6 +12,6 @@
     "homeUrl":"https://aglarevv.github.io/",
     "primerCSS":"<link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />",
     "allHead":"<script src='https://aglarevv.github.io/GmeekVercount.js'></script>",
-    "script":"<script src='https://aglarevv.github.io/assets/GmeekTOC.js'></script><script src='https://aglarevv.github.io/assets/lightbox.js'></script><script src='https://aglarevv.github.io/assets/backTop.js'></script>",
+    "script":"<script src='https://aglarevv.github.io/assets/GmeekTOC.js'></script><script src='https://aglarevv.github.io/assets/lightbox.js'></script><script src='https://aglarevv.github.io/assets/backTop.js'></script><script src='https://aglarevv.github.io/assets/backButtom.js'></script>",
     "bottomText":"❤️ 转载文章请注明出处，谢谢！❤️"
 }
