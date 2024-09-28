@@ -10,13 +10,15 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="top命令：动态监控系统资源
+<meta name="description" content="## top命令：动态监控系统资源
+
 ```
 top -d 1：每秒刷新
 P：按cpu使用率排序
 M：按内存使用率排序
 ```
-校对时间：
+
+## 校对时间
 
 > 使用ntp工具进行校对
 
@@ -24,7 +26,8 @@ M：按内存使用率排序
 yum install ntp -y
 ntpdate cn.pool.ntp.org
 ```
-循环调度任务：
+
+## 循环调度任务
 
 > cronie工具包里的组件
 
@@ -32,11 +35,15 @@ ntpdate cn.pool.ntp.org
 yum install cronie -y
 crontab -e 进入编辑界面
 ```
-tail命令：查看文件尾部
+
+## tail命令：查看文件尾部
+
 ```
 tail -f 动态查看
 ```
-日志轮转：
+
+## 日志轮转
+
 ```
 默认日志生成在/var/log/下
 messages：linux系统本身运行时的日志
@@ -50,7 +57,8 @@ yum.log：yum相关的日志
 配置文件存放路径：/etc/logrotate.d/
 使用时在配置文件中引入自定义配置文件
 ```
-sed命令：字符流编辑器
+
+## sed命令：字符流编辑器
 
 > 操作、过滤、转换文本内容的工具，配合正则对文件实现快速增删查改
 
@@ -58,24 +66,31 @@ sed命令：字符流编辑器
 sed -n 'p' file ：打印文件所有行
 sed -i 's/**/**/g' file ：修改文件
 ```
-awk命令：文本格式化，转换为标准的excel表样式
-HP服务器硬盘位置：
+
+## awk命令：文本格式化，转换为标准的excel表样式
+
+## HP服务器硬盘位置
+
 ```
 /dev/cciss/c0d0p1：c0是第一个控制器，d0是第一块磁盘，p1是分区1
 ```
-磁盘相关：
+
+## 磁盘相关
+
 ```
 查看磁盘分区：lsblk
 查看当前使用磁盘文件：df -TH
 磁盘自动开机挂载：/etc/rc.d/rc.local文件里添加挂载命令。">
 <meta property="og:title" content="运维-linux">
-<meta property="og:description" content="top命令：动态监控系统资源
+<meta property="og:description" content="## top命令：动态监控系统资源
+
 ```
 top -d 1：每秒刷新
 P：按cpu使用率排序
 M：按内存使用率排序
 ```
-校对时间：
+
+## 校对时间
 
 > 使用ntp工具进行校对
 
@@ -83,7 +98,8 @@ M：按内存使用率排序
 yum install ntp -y
 ntpdate cn.pool.ntp.org
 ```
-循环调度任务：
+
+## 循环调度任务
 
 > cronie工具包里的组件
 
@@ -91,11 +107,15 @@ ntpdate cn.pool.ntp.org
 yum install cronie -y
 crontab -e 进入编辑界面
 ```
-tail命令：查看文件尾部
+
+## tail命令：查看文件尾部
+
 ```
 tail -f 动态查看
 ```
-日志轮转：
+
+## 日志轮转
+
 ```
 默认日志生成在/var/log/下
 messages：linux系统本身运行时的日志
@@ -109,7 +129,8 @@ yum.log：yum相关的日志
 配置文件存放路径：/etc/logrotate.d/
 使用时在配置文件中引入自定义配置文件
 ```
-sed命令：字符流编辑器
+
+## sed命令：字符流编辑器
 
 > 操作、过滤、转换文本内容的工具，配合正则对文件实现快速增删查改
 
@@ -117,12 +138,17 @@ sed命令：字符流编辑器
 sed -n 'p' file ：打印文件所有行
 sed -i 's/**/**/g' file ：修改文件
 ```
-awk命令：文本格式化，转换为标准的excel表样式
-HP服务器硬盘位置：
+
+## awk命令：文本格式化，转换为标准的excel表样式
+
+## HP服务器硬盘位置
+
 ```
 /dev/cciss/c0d0p1：c0是第一个控制器，d0是第一块磁盘，p1是分区1
 ```
-磁盘相关：
+
+## 磁盘相关
+
 ```
 查看磁盘分区：lsblk
 查看当前使用磁盘文件：df -TH
@@ -197,29 +223,29 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><p>top命令：动态监控系统资源</p>
+<div class="markdown-body" id="postBody"><h2>top命令：动态监控系统资源</h2>
 <pre class="notranslate"><code class="notranslate">top -d 1：每秒刷新
 P：按cpu使用率排序
 M：按内存使用率排序
 </code></pre>
-<p>校对时间：</p>
+<h2>校对时间</h2>
 <blockquote>
 <p>使用ntp工具进行校对</p>
 </blockquote>
 <pre class="notranslate"><code class="notranslate">yum install ntp -y
 ntpdate cn.pool.ntp.org
 </code></pre>
-<p>循环调度任务：</p>
+<h2>循环调度任务</h2>
 <blockquote>
 <p>cronie工具包里的组件</p>
 </blockquote>
 <pre class="notranslate"><code class="notranslate">yum install cronie -y
 crontab -e 进入编辑界面
 </code></pre>
-<p>tail命令：查看文件尾部</p>
+<h2>tail命令：查看文件尾部</h2>
 <pre class="notranslate"><code class="notranslate">tail -f 动态查看
 </code></pre>
-<p>日志轮转：</p>
+<h2>日志轮转</h2>
 <pre class="notranslate"><code class="notranslate">默认日志生成在/var/log/下
 messages：linux系统本身运行时的日志
 secure：认证，安全的日志
@@ -232,26 +258,26 @@ yum.log：yum相关的日志
 配置文件存放路径：/etc/logrotate.d/
 使用时在配置文件中引入自定义配置文件
 </code></pre>
-<p>sed命令：字符流编辑器</p>
+<h2>sed命令：字符流编辑器</h2>
 <blockquote>
 <p>操作、过滤、转换文本内容的工具，配合正则对文件实现快速增删查改</p>
 </blockquote>
 <pre class="notranslate"><code class="notranslate">sed -n "p" file ：打印文件所有行
 sed -i "s/**/**/g" file ：修改文件
 </code></pre>
-<p>awk命令：文本格式化，转换为标准的excel表样式<br>
-HP服务器硬盘位置：</p>
+<h2>awk命令：文本格式化，转换为标准的excel表样式</h2>
+<h2>HP服务器硬盘位置</h2>
 <pre class="notranslate"><code class="notranslate">/dev/cciss/c0d0p1：c0是第一个控制器，d0是第一块磁盘，p1是分区1
 </code></pre>
-<p>磁盘相关：</p>
+<h2>磁盘相关</h2>
 <pre class="notranslate"><code class="notranslate">查看磁盘分区：lsblk
 查看当前使用磁盘文件：df -TH
 磁盘自动开机挂载：/etc/rc.d/rc.local文件里添加挂载命令。这个文件开机自动执行
 </code></pre>
-<p>更改ip地址：</p>
+<h2>更改ip地址</h2>
 <pre class="notranslate"><code class="notranslate">vi /etc/sysconfig/network-scripts/ifcfg-eth0
 </code></pre>
-<p>防火墙：</p>
+<h2>防火墙</h2>
 <pre class="notranslate"><code class="notranslate">添加允许通过的服务：firewall-cmd --zone=public --add-service=http
 查看当前使用区域配置：firewall-cmd --list-all
 删除允许通过的服务或端口：firewall-cmd --zone=public --remove-service=http or --remove-port=1234/tcp
@@ -259,49 +285,49 @@ HP服务器硬盘位置：</p>
 </code></pre>
 <div class="markdown-alert markdown-alert-tip"><p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p><p>以上全部只在本次开机生效，要永久性生效，添加 --permanent参数，之后重新启动防火墙或使用 --reload参数重新加载配置</p>
 </div>
-<p>关机：</p>
+<h2>关机</h2>
 <pre class="notranslate"><code class="notranslate">init 0
 </code></pre>
-<p>重启：</p>
+<h2>重启</h2>
 <pre class="notranslate"><code class="notranslate">init 6
 </code></pre>
-<p>查看当前用户：</p>
+<h2>查看当前用户</h2>
 <pre class="notranslate"><code class="notranslate">whoami
 </code></pre>
-<p>查看用户id：</p>
+<h2>查看用户id</h2>
 <pre class="notranslate"><code class="notranslate">id -u
 </code></pre>
-<p>查看内核版本：</p>
+<h2>查看内核版本</h2>
 <pre class="notranslate"><code class="notranslate">uname -r
 </code></pre>
-<p>查看CPU信息：</p>
+<h2>查看CPU信息</h2>
 <pre class="notranslate"><code class="notranslate">lscpu
 </code></pre>
-<p>查看内存信息:</p>
+<h2>查看内存信息</h2>
 <pre class="notranslate"><code class="notranslate">ree -h
 </code></pre>
-<p>查看硬盘信息：</p>
+<h2>查看硬盘信息</h2>
 <pre class="notranslate"><code class="notranslate">lsblk
 </code></pre>
-<p>查看当前登录用户，登录终端：</p>
+<h2>查看当前登录用户，登录终端</h2>
 <pre class="notranslate"><code class="notranslate">who am i
 </code></pre>
-<p>查看当前所有登录用户：</p>
+<h2>查看当前所有登录用户</h2>
 <pre class="notranslate"><code class="notranslate">who
 </code></pre>
-<p>更改命令行颜色（临时）：</p>
+<h2>更改命令行颜色（临时）</h2>
 <pre class="notranslate"><code class="notranslate">PS1="\[\e[1;35m\][\u@\h \w]\\$\[\e[0m\]"
 </code></pre>
-<p>登录提示内容：</p>
+<h2>登录提示内容</h2>
 <pre class="notranslate"><code class="notranslate">vi /etc/motd
 </code></pre>
-<p>查看日历：</p>
+<h2>查看日历</h2>
 <pre class="notranslate"><code class="notranslate">cal -y
 </code></pre>
-<p>指定登录shell：</p>
+<h2>指定登录shell</h2>
 <pre class="notranslate"><code class="notranslate">chsh -s /bin/bash
 </code></pre>
-<p>vim文件分割：</p>
+<h2>vim文件分割</h2>
 <pre class="notranslate"><code class="notranslate">多文件水平分割：vim -o f1 f2
 多文件垂直分割：vim -O f1 f2
 单文件水平分割：CTRL+w,s
@@ -310,11 +336,11 @@ HP服务器硬盘位置：</p>
 退出其他所有：CTRL+w,o
 推出所有：:wqll
 </code></pre>
-<p>vim配置文件：</p>
+<h2>vim配置文件</h2>
 <pre class="notranslate"><code class="notranslate">个人位置：~/.vimrc
 全局位置：/etc/vimrc
 </code></pre>
-<p>静态ip配置：</p>
+<h2>静态ip配置</h2>
 <blockquote>
 <p>vim /etc/sysconfig/netword-scripts/ifcfg-ens33</p>
 </blockquote>
