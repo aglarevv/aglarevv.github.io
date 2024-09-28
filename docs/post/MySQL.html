@@ -510,7 +510,7 @@ validate-password=ON
 <blockquote>
 <p>select into是sql中的一个基础命令，可以完成数据备份，但是由于十分简陋，只能适用于临时的数据备份</p>
 </blockquote>
-<p>1、查看权限：</p>
+<p>1、查看权限</p>
 <pre class="notranslate"><code class="notranslate">show variables like '%secure%';
 </code></pre>
 <blockquote>
@@ -527,7 +527,7 @@ validate-password=ON
 <p>语法：select 语句 into outfile '目标文件'<br>
 将select的查询结果数据储存到/tmp/user.txt</p>
 </blockquote>
-<p>5、恢复数据：</p>
+<p>5、恢复数据</p>
 <pre class="notranslate"><code class="notranslate">load data infile '/tmp/user.txt' into table t_user;
 </code></pre>
 <p><strong>至此完成</strong></p>
@@ -537,13 +537,13 @@ validate-password=ON
 <summary>使用xtrabackup工具备份</summary>
 <blockquote>
 </blockquote>
-<p>1.下载：</p>
+<p>1.下载</p>
 <pre class="notranslate"><code class="notranslate">wget https://www.percona.com/downloads/XtraBackup/Percona-XtraBackup-2.4.9/binary/redhat/6/x86_64/Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
 </code></pre>
-<p>2.解压：</p>
+<p>2.解压</p>
 <pre class="notranslate"><code class="notranslate">tar xvf Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
 </code></pre>
-<p>3.安装：</p>
+<p>3.安装</p>
 <pre class="notranslate"><code class="notranslate">yum install  percona-xtrabackup-24-2.4.9-1.el6.x86\_64.rpm -y
 </code></pre>
 <p><strong>安装至此完成</strong></p>
@@ -834,16 +834,16 @@ alter table 表名 drop primary key
 </code></pre>
 <h2>慢查询</h2>
 <h4>命令开启（数据库重启失效）</h4>
-<p>查询是否开启：</p>
+<p>查询是否开启</p>
 <pre class="notranslate"><code class="notranslate">show variables like "%slow%";
 </code></pre>
-<p>查询慢查询阈值时间：</p>
+<p>查询慢查询阈值时间</p>
 <pre class="notranslate"><code class="notranslate">show variables like "%long%";
 </code></pre>
-<p>修改阈值时间：</p>
+<p>修改阈值时间</p>
 <pre class="notranslate"><code class="notranslate">set global long_query_time=2;
 </code></pre>
-<p>开启慢查询：</p>
+<p>开启慢查询</p>
 <pre class="notranslate"><code class="notranslate">set global slow_query_log='ON';
 </code></pre>
 <h4>配置文件开启（永久生效）</h4>

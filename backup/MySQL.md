@@ -237,7 +237,7 @@ chkconfig --add mysqld
 
 > select into是sql中的一个基础命令，可以完成数据备份，但是由于十分简陋，只能适用于临时的数据备份
 
-1、查看权限：
+1、查看权限
 
 ```
 show variables like '%secure%';
@@ -260,7 +260,7 @@ select * from t_user into outfile '/tmp/user.txt'
 > 语法：select 语句 into outfile '目标文件'
 > 将select的查询结果数据储存到/tmp/user.txt
 
-5、恢复数据：
+5、恢复数据
 
 ```
 load data infile '/tmp/user.txt' into table t_user;
@@ -277,17 +277,19 @@ load data infile '/tmp/user.txt' into table t_user;
 
 > 
 
- 1.下载：
+1.下载
 
 ```
 wget https://www.percona.com/downloads/XtraBackup/Percona-XtraBackup-2.4.9/binary/redhat/6/x86_64/Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
 ```
-2.解压：
+
+2.解压
 
 ```
 tar xvf Percona-XtraBackup-2.4.9-ra467167cdd4-el6-x86_64-bundle.tar
 ```
-3.安装：
+
+3.安装
 
 ```
 yum install  percona-xtrabackup-24-2.4.9-1.el6.x86\_64.rpm -y
@@ -605,22 +607,25 @@ show index from tab_name;
 
 #### 命令开启（数据库重启失效）
 
-查询是否开启：
+查询是否开启
 
 ```
 show variables like "%slow%";
 ```
-查询慢查询阈值时间：
+
+查询慢查询阈值时间
 
 ```
 show variables like "%long%";
 ```
-修改阈值时间：
+
+修改阈值时间
 
 ```
 set global long_query_time=2;
 ```
-开启慢查询：
+
+开启慢查询
 
 ```
 set global slow_query_log='ON';
@@ -656,4 +661,3 @@ revoke 权限名 on 库名.表明 from 用户名;
 > 被回收的权限必须存在，否则会出错
 > 整个数据库，使用 ON datebase.*；
 > 特定的表：使用 ON datebase.table；
-> 
