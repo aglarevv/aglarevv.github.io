@@ -2,9 +2,9 @@
   // 创建样式
   const style = document.createElement('style');
   style.textContent = `
-    .back-to-top {
+    .back-to-buttom {
       position: fixed;
-      bottom: 130px;
+      bottom: 80px;
       right: 15px;
       background-color: rgba(255, 255, 255, 0.8);
       color: #333;
@@ -21,15 +21,15 @@
       align-items: center;
       justify-content: center;
     }
-    .back-to-top:hover {
+    .back-to-buttom:hover {
       transform: scale(1.1);
     }
-    .back-to-top svg {
+    .back-to-buttom svg {
       width: 24px;
       height: 24px;
     }
     @media (max-width: 768px) {
-      .back-to-top {
+      .back-to-buttom {
         width: 40px;
         height: 40px;
         font-size: 20px;
@@ -40,14 +40,14 @@
 
   // 创建按钮
   const btn = document.createElement('button');
-  btn.className = 'back-to-top';
+  btn.className = 'back-to-buttom';
   btn.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   document.body.appendChild(btn);
 
   // 点击事件处理
   btn.addEventListener('click', () => {
     window.scrollTo({
-      top: 0,
+      buttom: 0,
       behavior: 'smooth'
     });
   });
@@ -55,9 +55,9 @@
   // 滚动事件处理
   function toggleButtonVisibility() {
     if (window.pageYOffset > 100) {
-      btn.style.display = 'flex';
-    } else {
       btn.style.display = 'none';
+    } else {
+      btn.style.display = 'flex';
     }
   }
 
