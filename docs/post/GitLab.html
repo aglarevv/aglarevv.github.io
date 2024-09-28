@@ -10,56 +10,76 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="# GitLab部署步骤：
+<meta name="description" content="## GitLab部署步骤：
+
 1、关闭防火墙
 2、下载依赖
+
 ```
-yum install -y  curl policycoreutils openssh-server openssh-clients  postfix 
+yum install -y  curl policycoreutils openssh-server openssh-clients  postfix
 ```
+
 3、设置开机自启
+
 ```
 systemctl enable sshd
 systemctl start sshd
 systemctl enable postfix
 systemctl start postfix
 ```
+
 4、下载gitlab，下载连接（夸克网盘）：[gitlab-ce-9.1.0-ce.0.el7.x86_64.rpm](https://pan.quark.cn/s/a3a0509d91db)
 5、解压
+
 ```
 yum -y install gitlab-ce-9.1.0-ce.0.el7.x86_64.rpm
 ```
+
 6、重新配置
+
 ```
 gitlab-ctl reconfigure
 ```
+
 7、进入gitlab服务器地址（本机ip:80）后，设置完密码使用root登录即可完成部署
 ![image](https://github.com/user-attachments/assets/697e903c-5c92-4019-9000-e40d35ffa516)
+
 。">
 <meta property="og:title" content="GitLab">
-<meta property="og:description" content="# GitLab部署步骤：
+<meta property="og:description" content="## GitLab部署步骤：
+
 1、关闭防火墙
 2、下载依赖
+
 ```
-yum install -y  curl policycoreutils openssh-server openssh-clients  postfix 
+yum install -y  curl policycoreutils openssh-server openssh-clients  postfix
 ```
+
 3、设置开机自启
+
 ```
 systemctl enable sshd
 systemctl start sshd
 systemctl enable postfix
 systemctl start postfix
 ```
+
 4、下载gitlab，下载连接（夸克网盘）：[gitlab-ce-9.1.0-ce.0.el7.x86_64.rpm](https://pan.quark.cn/s/a3a0509d91db)
 5、解压
+
 ```
 yum -y install gitlab-ce-9.1.0-ce.0.el7.x86_64.rpm
 ```
+
 6、重新配置
+
 ```
 gitlab-ctl reconfigure
 ```
+
 7、进入gitlab服务器地址（本机ip:80）后，设置完密码使用root登录即可完成部署
 ![image](https://github.com/user-attachments/assets/697e903c-5c92-4019-9000-e40d35ffa516)
+
 。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://aglarevv.github.io//post/GitLab.html">
@@ -131,10 +151,10 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h1>GitLab部署步骤：</h1>
+<div class="markdown-body" id="postBody"><h2>GitLab部署步骤：</h2>
 <p>1、关闭防火墙<br>
 2、下载依赖</p>
-<pre class="notranslate"><code class="notranslate">yum install -y  curl policycoreutils openssh-server openssh-clients  postfix 
+<pre class="notranslate"><code class="notranslate">yum install -y  curl policycoreutils openssh-server openssh-clients  postfix
 </code></pre>
 <p>3、设置开机自启</p>
 <pre class="notranslate"><code class="notranslate">systemctl enable sshd
