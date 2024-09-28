@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .toc {
             position: fixed;
             bottom: 60px;
-            right: 20px;
+            right: 80px;
             width: 250px;
             max-height: 70vh;
             background-color: var(--toc-bg);
