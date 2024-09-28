@@ -46,7 +46,10 @@
 
   // 点击事件处理
   btn.addEventListener('click', () => {
-    window.scrollTo(0,document.documentElement.scrollHeight);
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth'
+    });
   });
 
   // 滚动事件处理
