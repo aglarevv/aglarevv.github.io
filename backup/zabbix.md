@@ -419,3 +419,39 @@ Trigger status {TRIGGER.STATUS}
 **至此结束**
 
 </details>
+
+## 自动发现
+
+1、创建自动发现规则
+![image](https://github.com/user-attachments/assets/1f0e974c-115f-4c80-b8a4-a1603e14ff3a)
+2、创建发现动作
+![image](https://github.com/user-attachments/assets/9747db85-c47a-4784-bdaa-1e2cddbc6b5b)
+![image](https://github.com/user-attachments/assets/f4add7b8-7832-4b08-b147-c7bab5a18217)
+![image](https://github.com/user-attachments/assets/fde6bd18-75e1-4e30-aee6-ac37be632e45)
+![image](https://github.com/user-attachments/assets/7481ea01-4a9c-4b78-aba5-d5c088b1c64b)
+**至此完成**
+
+## 自动注册
+
+1、客户端配置
+
+```
+vim /etc/zabbix/zabbix_agentd.conf
+```
+
+```
+ServerActive=192.168.209.143
+```
+
+> 主动模式   改成 zabbix-server-ip
+
+```
+systemctl restart zabbix-agent
+```
+
+2、创建自动注册动作
+![image](https://github.com/user-attachments/assets/b0d24a02-994f-4290-8b51-adc91d3e1991)
+![image](https://github.com/user-attachments/assets/8da77154-be4f-4510-a034-9bfc43bc1160)
+![image](https://github.com/user-attachments/assets/e06fa111-5192-4fd9-9f7c-2b595e238d73)
+
+**至此完成**
