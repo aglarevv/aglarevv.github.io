@@ -46,12 +46,19 @@
 
   // 点击事件处理
   btn.addEventListener('click', () => {
-    window.scrollTo(0,document.documentElement.scrollHeight);
+    window.scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: 'smooth'
+    });
   });
 
   // 滚动事件处理
   function toggleButtonVisibility() {
+      if (window.pageYOffset > 100) {
       btn.style.display = 'flex';
+    } else {
+      btn.style.display = 'none';
+    }
   }
 
   window.addEventListener('scroll', toggleButtonVisibility);
