@@ -1,3 +1,6 @@
+## 安装步骤
+
+参考我的另一篇文章[nginx的安装](https://aglarevv.github.io//post/nginx-de-an-zhuang.html)
 ## 多虚拟主机配置
 
 ```
