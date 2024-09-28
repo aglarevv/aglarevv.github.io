@@ -52,12 +52,20 @@
     });
   });
 
+  // 判断到达页面底部
+  function isAtBottom() {
+    scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    clientHeight = window.innerHeight;
+    scrollHeight = document.body.offsetHeight;
+    return (clientHeight + scrollTop) >= scrollHeight - 2;
+}
+
   // 滚动事件处理
   function toggleButtonVisibility() {
-      if (window.pageYOffset > 100) {
-      btn.style.display = 'flex';
-    } else {
+      if (isAtBottom() > 0) {
       btn.style.display = 'none';
+    } else {
+      btn.style.display = 'flex';
     }
   }
 
