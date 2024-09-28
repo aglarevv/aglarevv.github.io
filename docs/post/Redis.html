@@ -10,112 +10,156 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="## redis安装
-<details>
-<summary>安装</summary>
+<meta name="description" content="## redis安装步骤
 
->
+
+<details>
+<summary>安装步骤</summary>
+
+> 
 
 1、下载依赖
+
 ```
 yum install -y gcc
 ```
+
 2、下载redis-5.0.10，下载链接：[https://pan.quark.cn/s/5375bb15ccba](https://pan.quark.cn/s/5375bb15ccba)
 3、解压缩
+
 ```
 tar -zxvf redis-5.0.10.tar.gz
 ```
+
 4、进入redis根目录
+
 ```
 cd redis-5.0.10
 ```
+
 5、复制配置文件
+
 ```
 mkdir -p /etc/redis/
 cp redis.conf /etc/redis/
 ```
+
 6、编译安装
+
 ```
 make && make install
 ```
+
 7、启动redis
->默认监听6379端口，前台启动
-后台启动：修改配置文件里 daemonize=no 改为 daemonize=yes
+
+> 默认监听6379端口，前台启动
+> 后台启动：修改配置文件里 daemonize=no 改为 daemonize=yes
 
 ```
 redis-server /etc/redis/redis.conf
 ```
+
 **至此完成
+
 </details>
 
 ## redis主从复制
+
 <details>
 <summary>主从复制</summary>
 
->
+> 
 
 1、修改配置
+
 - 主机：
+
 1. 更改配置文件，绑定ip
+
 ```
 bind 0.0.0.0
 ```
+
 - 从机：
+
 1. 更改配置文件
+
 > 在 port 6379 后添加 slaveof 主机ip  redis端口号。">
 <meta property="og:title" content="Redis">
-<meta property="og:description" content="## redis安装
-<details>
-<summary>安装</summary>
+<meta property="og:description" content="## redis安装步骤
 
->
+
+<details>
+<summary>安装步骤</summary>
+
+> 
 
 1、下载依赖
+
 ```
 yum install -y gcc
 ```
+
 2、下载redis-5.0.10，下载链接：[https://pan.quark.cn/s/5375bb15ccba](https://pan.quark.cn/s/5375bb15ccba)
 3、解压缩
+
 ```
 tar -zxvf redis-5.0.10.tar.gz
 ```
+
 4、进入redis根目录
+
 ```
 cd redis-5.0.10
 ```
+
 5、复制配置文件
+
 ```
 mkdir -p /etc/redis/
 cp redis.conf /etc/redis/
 ```
+
 6、编译安装
+
 ```
 make && make install
 ```
+
 7、启动redis
->默认监听6379端口，前台启动
-后台启动：修改配置文件里 daemonize=no 改为 daemonize=yes
+
+> 默认监听6379端口，前台启动
+> 后台启动：修改配置文件里 daemonize=no 改为 daemonize=yes
 
 ```
 redis-server /etc/redis/redis.conf
 ```
+
 **至此完成
+
 </details>
 
 ## redis主从复制
+
 <details>
 <summary>主从复制</summary>
 
->
+> 
 
 1、修改配置
+
 - 主机：
+
 1. 更改配置文件，绑定ip
+
 ```
 bind 0.0.0.0
 ```
+
 - 从机：
+
 1. 更改配置文件
+
 > 在 port 6379 后添加 slaveof 主机ip  redis端口号。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://aglarevv.github.io//post/Redis.html">
@@ -187,9 +231,9 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h2>redis安装</h2>
+<div class="markdown-body" id="postBody"><h2>redis安装步骤</h2>
 <details>
-<summary>安装</summary>
+<summary>安装步骤</summary>
 <blockquote>
 </blockquote>
 <p>1、下载依赖</p>
@@ -256,7 +300,7 @@ redis-server /etc/redis/redis.conf
 <pre class="notranslate"><code class="notranslate">info replication
 </code></pre>
 </details>
-<h2>哨兵模式</h2>
+<h2>redis哨兵模式</h2>
 <details>
 <summary>添加哨兵</summary>
 <blockquote>
