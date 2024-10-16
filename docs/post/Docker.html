@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    <script src='https://aglarevv.github.io/assets/GmeekVercount.js'></script>
+    <link rel="icon" href="https://aglarevv.github.io/assets/icon3.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="## Docker部署
+
+<details>
+<summary>1、可访问官网方式</summary>
+
+> 
+
+1、下载yum源
+
+```
+wget https://download.docker.com/linux/centos/docker-ce.repo
+```
+
+2、移动位置并重命名
+
+```
+mv docker-ce.repo /etc/yum.repos.d
+```
+
+3、安装docker
+
+```
+yum install -y docker-ce
+```
+
+4、启动docker
+
+```
+systemctl enable docker && systemctl start docker
+```
+
+</details>
+
+<details>
+<summary>2、使用国内镜像源方式</summary>
+
+> 
+
+[配置阿里镜像源](https://developer.aliyun.com/mirror/docker-ce)。">
+<meta property="og:title" content="Docker">
+<meta property="og:description" content="## Docker部署
+
+<details>
+<summary>1、可访问官网方式</summary>
+
+> 
+
+1、下载yum源
+
+```
+wget https://download.docker.com/linux/centos/docker-ce.repo
+```
+
+2、移动位置并重命名
+
+```
+mv docker-ce.repo /etc/yum.repos.d
+```
+
+3、安装docker
+
+```
+yum install -y docker-ce
+```
+
+4、启动docker
+
+```
+systemctl enable docker && systemctl start docker
+```
+
+</details>
+
+<details>
+<summary>2、使用国内镜像源方式</summary>
+
+> 
+
+[配置阿里镜像源](https://developer.aliyun.com/mirror/docker-ce)。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://aglarevv.github.io//post/Docker.html">
+<meta property="og:image" content="https://aglarevv.github.io/assets/icon3.svg">
+<title>Docker</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">Docker</h1>
+<div class="title-right">
+    <a href="https://aglarevv.github.io/" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/aglarevv/aglarevv.github.io/issues/20" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><h2>Docker部署</h2>
+<details>
+<summary>1、可访问官网方式</summary>
+<blockquote>
+</blockquote>
+<p>1、下载yum源</p>
+<pre class="notranslate"><code class="notranslate">wget https://download.docker.com/linux/centos/docker-ce.repo
+</code></pre>
+<p>2、移动位置并重命名</p>
+<pre class="notranslate"><code class="notranslate">mv docker-ce.repo /etc/yum.repos.d
+</code></pre>
+<p>3、安装docker</p>
+<pre class="notranslate"><code class="notranslate">yum install -y docker-ce
+</code></pre>
+<p>4、启动docker</p>
+<pre class="notranslate"><code class="notranslate">systemctl enable docker &amp;&amp; systemctl start docker
+</code></pre>
+</details>
+<details>
+<summary>2、使用国内镜像源方式</summary>
+<blockquote>
+</blockquote>
+<p><a href="https://developer.aliyun.com/mirror/docker-ce" rel="nofollow">配置阿里镜像源</a>。或可直接参考如下步骤</p>
+<p>1、安装必要的系统工具</p>
+<pre class="notranslate"><code class="notranslate">sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+</code></pre>
+<p>2、添加软件源信息</p>
+<pre class="notranslate"><code class="notranslate">sudo yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+</code></pre>
+<pre class="notranslate"><code class="notranslate">sudo sed -i 's+download.docker.com+mirrors.aliyun.com/docker-ce+' /etc/yum.repos.d/docker-ce.repo
+</code></pre>
+<p>3、更新并安装docker-ce</p>
+<pre class="notranslate"><code class="notranslate">sudo yum makecache fast &amp;&amp; yum -y install docker-ce
+</code></pre>
+<p>4、开启docker服务</p>
+<pre class="notranslate"><code class="notranslate">sudo service docker start
+</code></pre>
+<p>5、启动docker</p>
+<pre class="notranslate"><code class="notranslate">systemctl enable docker &amp;&amp; systemctl start docker
+</code></pre>
+</details>
+<details>
+<summary>清理docker环境</summary>
+<blockquote>
+</blockquote>
+<pre class="notranslate"><code class="notranslate">yum remove docker \
+docker-client \
+docker-client-latest \
+docker-common \
+docker-latest \
+docker-latest-logrotate \
+docker-logrotate \
+docker-selinux \
+docker-engine-selinux \
+docker-engine
+</code></pre>
+</details>
+<h2>Docker使用</h2>
+<details>
+<summary>镜像</summary>
+<blockquote>
+</blockquote>
+<h3>查看</h3>
+<p>查看docker版本</p>
+<pre class="notranslate"><code class="notranslate">docker -v
+</code></pre>
+<p>查看docker运行状态</p>
+<pre class="notranslate"><code class="notranslate">docker info
+</code></pre>
+<p>查看镜像列表</p>
+<pre class="notranslate"><code class="notranslate">docker images
+</code></pre>
+<p>查看镜像详细信息</p>
+<pre class="notranslate"><code class="notranslate">docker inspect 镜像名称
+</code></pre>
+<p>查看镜像制作过程</p>
+<pre class="notranslate"><code class="notranslate">docker history 镜像名或id
+</code></pre>
+<h3>拉取</h3>
+<p>拉取镜像</p>
+<pre class="notranslate"><code class="notranslate">docker pull 镜像名:标签
+</code></pre>
+<h3>删除</h3>
+<p>删除镜像</p>
+<pre class="notranslate"><code class="notranslate">docker rmi 镜像名或id
+</code></pre>
+<p>删除所有镜像</p>
+<pre class="notranslate"><code class="notranslate">docker rmi $(docker images -q)
+</code></pre>
+</details>
+<details>
+<summary>容器</summary>
+<blockquote>
+</blockquote>
+<h3>启动</h3>
+<p>启动容器</p>
+<pre class="notranslate"><code class="notranslate">docker run -it 镜像名或id /bin/bash
+docker start 镜像名或id
+</code></pre>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>命令</th>
+<th>区别</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker run</td>
+<td>首先在指定的镜像上创建一个可写的容器层，然后使用指定的命令启动它。这意味着 <code class="notranslate">docker run</code> 相当于执行了 <code class="notranslate">docker create</code> 和 <code class="notranslate">docker start</code> 两个步骤</td>
+</tr>
+<tr>
+<td>docker start</td>
+<td>用于启动已经存在的容器。它不会创建新的容器，而是重新启动已停止的容器</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+<p>创建新容器但不启动</p>
+<pre class="notranslate"><code class="notranslate">docker create -it 镜像名 /bin/bash
+</code></pre>
+<p>创建新容器并随容器而启动</p>
+<pre class="notranslate"><code class="notranslate">docker run -it --restart=always 镜像名或id /bin/bash
+</code></pre>
+<p>进入后台运行的容器</p>
+<pre class="notranslate"><code class="notranslate">docker exec -it 容器名或id /bin/bash
+</code></pre>
+<h3>查看</h3>
+<p>修改容器名称</p>
+<pre class="notranslate"><code class="notranslate">docker rename 旧名称 新名称
+</code></pre>
+<p>动态显示容器资源使用情况</p>
+<pre class="notranslate"><code class="notranslate">docker stats
+</code></pre>
+<p>显示运行的容器里进程信息</p>
+<pre class="notranslate"><code class="notranslate">docker top 容器名或id
+</code></pre>
+<p>捕获容器停止时的退出码</p>
+<pre class="notranslate"><code class="notranslate">docker wait 容器名或id
+</code></pre>
+<p>查看所有容器</p>
+<pre class="notranslate"><code class="notranslate">docker ps -a
+</code></pre>
+<p>查看运行中容器</p>
+<pre class="notranslate"><code class="notranslate">docker ps
+</code></pre>
+<p>查看所有容器</p>
+<pre class="notranslate"><code class="notranslate">docker container ls -a
+</code></pre>
+<p>查看所有容器id</p>
+<pre class="notranslate"><code class="notranslate">docker container ls -q
+</code></pre>
+<h3>拷贝</h3>
+<p>容器文件拷贝</p>
+<pre class="notranslate"><code class="notranslate">docker cp 源文件路径 容器名或id:绝对路径
+</code></pre>
+<h3>删除</h3>
+<p>暂停容器内所有进程</p>
+<pre class="notranslate"><code class="notranslate">docker pause 容器名
+</code></pre>
+<p>删除容器</p>
+<pre class="notranslate"><code class="notranslate">docker rm 容器名或id
+容器必须是停止状态
+</code></pre>
+<p>删除所有容器</p>
+<pre class="notranslate"><code class="notranslate">docker stop $(docker container ls -q)  &amp;&amp; docker rm $(docker container ls -qa)
+</code></pre>
+<p>一次性容器（容器结束自动删除）</p>
+<pre class="notranslate"><code class="notranslate">docker run -it --rm 容器名或id /bin/bash
+</code></pre>
+<h3>打包</h3>
+<p>把运行中的容器打成tar包镜像文件</p>
+<pre class="notranslate"><code class="notranslate">docker export -o xxx.tar 要打包的容器名或id
+或
+docker export 容器名称 &gt; 镜像.tar
+</code></pre>
+<p>导入镜像文件</p>
+<pre class="notranslate"><code class="notranslate">docker import 要导入的压缩包  自定义镜像名:版本号
+</code></pre>
+<p>创建本地镜像</p>
+<pre class="notranslate"><code class="notranslate">docker commit [option] 容器id 镜像名或id
+-m 添加注释
+-a 作者
+-p，–pause=true 提交时暂停容器运⾏
+</code></pre>
+<p>打包镜像</p>
+<pre class="notranslate"><code class="notranslate">docker save -o xxx.tar 镜像名或id
+</code></pre>
+<p>解压镜像</p>
+<pre class="notranslate"><code class="notranslate">docker load &lt; xxxtar
+</code></pre>
+<markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>命令</th>
+<th>区别</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>docker export</td>
+<td>将一个 Docker 容器的文件系统打包成一个 tar 文件。这个 tar 文件不包含镜像的历史记录和元数据，只包含容器当前的状态。</td>
+<td>需要快速创建容器的备份或快照，且不需要保留镜像的历史和元数据的情况。</td>
+</tr>
+<tr>
+<td>docker save</td>
+<td>将一个或多个 Docker 镜像打包成一个 tar 文件。这个 tar 文件包含了镜像的所有层、元数据和历史信息。</td>
+<td>需要保存完整的镜像历史和元数据的情况，例如离线部署或备份镜像。</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table>
+</details>
+<details>
+<summary>使用DockerFile创建镜像</summary>
+<blockquote>
+</blockquote>
+<details>
+<summary>DockerFile的主要指令：</summary>
+<blockquote>
+</blockquote>
+<ol>
+<li>
+<p><strong><code class="notranslate">FROM</code></strong>：指定基础镜像。每个 Dockerfile 都以 <code class="notranslate">FROM</code> 开头，定义了镜像的起始点。例如：</p>
+<pre class="notranslate"><code class="notranslate">FROM ubuntu:20.04
+</code></pre>
+</li>
+<li>
+<p><strong><code class="notranslate">RUN</code></strong>：在镜像中执行命令。通常用于安装软件包或进行系统配置。例如：</p>
+<pre class="notranslate"><code class="notranslate">RUN apt-get update &amp;&amp; apt-get install -y nginx
+</code></pre>
+</li>
+<li>
+<p><strong><code class="notranslate">COPY</code></strong>：将本地文件或目录复制到镜像中。例如：</p>
+<pre class="notranslate"><code class="notranslate">COPY ./localfile /path/in/container/
+</code></pre>
+</li>
+<li>
+<p><strong><code class="notranslate">ADD</code></strong>：类似于 <code class="notranslate">COPY</code>，但支持从 URL 下载文件和解压归档文件。例如：</p>
+<pre class="notranslate"><code class="notranslate">ADD https://example.com/file.tar.gz /path/in/container/
+</code></pre>
+</li>
+<li>
+<p><strong><code class="notranslate">CMD</code></strong>：指定容器启动时的默认命令。如果 Dockerfile 中定义了多个 <code class="notranslate">CMD</code>，只有最后一个 <code class="notranslate">CMD</code> 会生效。例如：</p>
+<pre class="notranslate"><code class="notranslate">CMD ["nginx", "-g", "daemon off;"]
+</code></pre>
+</li>
+<li>
+<p><strong><code class="notranslate">ENTRYPOINT</code></strong>：定义容器启动时的入口点，可以与 <code class="notranslate">CMD</code> 结合使用来设置默认参数。例如：</p>
+<pre class="notranslate"><code class="notranslate">ENTRYPOINT ["python"]
+CMD ["app.py"]
+</code></pre>
+</li>
+<li>
+<p><strong><code class="notranslate">EXPOSE</code></strong>：声明容器运行时会监听的端口，但不会自动打开端口。例如：</p>
+<pre class="notranslate"><code class="notranslate">EXPOSE 80
+</code></pre>
+</li>
+<li>
+<p><strong><code class="notranslate">VOLUME</code></strong>：创建挂载点，并可以在运行时挂载主机目录。例如：</p>
+<pre class="notranslate"><code class="notranslate">VOLUME ["/data"]
+</code></pre>
+</li>
+<li>
+<p><strong><code class="notranslate">WORKDIR</code></strong>：设置工作目录。之后的 <code class="notranslate">RUN</code>、<code class="notranslate">CMD</code>、<code class="notranslate">ENTRYPOINT</code> 指令都会在这个目录下执行。例如：</p>
+<pre class="notranslate"><code class="notranslate">WORKDIR /app
+</code></pre>
+</li>
+<li>
+<p><strong><code class="notranslate">ENV</code></strong>：设置环境变量。例如：</p>
+<pre class="notranslate"><code class="notranslate">ENV APP_ENV=production
+</code></pre>
+</li>
+</ol>
+</details>
+<p>根据指定的DockerFile构建docker镜像</p>
+<pre class="notranslate"><code class="notranslate">docker build [OPTIONS] &lt; 路径 | URL | -&gt; 1
+</code></pre>
+<div class="highlight highlight-source-powershell"><pre class="notranslate">【常用option说明】
+<span class="pl-k">--</span><span class="pl-c1">build-arg</span>，设置构建时的变量
+<span class="pl-k">--</span>no<span class="pl-k">-</span>cache，默认false。设置该选项，将不使⽤Build Cache构建镜像
+<span class="pl-k">--</span>pull，默认false。设置该选项，总是尝试pull镜像的最新版本
+<span class="pl-k">--</span>compress，默认false。设置该选项，将使⽤gzip压缩构建的上下⽂
+<span class="pl-k">--</span><span class="pl-c1">disable-content</span><span class="pl-k">-</span>trust，默认true。设置该选项，将对镜像进⾏验证
+<span class="pl-k">--</span>file<span class="pl-k">,</span> <span class="pl-k">-f</span>，Dockerfile的完整路径，默认值为<span class="pl-s"><span class="pl-pds">‘</span>PATH/Dockerfile<span class="pl-pds">’</span></span>
+<span class="pl-k">--</span>isolation，默认<span class="pl-k">--</span>isolation<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>default<span class="pl-pds">"</span></span>，即Linux命名空间；其他还有<span class="pl-k">process</span>或hyperv
+<span class="pl-k">--</span>label，为⽣成的镜像设置metadata
+<span class="pl-k">--</span>squash，默认false。设置该选项，将新构建出的多个层压缩为⼀个新层，但是将⽆法在多个镜
+像之间共享新层；设置该选项，实际上是创建了新image，同时保留原有image。
+
+<span class="pl-k">--</span>tag<span class="pl-k">,</span> <span class="pl-k">-</span>t，镜像的名字及tag，通常name:tag或者name格式；可以在⼀次构建中为⼀个镜像设置多个tag
+
+<span class="pl-k">--</span>network，默认<span class="pl-k">default</span>。设置该选项，Set the networking mode <span class="pl-k">for</span> the RUN instr
+uctions during build
+<span class="pl-k">--</span>quiet<span class="pl-k">,</span> <span class="pl-k">-</span>q ，默认false。设置该选项，Suppress the build output and print image ID on success
+<span class="pl-k">--</span>force<span class="pl-k">-</span>rm，默认false。设置该选项，总是删除掉中间环节的容器
+<span class="pl-k">--</span>rm，默认<span class="pl-k">--</span>rm<span class="pl-k">=</span>true，即整个构建过程成功后删除中间环节的容器</pre></div>
+</details>
+<h2>可能遇到的报错</h2>
+<details>
+<summary>可能遇到的报错</summary>
+<blockquote>
+</blockquote>
+<ul>
+<li>1、docker info的时候报错：bridge-nf-call-iptables is disabled<br>
+解决：</li>
+</ul>
+<pre class="notranslate"><code class="notranslate">追加如下配置,然后重启系统
+# vim /etc/sysctl.conf 
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+net.bridge.bridge-nf-call-arptables = 1
+</code></pre>
+<ul>
+<li>2、虚拟机ping百度也能ping通，但是需要等好⼏秒才出结果，关键是下载镜像⼀直报错<br>
+docker pull daocloud.io/library/nginx<br>
+Using default tag: latest<br>
+Error response from daemon: Get <a href="https://daocloud.io/v2/" rel="nofollow">https://daocloud.io/v2/</a>: dial tcp: looku<br>
+p daocloud.io on 192.168.1.2:53: read udp 192.168.1.189:41335-&gt;192.168.<br>
+1.2:53: i/o timeout<br>
+解决：
+<pre class="notranslate"><code class="notranslate">更改DNS
+vim /etc/resolv.conf
+nameserver 8.8.8.8
+</code></pre>
+</li>
+</ul>
+</details></div>
+<div style="font-size:small;margin-top:8px;float:right;">❤️ 转载文章请注明出处，谢谢！❤️</div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://aglarevv.github.io/">十三个九的 Blog</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/1/2024"!=""){
+    var startSite=new Date("07/1/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","aglarevv/aglarevv.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+<script src='https://aglarevv.github.io/assets/GmeekTOC.js'></script><script src='https://aglarevv.github.io/assets/lightbox.js'></script><script src='https://aglarevv.github.io/assets/backTop.js'></script><script src='https://aglarevv.github.io/assets/backButtom.js'></script>
+
+</html>
