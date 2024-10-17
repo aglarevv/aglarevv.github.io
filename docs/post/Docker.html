@@ -221,7 +221,7 @@ docker-engine
 <summary>镜像</summary>
 <blockquote>
 </blockquote>
-<h3>查看</h3>
+<h3>查看镜像</h3>
 <p>查看docker版本</p>
 <pre class="notranslate"><code class="notranslate">docker -v
 </code></pre>
@@ -237,11 +237,11 @@ docker-engine
 <p>查看镜像制作过程</p>
 <pre class="notranslate"><code class="notranslate">docker history 镜像名或id
 </code></pre>
-<h3>拉取</h3>
+<h3>拉取镜像</h3>
 <p>拉取镜像</p>
 <pre class="notranslate"><code class="notranslate">docker pull 镜像名:标签
 </code></pre>
-<h3>删除</h3>
+<h3>删除镜像</h3>
 <p>删除镜像</p>
 <pre class="notranslate"><code class="notranslate">docker rmi 镜像名或id
 </code></pre>
@@ -253,7 +253,7 @@ docker-engine
 <summary>容器</summary>
 <blockquote>
 </blockquote>
-<h3>启动</h3>
+<h3>启动容器</h3>
 <p>启动容器</p>
 <pre class="notranslate"><code class="notranslate">docker run -it 镜像名或id /bin/bash
 docker start 镜像名或id
@@ -285,7 +285,7 @@ docker start 镜像名或id
 <p>进入后台运行的容器</p>
 <pre class="notranslate"><code class="notranslate">docker exec -it 容器名或id /bin/bash
 </code></pre>
-<h3>查看</h3>
+<h3>查看容器</h3>
 <p>修改容器名称</p>
 <pre class="notranslate"><code class="notranslate">docker rename 旧名称 新名称
 </code></pre>
@@ -310,11 +310,11 @@ docker start 镜像名或id
 <p>查看所有容器id</p>
 <pre class="notranslate"><code class="notranslate">docker container ls -q
 </code></pre>
-<h3>拷贝</h3>
+<h3>拷贝容器</h3>
 <p>容器文件拷贝</p>
 <pre class="notranslate"><code class="notranslate">docker cp 源文件路径 容器名或id:绝对路径
 </code></pre>
-<h3>删除</h3>
+<h3>删除容器</h3>
 <p>暂停容器内所有进程</p>
 <pre class="notranslate"><code class="notranslate">docker pause 容器名
 </code></pre>
@@ -328,7 +328,7 @@ docker start 镜像名或id
 <p>一次性容器（容器结束自动删除）</p>
 <pre class="notranslate"><code class="notranslate">docker run -it --rm 容器名或id /bin/bash
 </code></pre>
-<h3>打包</h3>
+<h3>打包容器</h3>
 <p>把运行中的容器打成tar包镜像文件</p>
 <pre class="notranslate"><code class="notranslate">docker export -o xxx.tar 要打包的容器名或id
 或

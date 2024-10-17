@@ -101,7 +101,7 @@ docker-engine
 
 > 
 
-### 查看
+### 查看镜像
 
 查看docker版本
 
@@ -133,7 +133,7 @@ docker inspect 镜像名称
 docker history 镜像名或id
 ```
 
-### 拉取
+### 拉取镜像
 
 拉取镜像
 
@@ -141,7 +141,7 @@ docker history 镜像名或id
 docker pull 镜像名:标签
 ```
 
-### 删除
+### 删除镜像
 
 删除镜像
 
@@ -162,7 +162,7 @@ docker rmi $(docker images -q)
 
 > 
 
-### 启动
+### 启动容器
 
 启动容器
 
@@ -194,7 +194,7 @@ docker run -it --restart=always 镜像名或id /bin/bash
 docker exec -it 容器名或id /bin/bash
 ```
 
-### 查看
+### 查看容器
 
 修改容器名称
 
@@ -244,7 +244,7 @@ docker container ls -a
 docker container ls -q
 ```
 
-### 拷贝
+### 拷贝容器
 
 容器文件拷贝
 
@@ -252,7 +252,7 @@ docker container ls -q
 docker cp 源文件路径 容器名或id:绝对路径
 ```
 
-### 删除
+### 删除容器
 
 暂停容器内所有进程
 
@@ -279,7 +279,7 @@ docker stop $(docker container ls -q)  && docker rm $(docker container ls -qa)
 docker run -it --rm 容器名或id /bin/bash
 ```
 
-### 打包
+### 打包容器
 
 把运行中的容器打成tar包镜像文件
 
@@ -322,8 +322,6 @@ docker load < xxxtar
 | docker save | 将一个或多个 Docker 镜像打包成一个 tar 文件。这个 tar 文件包含了镜像的所有层、元数据和历史信息。 | 需要保存完整的镜像历史和元数据的情况，例如离线部署或备份镜像。 |
 
 </details>
-
-
 
 <details>
 <summary>使用DockerFile创建镜像</summary>
@@ -418,8 +416,6 @@ uctions during build
 ```
 
 </details>
-
-
 
 ## 可能遇到的报错
 
