@@ -217,6 +217,7 @@ docker-engine
 </code></pre>
 </details>
 <h2>Docker使用</h2>
+<h3>镜像</h3>
 <details>
 <summary>镜像</summary>
 <blockquote>
@@ -249,6 +250,7 @@ docker-engine
 <pre class="notranslate"><code class="notranslate">docker rmi $(docker images -q)
 </code></pre>
 </details>
+<h3>容器</h3>
 <details>
 <summary>容器</summary>
 <blockquote>
@@ -371,6 +373,7 @@ docker export 容器名称 &gt; 镜像.tar
 </tbody>
 </table></markdown-accessiblity-table>
 </details>
+<h3>DockerFile</h3>
 <details>
 <summary>使用DockerFile创建镜像</summary>
 <blockquote>
@@ -455,6 +458,23 @@ uctions during build
 <span class="pl-k">--</span>quiet<span class="pl-k">,</span> <span class="pl-k">-</span>q ，默认false。设置该选项，Suppress the build output and print image ID on success
 <span class="pl-k">--</span>force<span class="pl-k">-</span>rm，默认false。设置该选项，总是删除掉中间环节的容器
 <span class="pl-k">--</span>rm，默认<span class="pl-k">--</span>rm<span class="pl-k">=</span>true，即整个构建过程成功后删除中间环节的容器</pre></div>
+<p><strong>示例</strong></p>
+<div class="highlight highlight-source-powershell"><pre class="notranslate">[<span class="pl-k">root</span><span class="pl-smi">@docker</span><span class="pl-k">-</span><span class="pl-k">server</span> <span class="pl-k">tomcat</span>]<span class="pl-c"><span class="pl-c">#</span> vim Dockerfile</span>
+<span class="pl-c"><span class="pl-c">#</span> This my first jenkins Dockerfile</span>
+<span class="pl-c"><span class="pl-c">#</span> Version 1.0</span>
+<span class="pl-k">FROM</span> centos:<span class="pl-c1">7</span>
+MAINTAINER laochen<span class="pl-smi">@123<span class="pl-smi">.com</span></span>
+ENV JAVA_HOME <span class="pl-k">/</span>usr<span class="pl-k">/</span>local<span class="pl-k">/</span>jdk<span class="pl-k">-</span><span class="pl-c1">11.0</span>.<span class="pl-c1">16</span>
+ENV TOMCAT_HOME <span class="pl-k">/</span>usr<span class="pl-k">/</span>local<span class="pl-k">/</span>apache<span class="pl-k">-</span>tomcat<span class="pl-k">-</span><span class="pl-c1">9.0</span>.<span class="pl-c1">79</span>
+ENV PATH<span class="pl-k">=</span><span class="pl-smi">$JAVA_HOME</span><span class="pl-k">/</span>bin:<span class="pl-smi">$PATH</span>
+ADD apache<span class="pl-k">-</span>tomcat<span class="pl-k">-</span><span class="pl-c1">9.0</span>.<span class="pl-c1">79.</span>tar.gz <span class="pl-k">/</span>usr<span class="pl-k">/</span>local<span class="pl-k">/</span>
+ADD jdk<span class="pl-k">-</span><span class="pl-c1">11.0</span>.16_linux<span class="pl-k">-</span>x64_bin.tar.gz <span class="pl-k">/</span>usr<span class="pl-k">/</span>local<span class="pl-k">/</span>
+RUN rm <span class="pl-k">-</span>rf <span class="pl-k">/</span>usr<span class="pl-k">/</span>local<span class="pl-k">/</span>apache<span class="pl-k">-</span>tomcat<span class="pl-k">-</span><span class="pl-c1">9.0</span>.<span class="pl-c1">79</span><span class="pl-k">/</span>webapps<span class="pl-k">/*</span>
+ADD jenkins.war <span class="pl-k">/</span>usr<span class="pl-k">/</span>local<span class="pl-k">/</span>apache<span class="pl-k">-</span>tomcat<span class="pl-k">-</span><span class="pl-c1">9.0</span>.<span class="pl-c1">79</span><span class="pl-k">/</span>webapps
+RUN rm <span class="pl-k">-</span>rf apache<span class="pl-k">-</span>tomcat<span class="pl-k">-</span><span class="pl-c1">9.0</span>.<span class="pl-c1">79.</span>tar.gz jdk<span class="pl-k">-</span><span class="pl-c1">11.0</span>.16_linux<span class="pl-k">-</span>x64_bin.tar.gz
+EXPOSE <span class="pl-c1">8080</span>
+ENTRYPOINT [<span class="pl-s"><span class="pl-pds">"</span>/usr/local/apache-tomcat-9.0.79/bin/catalina.sh<span class="pl-pds">"</span></span><span class="pl-k">,</span><span class="pl-s"><span class="pl-pds">"</span>run<span class="pl-pds">"</span></span>] <span class="pl-c"><span class="pl-c">#</span>运</span>
+⾏命令</pre></div>
 </details>
 <h2>可能遇到的报错</h2>
 <details>

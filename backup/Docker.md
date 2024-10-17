@@ -74,6 +74,7 @@ systemctl enable docker && systemctl start docker
 
 </details>
 
+
 <details>
 <summary>清理docker环境</summary>
 
@@ -95,6 +96,8 @@ docker-engine
 </details>
 
 ## Docker使用
+
+### 镜像
 
 <details>
 <summary>镜像</summary>
@@ -156,6 +159,8 @@ docker rmi $(docker images -q)
 ```
 
 </details>
+
+### 容器
 
 <details>
 <summary>容器</summary>
@@ -323,6 +328,8 @@ docker load < xxxtar
 
 </details>
 
+### DockerFile
+
 <details>
 <summary>使用DockerFile创建镜像</summary>
 
@@ -415,6 +422,27 @@ uctions during build
 --rm，默认--rm=true，即整个构建过程成功后删除中间环节的容器
 ```
 
+**示例**
+
+```powershell
+[root@docker-server tomcat]# vim Dockerfile
+# This my first jenkins Dockerfile
+# Version 1.0
+FROM centos:7
+MAINTAINER laochen@123.com
+ENV JAVA_HOME /usr/local/jdk-11.0.16
+ENV TOMCAT_HOME /usr/local/apache-tomcat-9.0.79
+ENV PATH=$JAVA_HOME/bin:$PATH
+ADD apache-tomcat-9.0.79.tar.gz /usr/local/
+ADD jdk-11.0.16_linux-x64_bin.tar.gz /usr/local/
+RUN rm -rf /usr/local/apache-tomcat-9.0.79/webapps/*
+ADD jenkins.war /usr/local/apache-tomcat-9.0.79/webapps
+RUN rm -rf apache-tomcat-9.0.79.tar.gz jdk-11.0.16_linux-x64_bin.tar.gz
+EXPOSE 8080
+ENTRYPOINT ["/usr/local/apache-tomcat-9.0.79/bin/catalina.sh","run"] #运
+⾏命令
+```
+
 </details>
 
 ## 可能遇到的报错
@@ -449,3 +477,4 @@ net.bridge.bridge-nf-call-arptables = 1
   ```
 
 </details>
+
