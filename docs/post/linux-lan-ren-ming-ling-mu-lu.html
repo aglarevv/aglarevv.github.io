@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    <script src='https://aglarevv.github.io/assets/GmeekVercount.js'></script>
+    <link rel="icon" href="https://aglarevv.github.io/assets/icon3.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="| 命令    | 介绍                     | 页码 |
+| ------- | ------------------------ | ---- |
+| cat     | 查看文件内容信息         | 32   |
+| uname   | 查看系统的内核版本       | 32   |
+| ls      | 查看当前目录文件信息     | 33   |
+| stat    | 查看文件信息             | 33   |
+| which   | 查看可执行文件的位置     | 33   |
+| whereis | 查看某个命令位置         | 34   |
+| mkdir   | 在指定目录下创建一个目录 | 34   |
+|rm |删除命令，可以删除目录和文件|	34
+alias |给命令设置别名	|35
+hostname-ctl| 更改主机名字	|35
+dmidecode |是查看系统服务器信息|	35
+dmegs |查看服务器硬件启动日志	|36
+tracepath |命令用来追踪路由信息|36
+ping |测试主机与主机的连通性|	36
+ab |这个命令是压测	|37
+curl |是 http 命令行工具	|38
+wget |主要是下载文件使用	|38
+ip a |查看地址信息	|39
+ifconfig |查看网卡信息|	39
+watch |实时查看一些相关系统数据	|40
+top |系统监视工具	|40
+uptime| 查看系统负载的命令	|40
+free |查看系统内存	|41
+vmstat |是监控工具	|41
+mpstat| 是实时系统监控工具|	42
+iostat |查看磁盘读写信息	|42
+sar |是性能分析工具	|43
+pidstat |查看某个进程磁盘读写	|43
+strace |集诊断、调试、统计与一体的工具|	44
+df |显示磁盘空间信息|	44
+netstat| 命令用于显示各种网络相关信息	|45
+mount |这个是挂载命令|	45
+lsblk |用于列出块设备的信息|	46
+$RANDOM |创建随机数命令|	46
+history |查看历史命令	|46
+tar |解压和压缩工具	|47
+zip |压缩命令	|47
+find |查找和搜索文件	|48
+rpm |包管理工具命令|	48
+grep |是一个强大的文本搜索工具|	49
+ss |查看网络状态工具	|49
+du| 目录的磁盘使用空间|	50
+ps |查看进程主要信息|	50
+lsof |列出当前系统打开哪些文件的工具|	51
+sed| 替换文本信息工具	|51
+awk| 是 linux 下的一个文件编辑器	|52
+export |设置或显示环境变量|	53
+echo |输出信息命令	|53
+tcpdump |抓包工具|	54
+scp|文件传输命令|	54
+firewalld| 防火墙|	55
+iptables |防火墙	|55
+route |命令用于显示和操作 IP 路由表	|56
+lsattr |命令用于显示文件属性|	56
+chattr |命令防止文件被修改	|56
+chmod |更改文件属性值	|57
+chowm |改变用户的所属组和所属主|	58
+rmdir| 删除空目录，有数据目录无法删除|	58
+split |这个命令是分割文件	|58
+tail |查看文件命令|59
+exec |这个命令起到传参作用|59
+xargs |用于将标准输入数据转换为命令行参数|60
+cp |进行拷贝文件的命令|60
+ln |软 / 硬链接|60
+diff |用于比较文件的内容|61
+date |查看时间的命令|62
+wc |统计行数和字节数等信息|62
+at |定时执行任务|63
+crontab |定时任务命令|63
+tree |查看目录树|64
+useradd| 新建用户命令|64
+userdel| 删除用户命令|65
+passwd |修改用户密码|65
+chage |设置密码过期时间|66
+sort  |文本信息排序|66
+swapon| 用于建立交换分区|67
+dump |备份（文件类型非 xfs）|67
+sync/rsync| 同步脏数据使用和远程同步|68
+dd| 读写磁盘创建特定大小文件|68
+ethtool |看网卡信息|69
+lscpu |查看 cpu 信息|70
+lsmod| 查看模块信息|71
+lspci  |查看硬件信息|71
+kill |结束进程|71
+systemctl |管理系统服务的命令|72
+shutdown/init/reboot| 关机重启|73
+md5sum md5 |校验值|73
+ssh-keygen |生成密钥|73
+more/less |查看文件信息|74
+awk| 编辑工具|74
+source |初始化文件|75
+vim |是一款流行的文本编辑器|75
+yum |安装包|76
+mkfs.* |更改文件的类型|77
+compgen |补全命令列表功能|77
+sudo |向普通用户授权 root 权限|78
+su |切换用户|78
+arp |查看 MAC 映射信息|78
+touch| 创建一个文件|79
+who| 查看谁在登录系统|79
+last/lastb |查看详细的用户登录信息|79
+ifup/ifdown |关闭和开启网卡|80
+type |命令用来显示指定命令的类型|80
+locate |依据名字查找文件|80
+ssh |远程连接工具|81
+chsh |查看和修改当前登录的 shell|81
+patch| 指令让用户修改更新原始文件|82
+mpstat| 是实时系统监控工具|82
+unset |命令用于删除已定义的 shell 变量|83
+nohup |让进程在后台运行的命令|83
+ipcs |输出进程之间的通讯信息|84
+fdisk |磁盘分区工具|84
+bc |计算器|85
+fsck |用来维护不一致的文件系统|85
+rz/sz |上传下载|86
+uniq| 排序工具|86
+nice/renice| 设置进程优先级|86
+whoami| 查看目前的用户是谁|87
+sleep |睡觉命令，一般用在脚本里|87
+ulimit |针对用户限制工具|87
+partprobe 和 sgdisk |这个命令是刷新磁盘|88
+chroot| 命令用于改变根目录|88
+help |命令查看系统所有内部命令|89
+compgen| 命令查看系统所有外部命令|89
+pvs、vgs、lvs|查看物理卷，卷组，逻辑卷命令|90
+
+
+
+。">
+<meta property="og:title" content="linux懒人命令目录">
+<meta property="og:description" content="| 命令    | 介绍                     | 页码 |
+| ------- | ------------------------ | ---- |
+| cat     | 查看文件内容信息         | 32   |
+| uname   | 查看系统的内核版本       | 32   |
+| ls      | 查看当前目录文件信息     | 33   |
+| stat    | 查看文件信息             | 33   |
+| which   | 查看可执行文件的位置     | 33   |
+| whereis | 查看某个命令位置         | 34   |
+| mkdir   | 在指定目录下创建一个目录 | 34   |
+|rm |删除命令，可以删除目录和文件|	34
+alias |给命令设置别名	|35
+hostname-ctl| 更改主机名字	|35
+dmidecode |是查看系统服务器信息|	35
+dmegs |查看服务器硬件启动日志	|36
+tracepath |命令用来追踪路由信息|36
+ping |测试主机与主机的连通性|	36
+ab |这个命令是压测	|37
+curl |是 http 命令行工具	|38
+wget |主要是下载文件使用	|38
+ip a |查看地址信息	|39
+ifconfig |查看网卡信息|	39
+watch |实时查看一些相关系统数据	|40
+top |系统监视工具	|40
+uptime| 查看系统负载的命令	|40
+free |查看系统内存	|41
+vmstat |是监控工具	|41
+mpstat| 是实时系统监控工具|	42
+iostat |查看磁盘读写信息	|42
+sar |是性能分析工具	|43
+pidstat |查看某个进程磁盘读写	|43
+strace |集诊断、调试、统计与一体的工具|	44
+df |显示磁盘空间信息|	44
+netstat| 命令用于显示各种网络相关信息	|45
+mount |这个是挂载命令|	45
+lsblk |用于列出块设备的信息|	46
+$RANDOM |创建随机数命令|	46
+history |查看历史命令	|46
+tar |解压和压缩工具	|47
+zip |压缩命令	|47
+find |查找和搜索文件	|48
+rpm |包管理工具命令|	48
+grep |是一个强大的文本搜索工具|	49
+ss |查看网络状态工具	|49
+du| 目录的磁盘使用空间|	50
+ps |查看进程主要信息|	50
+lsof |列出当前系统打开哪些文件的工具|	51
+sed| 替换文本信息工具	|51
+awk| 是 linux 下的一个文件编辑器	|52
+export |设置或显示环境变量|	53
+echo |输出信息命令	|53
+tcpdump |抓包工具|	54
+scp|文件传输命令|	54
+firewalld| 防火墙|	55
+iptables |防火墙	|55
+route |命令用于显示和操作 IP 路由表	|56
+lsattr |命令用于显示文件属性|	56
+chattr |命令防止文件被修改	|56
+chmod |更改文件属性值	|57
+chowm |改变用户的所属组和所属主|	58
+rmdir| 删除空目录，有数据目录无法删除|	58
+split |这个命令是分割文件	|58
+tail |查看文件命令|59
+exec |这个命令起到传参作用|59
+xargs |用于将标准输入数据转换为命令行参数|60
+cp |进行拷贝文件的命令|60
+ln |软 / 硬链接|60
+diff |用于比较文件的内容|61
+date |查看时间的命令|62
+wc |统计行数和字节数等信息|62
+at |定时执行任务|63
+crontab |定时任务命令|63
+tree |查看目录树|64
+useradd| 新建用户命令|64
+userdel| 删除用户命令|65
+passwd |修改用户密码|65
+chage |设置密码过期时间|66
+sort  |文本信息排序|66
+swapon| 用于建立交换分区|67
+dump |备份（文件类型非 xfs）|67
+sync/rsync| 同步脏数据使用和远程同步|68
+dd| 读写磁盘创建特定大小文件|68
+ethtool |看网卡信息|69
+lscpu |查看 cpu 信息|70
+lsmod| 查看模块信息|71
+lspci  |查看硬件信息|71
+kill |结束进程|71
+systemctl |管理系统服务的命令|72
+shutdown/init/reboot| 关机重启|73
+md5sum md5 |校验值|73
+ssh-keygen |生成密钥|73
+more/less |查看文件信息|74
+awk| 编辑工具|74
+source |初始化文件|75
+vim |是一款流行的文本编辑器|75
+yum |安装包|76
+mkfs.* |更改文件的类型|77
+compgen |补全命令列表功能|77
+sudo |向普通用户授权 root 权限|78
+su |切换用户|78
+arp |查看 MAC 映射信息|78
+touch| 创建一个文件|79
+who| 查看谁在登录系统|79
+last/lastb |查看详细的用户登录信息|79
+ifup/ifdown |关闭和开启网卡|80
+type |命令用来显示指定命令的类型|80
+locate |依据名字查找文件|80
+ssh |远程连接工具|81
+chsh |查看和修改当前登录的 shell|81
+patch| 指令让用户修改更新原始文件|82
+mpstat| 是实时系统监控工具|82
+unset |命令用于删除已定义的 shell 变量|83
+nohup |让进程在后台运行的命令|83
+ipcs |输出进程之间的通讯信息|84
+fdisk |磁盘分区工具|84
+bc |计算器|85
+fsck |用来维护不一致的文件系统|85
+rz/sz |上传下载|86
+uniq| 排序工具|86
+nice/renice| 设置进程优先级|86
+whoami| 查看目前的用户是谁|87
+sleep |睡觉命令，一般用在脚本里|87
+ulimit |针对用户限制工具|87
+partprobe 和 sgdisk |这个命令是刷新磁盘|88
+chroot| 命令用于改变根目录|88
+help |命令查看系统所有内部命令|89
+compgen| 命令查看系统所有外部命令|89
+pvs、vgs、lvs|查看物理卷，卷组，逻辑卷命令|90
+
+
+
+。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://aglarevv.github.io//post/linux-lan-ren-ming-ling-mu-lu.html">
+<meta property="og:image" content="https://aglarevv.github.io/assets/icon3.svg">
+<title>linux懒人命令目录</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">linux懒人命令目录</h1>
+<div class="title-right">
+    <a href="https://aglarevv.github.io/" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/aglarevv/aglarevv.github.io/issues/21" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><markdown-accessiblity-table><table role="table">
+<thead>
+<tr>
+<th>命令</th>
+<th>介绍</th>
+<th>页码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cat</td>
+<td>查看文件内容信息</td>
+<td>32</td>
+</tr>
+<tr>
+<td>uname</td>
+<td>查看系统的内核版本</td>
+<td>32</td>
+</tr>
+<tr>
+<td>ls</td>
+<td>查看当前目录文件信息</td>
+<td>33</td>
+</tr>
+<tr>
+<td>stat</td>
+<td>查看文件信息</td>
+<td>33</td>
+</tr>
+<tr>
+<td>which</td>
+<td>查看可执行文件的位置</td>
+<td>33</td>
+</tr>
+<tr>
+<td>whereis</td>
+<td>查看某个命令位置</td>
+<td>34</td>
+</tr>
+<tr>
+<td>mkdir</td>
+<td>在指定目录下创建一个目录</td>
+<td>34</td>
+</tr>
+<tr>
+<td>rm</td>
+<td>删除命令，可以删除目录和文件</td>
+<td>34</td>
+</tr>
+<tr>
+<td>alias</td>
+<td>给命令设置别名</td>
+<td>35</td>
+</tr>
+<tr>
+<td>hostname-ctl</td>
+<td>更改主机名字</td>
+<td>35</td>
+</tr>
+<tr>
+<td>dmidecode</td>
+<td>是查看系统服务器信息</td>
+<td>35</td>
+</tr>
+<tr>
+<td>dmegs</td>
+<td>查看服务器硬件启动日志</td>
+<td>36</td>
+</tr>
+<tr>
+<td>tracepath</td>
+<td>命令用来追踪路由信息</td>
+<td>36</td>
+</tr>
+<tr>
+<td>ping</td>
+<td>测试主机与主机的连通性</td>
+<td>36</td>
+</tr>
+<tr>
+<td>ab</td>
+<td>这个命令是压测</td>
+<td>37</td>
+</tr>
+<tr>
+<td>curl</td>
+<td>是 http 命令行工具</td>
+<td>38</td>
+</tr>
+<tr>
+<td>wget</td>
+<td>主要是下载文件使用</td>
+<td>38</td>
+</tr>
+<tr>
+<td>ip a</td>
+<td>查看地址信息</td>
+<td>39</td>
+</tr>
+<tr>
+<td>ifconfig</td>
+<td>查看网卡信息</td>
+<td>39</td>
+</tr>
+<tr>
+<td>watch</td>
+<td>实时查看一些相关系统数据</td>
+<td>40</td>
+</tr>
+<tr>
+<td>top</td>
+<td>系统监视工具</td>
+<td>40</td>
+</tr>
+<tr>
+<td>uptime</td>
+<td>查看系统负载的命令</td>
+<td>40</td>
+</tr>
+<tr>
+<td>free</td>
+<td>查看系统内存</td>
+<td>41</td>
+</tr>
+<tr>
+<td>vmstat</td>
+<td>是监控工具</td>
+<td>41</td>
+</tr>
+<tr>
+<td>mpstat</td>
+<td>是实时系统监控工具</td>
+<td>42</td>
+</tr>
+<tr>
+<td>iostat</td>
+<td>查看磁盘读写信息</td>
+<td>42</td>
+</tr>
+<tr>
+<td>sar</td>
+<td>是性能分析工具</td>
+<td>43</td>
+</tr>
+<tr>
+<td>pidstat</td>
+<td>查看某个进程磁盘读写</td>
+<td>43</td>
+</tr>
+<tr>
+<td>strace</td>
+<td>集诊断、调试、统计与一体的工具</td>
+<td>44</td>
+</tr>
+<tr>
+<td>df</td>
+<td>显示磁盘空间信息</td>
+<td>44</td>
+</tr>
+<tr>
+<td>netstat</td>
+<td>命令用于显示各种网络相关信息</td>
+<td>45</td>
+</tr>
+<tr>
+<td>mount</td>
+<td>这个是挂载命令</td>
+<td>45</td>
+</tr>
+<tr>
+<td>lsblk</td>
+<td>用于列出块设备的信息</td>
+<td>46</td>
+</tr>
+<tr>
+<td>$RANDOM</td>
+<td>创建随机数命令</td>
+<td>46</td>
+</tr>
+<tr>
+<td>history</td>
+<td>查看历史命令</td>
+<td>46</td>
+</tr>
+<tr>
+<td>tar</td>
+<td>解压和压缩工具</td>
+<td>47</td>
+</tr>
+<tr>
+<td>zip</td>
+<td>压缩命令</td>
+<td>47</td>
+</tr>
+<tr>
+<td>find</td>
+<td>查找和搜索文件</td>
+<td>48</td>
+</tr>
+<tr>
+<td>rpm</td>
+<td>包管理工具命令</td>
+<td>48</td>
+</tr>
+<tr>
+<td>grep</td>
+<td>是一个强大的文本搜索工具</td>
+<td>49</td>
+</tr>
+<tr>
+<td>ss</td>
+<td>查看网络状态工具</td>
+<td>49</td>
+</tr>
+<tr>
+<td>du</td>
+<td>目录的磁盘使用空间</td>
+<td>50</td>
+</tr>
+<tr>
+<td>ps</td>
+<td>查看进程主要信息</td>
+<td>50</td>
+</tr>
+<tr>
+<td>lsof</td>
+<td>列出当前系统打开哪些文件的工具</td>
+<td>51</td>
+</tr>
+<tr>
+<td>sed</td>
+<td>替换文本信息工具</td>
+<td>51</td>
+</tr>
+<tr>
+<td>awk</td>
+<td>是 linux 下的一个文件编辑器</td>
+<td>52</td>
+</tr>
+<tr>
+<td>export</td>
+<td>设置或显示环境变量</td>
+<td>53</td>
+</tr>
+<tr>
+<td>echo</td>
+<td>输出信息命令</td>
+<td>53</td>
+</tr>
+<tr>
+<td>tcpdump</td>
+<td>抓包工具</td>
+<td>54</td>
+</tr>
+<tr>
+<td>scp</td>
+<td>文件传输命令</td>
+<td>54</td>
+</tr>
+<tr>
+<td>firewalld</td>
+<td>防火墙</td>
+<td>55</td>
+</tr>
+<tr>
+<td>iptables</td>
+<td>防火墙</td>
+<td>55</td>
+</tr>
+<tr>
+<td>route</td>
+<td>命令用于显示和操作 IP 路由表</td>
+<td>56</td>
+</tr>
+<tr>
+<td>lsattr</td>
+<td>命令用于显示文件属性</td>
+<td>56</td>
+</tr>
+<tr>
+<td>chattr</td>
+<td>命令防止文件被修改</td>
+<td>56</td>
+</tr>
+<tr>
+<td>chmod</td>
+<td>更改文件属性值</td>
+<td>57</td>
+</tr>
+<tr>
+<td>chowm</td>
+<td>改变用户的所属组和所属主</td>
+<td>58</td>
+</tr>
+<tr>
+<td>rmdir</td>
+<td>删除空目录，有数据目录无法删除</td>
+<td>58</td>
+</tr>
+<tr>
+<td>split</td>
+<td>这个命令是分割文件</td>
+<td>58</td>
+</tr>
+<tr>
+<td>tail</td>
+<td>查看文件命令</td>
+<td>59</td>
+</tr>
+<tr>
+<td>exec</td>
+<td>这个命令起到传参作用</td>
+<td>59</td>
+</tr>
+<tr>
+<td>xargs</td>
+<td>用于将标准输入数据转换为命令行参数</td>
+<td>60</td>
+</tr>
+<tr>
+<td>cp</td>
+<td>进行拷贝文件的命令</td>
+<td>60</td>
+</tr>
+<tr>
+<td>ln</td>
+<td>软 / 硬链接</td>
+<td>60</td>
+</tr>
+<tr>
+<td>diff</td>
+<td>用于比较文件的内容</td>
+<td>61</td>
+</tr>
+<tr>
+<td>date</td>
+<td>查看时间的命令</td>
+<td>62</td>
+</tr>
+<tr>
+<td>wc</td>
+<td>统计行数和字节数等信息</td>
+<td>62</td>
+</tr>
+<tr>
+<td>at</td>
+<td>定时执行任务</td>
+<td>63</td>
+</tr>
+<tr>
+<td>crontab</td>
+<td>定时任务命令</td>
+<td>63</td>
+</tr>
+<tr>
+<td>tree</td>
+<td>查看目录树</td>
+<td>64</td>
+</tr>
+<tr>
+<td>useradd</td>
+<td>新建用户命令</td>
+<td>64</td>
+</tr>
+<tr>
+<td>userdel</td>
+<td>删除用户命令</td>
+<td>65</td>
+</tr>
+<tr>
+<td>passwd</td>
+<td>修改用户密码</td>
+<td>65</td>
+</tr>
+<tr>
+<td>chage</td>
+<td>设置密码过期时间</td>
+<td>66</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>文本信息排序</td>
+<td>66</td>
+</tr>
+<tr>
+<td>swapon</td>
+<td>用于建立交换分区</td>
+<td>67</td>
+</tr>
+<tr>
+<td>dump</td>
+<td>备份（文件类型非 xfs）</td>
+<td>67</td>
+</tr>
+<tr>
+<td>sync/rsync</td>
+<td>同步脏数据使用和远程同步</td>
+<td>68</td>
+</tr>
+<tr>
+<td>dd</td>
+<td>读写磁盘创建特定大小文件</td>
+<td>68</td>
+</tr>
+<tr>
+<td>ethtool</td>
+<td>看网卡信息</td>
+<td>69</td>
+</tr>
+<tr>
+<td>lscpu</td>
+<td>查看 cpu 信息</td>
+<td>70</td>
+</tr>
+<tr>
+<td>lsmod</td>
+<td>查看模块信息</td>
+<td>71</td>
+</tr>
+<tr>
+<td>lspci</td>
+<td>查看硬件信息</td>
+<td>71</td>
+</tr>
+<tr>
+<td>kill</td>
+<td>结束进程</td>
+<td>71</td>
+</tr>
+<tr>
+<td>systemctl</td>
+<td>管理系统服务的命令</td>
+<td>72</td>
+</tr>
+<tr>
+<td>shutdown/init/reboot</td>
+<td>关机重启</td>
+<td>73</td>
+</tr>
+<tr>
+<td>md5sum md5</td>
+<td>校验值</td>
+<td>73</td>
+</tr>
+<tr>
+<td>ssh-keygen</td>
+<td>生成密钥</td>
+<td>73</td>
+</tr>
+<tr>
+<td>more/less</td>
+<td>查看文件信息</td>
+<td>74</td>
+</tr>
+<tr>
+<td>awk</td>
+<td>编辑工具</td>
+<td>74</td>
+</tr>
+<tr>
+<td>source</td>
+<td>初始化文件</td>
+<td>75</td>
+</tr>
+<tr>
+<td>vim</td>
+<td>是一款流行的文本编辑器</td>
+<td>75</td>
+</tr>
+<tr>
+<td>yum</td>
+<td>安装包</td>
+<td>76</td>
+</tr>
+<tr>
+<td>mkfs.*</td>
+<td>更改文件的类型</td>
+<td>77</td>
+</tr>
+<tr>
+<td>compgen</td>
+<td>补全命令列表功能</td>
+<td>77</td>
+</tr>
+<tr>
+<td>sudo</td>
+<td>向普通用户授权 root 权限</td>
+<td>78</td>
+</tr>
+<tr>
+<td>su</td>
+<td>切换用户</td>
+<td>78</td>
+</tr>
+<tr>
+<td>arp</td>
+<td>查看 MAC 映射信息</td>
+<td>78</td>
+</tr>
+<tr>
+<td>touch</td>
+<td>创建一个文件</td>
+<td>79</td>
+</tr>
+<tr>
+<td>who</td>
+<td>查看谁在登录系统</td>
+<td>79</td>
+</tr>
+<tr>
+<td>last/lastb</td>
+<td>查看详细的用户登录信息</td>
+<td>79</td>
+</tr>
+<tr>
+<td>ifup/ifdown</td>
+<td>关闭和开启网卡</td>
+<td>80</td>
+</tr>
+<tr>
+<td>type</td>
+<td>命令用来显示指定命令的类型</td>
+<td>80</td>
+</tr>
+<tr>
+<td>locate</td>
+<td>依据名字查找文件</td>
+<td>80</td>
+</tr>
+<tr>
+<td>ssh</td>
+<td>远程连接工具</td>
+<td>81</td>
+</tr>
+<tr>
+<td>chsh</td>
+<td>查看和修改当前登录的 shell</td>
+<td>81</td>
+</tr>
+<tr>
+<td>patch</td>
+<td>指令让用户修改更新原始文件</td>
+<td>82</td>
+</tr>
+<tr>
+<td>mpstat</td>
+<td>是实时系统监控工具</td>
+<td>82</td>
+</tr>
+<tr>
+<td>unset</td>
+<td>命令用于删除已定义的 shell 变量</td>
+<td>83</td>
+</tr>
+<tr>
+<td>nohup</td>
+<td>让进程在后台运行的命令</td>
+<td>83</td>
+</tr>
+<tr>
+<td>ipcs</td>
+<td>输出进程之间的通讯信息</td>
+<td>84</td>
+</tr>
+<tr>
+<td>fdisk</td>
+<td>磁盘分区工具</td>
+<td>84</td>
+</tr>
+<tr>
+<td>bc</td>
+<td>计算器</td>
+<td>85</td>
+</tr>
+<tr>
+<td>fsck</td>
+<td>用来维护不一致的文件系统</td>
+<td>85</td>
+</tr>
+<tr>
+<td>rz/sz</td>
+<td>上传下载</td>
+<td>86</td>
+</tr>
+<tr>
+<td>uniq</td>
+<td>排序工具</td>
+<td>86</td>
+</tr>
+<tr>
+<td>nice/renice</td>
+<td>设置进程优先级</td>
+<td>86</td>
+</tr>
+<tr>
+<td>whoami</td>
+<td>查看目前的用户是谁</td>
+<td>87</td>
+</tr>
+<tr>
+<td>sleep</td>
+<td>睡觉命令，一般用在脚本里</td>
+<td>87</td>
+</tr>
+<tr>
+<td>ulimit</td>
+<td>针对用户限制工具</td>
+<td>87</td>
+</tr>
+<tr>
+<td>partprobe 和 sgdisk</td>
+<td>这个命令是刷新磁盘</td>
+<td>88</td>
+</tr>
+<tr>
+<td>chroot</td>
+<td>命令用于改变根目录</td>
+<td>88</td>
+</tr>
+<tr>
+<td>help</td>
+<td>命令查看系统所有内部命令</td>
+<td>89</td>
+</tr>
+<tr>
+<td>compgen</td>
+<td>命令查看系统所有外部命令</td>
+<td>89</td>
+</tr>
+<tr>
+<td>pvs、vgs、lvs</td>
+<td>查看物理卷，卷组，逻辑卷命令</td>
+<td>90</td>
+</tr>
+</tbody>
+</table></markdown-accessiblity-table></div>
+<div style="font-size:small;margin-top:8px;float:right;">❤️ 转载文章请注明出处，谢谢！❤️</div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://aglarevv.github.io/">十三个九的 Blog</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if("07/1/2024"!=""){
+    var startSite=new Date("07/1/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","aglarevv/aglarevv.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+<script src='https://aglarevv.github.io/assets/GmeekTOC.js'></script><script src='https://aglarevv.github.io/assets/lightbox.js'></script><script src='https://aglarevv.github.io/assets/backTop.js'></script><script src='https://aglarevv.github.io/assets/backButtom.js'></script>
+
+</html>
