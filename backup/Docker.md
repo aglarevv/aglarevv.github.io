@@ -393,8 +393,6 @@ docker load < xxxtar
 
 </details>
 
-
-
 > 
 
 根据指定的DockerFile构建docker镜像
@@ -444,6 +442,113 @@ RUN rm -rf apache-tomcat-9.0.79.tar.gz jdk-11.0.16_linux-x64_bin.tar.gz
 EXPOSE 8080
 ENTRYPOINT ["/usr/local/apache-tomcat-9.0.79/bin/catalina.sh","run"] #运
 ⾏命令
+```
+
+</details>
+
+### 官方私有仓库registry
+
+<details>
+<summary>官方私有仓库registry</summary>
+
+> 
+
+1、拉取镜像
+
+```
+docker pull hub.atomgit.com/amd64/registry:2.8.2
+```
+
+2、运行容器
+
+```
+docker run -itd -v /home/dockerdata/registry:/var/lib/registry --name "pri_registry" --restart=always -p 5000:5000 hub.atomgit.com/amd64/registry:2.8.2
+
+
+参数解释:
+/home/dockerdata/registry表示为宿主机的⽬录，如果不存在⾃动创建
+-v映射⽬录： 宿主机的⽬录:容器⽬录
+把宿主机的⽬录挂载到容器中，将数据⽬录挂载出来就是为了防⽌docker私有仓库这个容器被删除的时候，仓库⾥⾯的镜像也被删除。
+-p 端⼝映射：本地端⼝:容器端⼝
+```
+
+**如果创建容器不成功，报错防⽕墙，解决⽅案如下**
+
+```
+# systemctl stop firewalld
+# yum install iptables*
+# systemctl start iptables
+# iptables -F
+# systemctl restart docker
+```
+
+3、查看容器端口状态
+
+```
+docker exec -it 0823df7 /bin/sh
+
+netstat -lntp #查看5000端⼝是否开启
+```
+
+4、修改请求方式
+
+> vim /etc/docker/daemon.json（不存在则创建）
+
+```
+{ "insecure-registries":["192.168.229.11:5000"] }
+```
+
+5、重启docker
+
+```
+systemctl restart docker
+```
+
+6、上传镜像
+
+```
+docker tag  hub.atomgit.com/amd64/httpd:2.4.57-alpine 192.168.229.11:5000/httpd
+docker push 192.168.229.11:5000/httpd:latest
+```
+
+7、查看镜像
+
+```
+curl http://192.168.229.11:5000/v2/httpd/tags/list
+
+宿主机查看镜像存放目录：
+ls /home/dockerdata/registry/docker/registry/v2/httpd/
+```
+
+8、拉取镜像
+
+```
+docker pull 192.168.229.11:5000/httpd
+```
+
+</details>
+
+### 部署docker web ui应用
+
+<details>
+<summary>部署docker web ui</summary>
+
+> 
+
+1、下载容器并运行
+
+```
+docker pull uifd/ui-for-docker
+```
+
+```
+docker run -itd --name docker-web -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock uifd/ui-for-docker:latest
+```
+
+2、浏览器访问
+
+```
+ip:9000
 ```
 
 </details>
