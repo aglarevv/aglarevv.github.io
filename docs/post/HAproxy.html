@@ -201,6 +201,49 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 #服务器ID，避免rr算法将客户机请求转发给其他服务器 ,对后端服务器的健康状况检查间隔为2000毫秒，连续2次健康检查成功，则认为是有效的，连续5次健康检查失败，则认为服务器宕机
         	server html-B web2:80 weight 1 cookie 4 check inter 2000 rise 2 fall 5
 </code></pre>
+<p><strong>示例（修改三个服务器地址即可）：</strong></p>
+<pre class="notranslate"><code class="notranslate">global 
+    
+    log         127.0.0.1 local2
+ 
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     4000
+    user        haproxy
+    group       haproxy
+    daemon
+ 
+    stats socket /var/lib/haproxy/stats
+ 
+defaults 
+       log        global 
+       mode       tcp 
+       option     tcplog 
+       option     dontlognull 
+       retries    3 
+       option redispatch 
+       maxconn 2000 
+       contimeout      5s 
+       clitimeout      120s 
+       srvtimeout      120s 
+ 
+listen rabbitmq_cluster 0.0.0.0:80#作为代理的服务器的IP和端口
+       mode      tcp 
+       balance roundrobin 
+       server rabbit1  192.168.229.11:15672 check inter 5000 rise 2 fall 2 
+       server rabbit2  192.168.229.12:15672 check inter 5000 rise 2 fall 2        
+       server rabbit3  192.168.229.13:15672 check inter 2000 rise 2 fall 3
+
+
+listen monitor
+    bind 0.0.0.0:8100#监控页面的访问端口
+    mode http
+    option httplog
+    stats enable
+    stats uri /rabbitmqstats
+    stats refresh 30s
+    stats auth admin:admin       
+</code></pre>
 <p>3、添加域名解析</p>
 <blockquote>
 <p>vim /etc/hosts</p>
