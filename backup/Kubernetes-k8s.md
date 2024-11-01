@@ -407,6 +407,13 @@ $ ip -a
 
 > 
 
+#### 准备证书
+
+<details>
+<summary>准备证书</summary>
+
+> 
+
 > 部署Kubernetes之前⼀定要确保etcd、flannel、docker是正常工作的，否则先解决问题再继续。
 > 检查etcd：
 > /opt/etcd/bin/etcdctl --ca-file=/opt/etcd/ssl/ca.pem --cert-file=/opt/etcd/ssl/server.pem --key-file=/opt/etcd/ssl/server-key.pem --endpoints="https://192.168.209.143:2379,https://192.168.209.11:2379,https://192.168.209.12:2379" cluster-health
@@ -543,7 +550,7 @@ ca-key.pem  ca.pem  kube-proxy-key.pem  kube-proxy.pem  server-key.pem  server.p
 
 </details>
 
-### master节点部署apiserver组件
+#### master节点部署apiserver组件
 
 <details>
 <summary>master节点部署apiserver组件</summary>
@@ -585,10 +592,10 @@ vim kube-apiserver	#不要有多余空格换行等
 
 KUBE_APISERVER_OPTS="--logtostderr=true \
 --v=4 \
---etcd-servers=https://192.168.229.11:2379,https://192.168.229.12:2379,https://192.168.229.13:2379 \
---bind-address=192.168.229.11 \#master的ip地址，就是安装api-server的机器地址
+--etcd-servers=https://192.168.209.143:2379,https://192.168.209.11:2379,https://192.168.209.12:2379 \
+--bind-address=192.168.209.143 \#master的ip地址，就是安装api-server的机器地址
 --secure-port=6443 \
---advertise-address=192.168.229.11 \
+--advertise-address=192.168.209.143 \
 --allow-privileged=true \
 --service-cluster-ip-range=10.0.0.0/24 \ #这里就用这个网段切记不要修改
 --enable-admission-plugins=NamespaceLifecycle,LimitRanger,ServiceAccount,ResourceQuota,NodeRestriction \
@@ -651,7 +658,7 @@ systemctl status kube-apiserver
 
 </details>
 
-### master节点部署schduler组件
+#### master节点部署schduler组件
 
 <details>
 <summary>master节点部署schduler组件</summary>
@@ -703,7 +710,7 @@ systemctl status kube-scheduler
 
 </details>
 
-### master节点部署controller-manager组件
+#### master节点部署controller-manager组件
 
 <details>
 <summary>master节点部署controller-manager组件</summary>
@@ -770,6 +777,600 @@ scheduler            Healthy   ok
 etcd-1               Healthy   {"health": "true"}
 etcd-0               Healthy   {"health": "true"}
 etcd-2               Healthy   {"health": "true"}
+```
+
+</details>
+
+</details>
+
+### 在Node节点部署组件
+
+<details>
+<summary>在Node节点部署组件</summary>
+
+> 
+
+#### 前置准备
+
+<details>
+<summary>前置准备</summary>
+
+> 
+
+**下面这些操作在master节点完成**
+
+1、将kubelet-bootstrap用户绑定到系统集群⻆⾊
+
+```
+ln -s /opt/kubernetes/bin/kubectl  /usr/bin/kubectl
+```
+
+```
+/opt/kubernetes/bin/kubectl create clusterrolebinding kubelet-bootstrap --clusterrole=system:node-bootstrapper --user=kubelet-bootstrap
+```
+
+2、创建kubeconfig文件
+
+```
+cd /opt/crt/
+```
+
+```
+KUBE_APISERVER="https://192.168.209.143:6443" 
+BOOTSTRAP_TOKEN=674c457d4dcf2eefe4920d7dbb6b0ddc
+
+写你master的ip地址，集群中就写负载均衡的ip地址
+```
+
+3、设置集群参数
+
+```
+/opt/kubernetes/bin/kubectl config set-cluster kubernetes --certificate-authority=ca.pem --embed-certs=true --server=${KUBE_APISERVER}  --kubeconfig=bootstrap.kubeconfig
+```
+
+4、设置客户端认证参数
+
+```
+/opt/kubernetes/bin/kubectl config set-credentials kubelet-bootstrap --token=${BOOTSTRAP_TOKEN} --kubeconfig=bootstrap.kubeconfig
+```
+
+5、设置上下文参数
+
+```
+/opt/kubernetes/bin/kubectl config set-context default  --cluster=kubernetes  --user=kubelet-bootstrap --kubeconfig=bootstrap.kubeconfig
+```
+
+6、设置默认上下文
+
+```
+/opt/kubernetes/bin/kubectl config use-context default --kubeconfig=bootstrap.kubeconfig
+```
+
+7、创建kube-proxy kubeconfig文件
+
+```
+/opt/kubernetes/bin/kubectl config set-cluster kubernetes  --certificate-authority=ca.pem  --embed-certs=true  --server=${KUBE_APISERVER}  --kubeconfig=kube-proxy.kubeconfig
+```
+
+```
+/opt/kubernetes/bin/kubectl config set-credentials kube-proxy  --client-certificate=kube-proxy.pem  --client-key=kube-proxy-key.pem  --embed-certs=true  --kubeconfig=kube-proxy.kubeconfig
+```
+
+```
+/opt/kubernetes/bin/kubectl config set-context default --cluster=kubernetes --user=kube-proxy --kubeconfig=kube-proxy.kubeconfig
+```
+
+```
+/opt/kubernetes/bin/kubectl config use-context default --kubeconfig=kube-proxy.kubeconfig
+```
+
+**效果示例：**
+
+```
+ls *.kubeconfig
+
+bootstrap.kubeconfig kube-proxy.kubeconfig
+```
+
+8、将这两个 kubeconfig 文件拷贝到 Node 节点 /opt/kubernetes/cfg ⽬录下
+
+```
+scp *.kubeconfig k8s-node1:/opt/kubernetes/cfg/
+```
+
+</details>
+
+#### 部署kubelet组件
+
+<details>
+<summary>部署kubelet组件</summary>
+
+> 
+
+1、将master中下载的二进制包中的kubelet和kube-proxy拷贝到node节点/opt/kubernetes/bin⽬录下
+
+```
+cd /root/kubernetes/server/bin/
+scp kubelet kube-proxy k8s-node1:/opt/kubernetes/bin/
+```
+
+**下面这些操作在node节点完成**
+2、创建kubelet配置文件
+
+```
+vim /opt/kubernetes/cfg/kubelet
+
+KUBELET_OPTS="--logtostderr=true \
+--v=4 \
+--hostname-override=192.168.209.11 \	#每个节点自⼰的ip地址
+--kubeconfig=/opt/kubernetes/cfg/kubelet.kubeconfig \
+--bootstrap-kubeconfig=/opt/kubernetes/cfg/bootstrap.kubeconfig \
+--config=/opt/kubernetes/cfg/kubelet.config \
+--cert-dir=/opt/kubernetes/ssl \
+--pod-infra-container-image=registry.cn-hangzhou.aliyuncs.com/google-containers/pause-amd64:3.0"	#这个镜像需要提前下载
+```
+
+```
+下载镜像：
+docker pull registry.cn-hangzhou.aliyuncs.com/google-containers/pause-amd64:3.0
+```
+
+```
+参数说明：
+--hostname-override 在集群中显示的主机名
+--kubeconfig 指定kubeconfig文件位置，会自动生成
+--bootstrap-kubeconfig 指定刚才生成的bootstrap.kubeconfig文件
+--cert-dir 颁发证书存放位置
+--pod-infra-container-image 管理Pod网络的镜像
+```
+
+3、kubelet.config配置
+
+> /opt/kubernetes/cfg/kubelet.config配置
+
+```
+vim /opt/kubernetes/cfg/kubelet.config
+
+kind: KubeletConfiguration
+apiVersion: kubelet.config.k8s.io/v1beta1
+address: 192.168.209.11 #写你机器的ip地址
+port: 10250
+readOnlyPort: 10255
+cgroupDriver: cgroupfs
+clusterDNS: ["10.0.0.2"] #不要改，就是这个ip地址
+clusterDomain: cluster.local.
+failSwapOn: false
+authentication:
+anonymous:
+enabled: true
+webhook:
+enabled: false
+```
+
+4、systemd管理kubelet组件
+
+```
+vim /usr/lib/systemd/system/kubelet.service
+
+[Unit]
+Description=Kubernetes Kubelet
+After=docker.service
+Requires=docker.service
+[Service]
+EnvironmentFile=/opt/kubernetes/cfg/kubelet
+ExecStart=/opt/kubernetes/bin/kubelet $KUBELET_OPTS
+Restart=on-failure
+KillMode=process
+[Install]
+WantedBy=multi-user.target
+```
+
+5、启动kubelet
+
+```
+systemctl daemon-reload
+systemctl enable kubelet
+systemctl start kubelet
+```
+
+6、查看申请加入集群的节点
+
+```
+/opt/kubernetes/bin/kubectl get csr
+
+NAME                                                   AGE       REQUESTOR           CONDITION
+node-csr-3Qm5ndW4_aKjhhWSKhLhSfGw_tq04C6pkTG0gEDLpJ0   11s       kubelet-bootstrap   Pending
+node-csr-ldXf2ozPyVVGz8Hs5ND8njKmbQ7kFO5nvVitVPgAKIA   7m        kubelet-bootstrap   Pending
+```
+
+7、master审批通过允许加入集群
+
+> 启动后还没加⼊到集群中，需要手动允许该节点才可以。在Master节点查看请求签名的Node
+
+```
+/opt/kubernetes/bin/kubectl certificate approve XXXXID
+
+xxxid 指的是上一步的NAME这⼀列
+```
+
+8、再次检查证书签名状态
+
+```
+/opt/kubernetes/bin/kubectl get csr
+
+NAME                                                   AGE       REQUESTOR           CONDITION
+node-csr-3Qm5ndW4_aKjhhWSKhLhSfGw_tq04C6pkTG0gEDLpJ0   3m        kubelet-bootstrap   Approved,Issued
+node-csr-ldXf2ozPyVVGz8Hs5ND8njKmbQ7kFO5nvVitVPgAKIA   10m       kubelet-bootstrap   Approved,Issued
+
+输出中可以看到，两个证书签名请求（CSR）的状态都已经变为 Approved,Issued。这意味着这些 CSR 不仅已经被批准，而且相应的证书也已经被签发并可以供节点使用。
+
+现在，可以检查相应的节点是否已经成功加入到 Kubernetes 集群中，并且状态是否为 Ready。使用以下命令来查看集群中的节点状态：
+```
+
+9、查看集群节点信息
+
+```
+/opt/kubernetes/bin/kubectl get node
+
+NAME             STATUS    ROLES     AGE       VERSION
+192.168.209.11   Ready     <none>    3m        v1.11.10
+192.168.209.12   Ready     <none>    3m        v1.11.10
+```
+
+</details>
+
+#### 部署kube-proxy组件
+
+<details>
+<summary>部署kube-proxy组件</summary>
+
+> 
+
+**在所有node节点进行**
+
+1、创建kube-proxy配置文件
+
+```
+vim /opt/kubernetes/cfg/kube-proxy
+
+KUBE_PROXY_OPTS="--logtostderr=true \
+--v=4 \
+--hostname-override=192.168.209.143 \	#写每个node节点ip
+--cluster-cidr=10.0.0.0/24 \	#不要改，就是这个ip
+--kubeconfig=/opt/kubernetes/cfg/kube-proxy.kubeconfig"
+```
+
+2、systemd管理kube-proxy组件
+
+```
+cd /usr/lib/systemd/system
+vim  /usr/lib/systemd/system/kube-proxy.service
+
+[Unit]
+Description=Kubernetes Proxy
+After=network.target
+[Service]
+EnvironmentFile=-/opt/kubernetes/cfg/kube-proxy
+ExecStart=/opt/kubernetes/bin/kube-proxy $KUBE_PROXY_OPTS
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+```
+
+3、启动
+
+```
+systemctl daemon-reload
+systemctl enable kube-proxy
+systemctl start kube-proxy
+```
+
+4、在master查看集群状态
+
+```
+/opt/kubernetes/bin/kubectl get node
+
+NAME             STATUS    ROLES     AGE       VERSION
+192.168.209.11   Ready     <none>    5h        v1.11.10
+192.168.209.12   Ready     <none>    5h        v1.11.10
+```
+
+5、查看集群组件的状态
+
+```
+opt/kubernetes/bin/kubectl get cs
+
+NAME                 STATUS    MESSAGE              ERROR
+controller-manager   Healthy   ok
+scheduler            Healthy   ok
+etcd-1               Healthy   {"health": "true"}
+etcd-2               Healthy   {"health": "true"}
+etcd-0               Healthy   {"health": "true"}
+```
+
+</details>
+
+#### 部署Dashboard（Web UI）
+
+<details>
+<summary>部署Dashboard（Web UI）</summary>
+
+> 
+
+1、部署Pod，提供Web服务
+
+```
+mkdir webui
+cd webui/
+vim dashboard-deployment.yaml
+
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: kubernetes-dashboard
+  namespace: kube-system
+  labels:
+    k8s-app: kubernetes-dashboard
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+spec:
+  selector:
+    matchLabels:
+      k8s-app: kubernetes-dashboard
+  template:
+    metadata:
+      labels:
+        k8s-app: kubernetes-dashboard
+      annotations:
+        scheduler.alpha.kubernetes.io/critical-pod: ''
+    spec:
+      serviceAccountName: kubernetes-dashboard
+      containers:
+        - name: kubernetes-dashboard
+          image: registry.cn-hangzhou.aliyuncs.com/kube_containers/kubernetes-dashboard-amd64:v1.8.1
+          resources:
+            limits:
+              cpu: 100m
+              memory: 300Mi
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - containerPort: 9090
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              scheme: HTTP
+              path: /
+              port: 9090
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+      tolerations:
+        - key: "CriticalAddonsOnly"
+          operator: "Exists"
+```
+
+2、授权访问apiserver获取信息
+
+```
+vim dashboard-rbac.yaml
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+    addonmanager.kubernetes.io/mode: Reconcile
+  name: kubernetes-dashboard
+  namespace: kube-system
+
+---
+
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1beta1
+metadata:
+  name: kubernetes-dashboard-minimal
+  namespace: kube-system
+  labels:
+    k8s-app: kubernetes-dashboard
+    addonmanager.kubernetes.io/mode: Reconcile
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+  - kind: ServiceAccount
+    name: kubernetes-dashboard
+    namespace: kube-system
+[root@k8s-master webui]# cat dashboard-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubernetes-dashboard
+  namespace: kube-system
+  labels:
+    k8s-app: kubernetes-dashboard
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+spec:
+  type: NodePort
+  selector:
+    k8s-app: kubernetes-dashboard
+  ports:
+    - port: 80
+      targetPort: 9090
+```
+
+3、发布服务，提供对外访问
+
+```
+/opt/kubernetes/bin/kubectl create -f dashboard-rbac.yaml
+/opt/kubernetes/bin/kubectl create -f dashboard-deployment.yaml
+/opt/kubernetes/bin/kubectl create -f dashboard-service.yaml
+```
+
+4、等待数分钟，查看资源状态，查看名称空间
+
+```
+/opt/kubernetes/bin/kubectl get all -n kube-system
+
+NAME READY STATUS RESTARTS 
+ AGE
+pod/kubernetes-dashboard-d9545b947-442ft 1/1 Running 0 
+ 21m
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT
+(S) AGE
+service/kubernetes-dashboard NodePort 10.0.0.143 <none> 80:4
+7520/TCP 21m
+NAME DESIRED CURRENT UP-TO-DATE A
+VAILABLE AGE
+deployment.apps/kubernetes-dashboard 1 1 1 1
+ 21m
+NAME DESIRED CURRENT READ
+Y AGE
+replicaset.apps/kubernetes-dashboard-d9545b947 1 1 1 
+ 21m
+```
+
+5、查看访问端⼝，查看指定命名空间的服务
+
+```
+/opt/kubernetes/bin/kubectl get svc -n kube-system
+
+NAME                   TYPE       CLUSTER-IP   EXTERNAL-IP   PORT(S)        AGE
+kubernetes-dashboard   NodePort   10.0.0.125   <none>        80:48876/TCP   2m
+```
+
+6、测试
+
+```
+运行⼀个测试示例--在master节点先安装docker服务
+创建⼀个Nginx Web，判断集群是否正常
+/opt/kubernetes/bin/kubectl run nginx --image=daocloud.io/nginx --replicas=3
+/opt/kubernetes/bin/kubectl expose deployment nginx --port=88 --target-port=80 --type=NodePort
+/opt/kubernetes/bin/kubectl delete -f deployment --all
+在master上面查看：
+查看Pod，Service：
+/opt/kubernetes/bin/kubectl get pods #需要等⼀会
+
+NAME READY STATUS RESTARTS AGE
+nginx-64f497f8fd-fjgt2 1/1 Running 3 28d
+nginx-64f497f8fd-gmstq 1/1 Running 3 28d
+nginx-64f497f8fd-q6wk9 1/1 Running 3 28d
+
+查看pod详细信息：
+/opt/kubernetes/bin/kubectl describe pod nginx-64f497f8fd-fjgt2
+/opt/kubernetes/bin/kubectl get svc
+
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) 
+ AGE
+kubernetes ClusterIP 10.0.0.1 <none> 443/TCP 
+ 28d
+nginx NodePort 10.0.0.175 <none> 88:38696/TCP 
+ 28d
+
+访问nodeip加端⼝
+打开浏览器输⼊：http://192.168.209.11:38696
+恭喜你，集群部署成功！
+```
+
+</details>
+
+</details>
+
+</details>
+
+
+<details>
+<summary>kuberadm方式部署Kubernetes</summary>
+
+> 
+
+0、配置yum源
+
+```
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://mirrors.aliyun.com/kubernetes/yum/repos/kubernetes-el7-x86_64
+enabled=1
+gpgcheck=0
+repo_gpgcheck=0
+gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
+EOF
+```
+
+1、获取镜像
+
+> 这里部署k8sv1.19.1版本
+> 所有节点都必须有镜像
+
+```
+vim dockerPullv1.19.1.sh
+
+#!/bin/bash
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-contr
+oller-manager:v1.19.1
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-prox
+y:v1.19.1
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apise
+rver:v1.19.1
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/kube-sched
+uler:v1.19.1
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:1.
+7.0
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/etcd:3.4.1
+3-0
+docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.2
+```
+
+2、重新打tag
+
+> 下载完了之后需要将阿里云下载下来的所有镜像打成k8s.gcr.io/kube-controller-manage
+> r:v1.19.1这样的tag
+
+```
+vim tagv1.19.1.sh
+
+#!/bin/bash
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-contro
+ller-manager:v1.19.1 k8s.gcr.io/kube-controller-manager:v1.19.1
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-proxy:
+v1.19.1 k8s.gcr.io/kube-proxy:v1.19.1
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-apiser
+ver:v1.19.1 k8s.gcr.io/kube-apiserver:v1.19.1
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/kube-schedu
+ler:v1.19.1 k8s.gcr.io/kube-scheduler:v1.19.1
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:1.
+7.0 k8s.gcr.io/coredns:1.7.0
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/etcd:3.4.13
+-0 k8s.gcr.io/etcd:3.4.13-0
+docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.2 k
+8s.gcr.io/pause:3.2
+```
+
+3、所有机器安装docker
+
+```
+yum remove docker \
+docker-client \
+docker-client-latest \
+docker-common \
+docker-latest \
+docker-latest-logrotate \
+docker-logrotate \
+docker-selinux \
+docker-engine-selinux \
+docker-engine
+```
+
+```
+yum install -y yum-utils device-mapper-persistent-data lvm2 git
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum install docker-ce -y
+
+启动并设置开机启动
+kuberadm比较严格，必须设置docker开启自启，swp分区必须关闭，否则无法正常初始化
 ```
 
 </details>
