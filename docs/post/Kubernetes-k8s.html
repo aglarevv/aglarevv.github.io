@@ -39,7 +39,7 @@ vi etc/hosts
 <details>
 <summary>k8s-master</summary>
 
->
+> 
 
 1、下载cfssl工具
 
@@ -162,7 +162,7 @@ server-key.pem 要用的私钥
 <details>
 <summary>k8s-master & k8s-node</summary>
 
->
+> 
 
 1、安装Etcd
 
@@ -328,7 +328,7 @@ vi etc/hosts
 <details>
 <summary>k8s-master</summary>
 
->
+> 
 
 1、下载cfssl工具
 
@@ -451,7 +451,7 @@ server-key.pem 要用的私钥
 <details>
 <summary>k8s-master & k8s-node</summary>
 
->
+> 
 
 1、安装Etcd
 
@@ -1678,6 +1678,112 @@ EOF
 <p>这里部署k8sv1.19.1版本<br>
 所有节点都必须有镜像</p>
 </blockquote>
+<h4>在所有节点安装kubeadm和kubelet、kubectl</h4>
+<details>
+<summary>在所有节点安装kubeadm和kubelet、kubectlKubernetes</summary>
+<blockquote>
+</blockquote>
+<p>1、下载1.19.1版本</p>
+<pre class="notranslate"><code class="notranslate">yum install -y kubelet-1.19.1-0.x86_64 kubeadm-1.19.1-0.x86_64 kubectl-1.19.1-0.x86_64 ipvsadm
+</code></pre>
+<p>2、加载ipvs相关内核模块</p>
+<pre class="notranslate"><code class="notranslate">modprobe ip_vs &amp;&amp; modprobe ip_vs_rr &amp;&amp; modprobe ip_vs_wrr &amp;&amp; modprobe ip_vs_sh &amp;&amp; modprobe nf_conntrack_ipv4
+</code></pre>
+<p>3、编辑文件添加开机启动</p>
+<pre class="notranslate"><code class="notranslate">modprobe ip_vs
+modprobe ip_vs_rr
+modprobe ip_vs_wrr
+modprobe ip_vs_sh
+modprobe nf_conntrack_ipv4
+chmod +x /etc/rc.local
+</code></pre>
+<p>4、配置转发相关参数，否则可能会出错</p>
+<pre class="notranslate"><code class="notranslate">cat &lt;&lt;EOF &gt; /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+vm.swappiness=0
+EOF
+</code></pre>
+<p>5、使配置生效</p>
+<pre class="notranslate"><code class="notranslate">sysctl --system
+</code></pre>
+<p>6、如果net.bridge.bridge-nf-call-iptables报错，加载br_netfilter模块</p>
+<pre class="notranslate"><code class="notranslate">modprobe br_netfilter
+sysctl -p /etc/sysctl.d/k8s.conf
+</code></pre>
+<p>7、查看是否加载成功</p>
+<pre class="notranslate"><code class="notranslate">lsmod | grep ip_vs
+</code></pre>
+</details>
+<h4>所有主机配置启动kubelet</h4>
+<details>
+<summary>所有主机配置启动kubelet</summary>
+<blockquote>
+</blockquote>
+<p>1、配置kubelet使用pause镜像</p>
+<pre class="notranslate"><code class="notranslate">DOCKER_CGROUPS=`docker info|grep "Cgroup Driver"|awk '{print $3}'`
+
+获取docker的驱动cgroups（linux提供的资源隔离限制）
+设置变量DOCKER_CGROUPS 等于  docker驱动cgroups的值
+</code></pre>
+<p>2、配置kubelet的cgroups</p>
+<pre class="notranslate"><code class="notranslate">阿里云的pause镜像
+cat &gt;/etc/sysconfig/kubelet&lt;&lt;EOF
+KUBELET_EXTRA_ARGS="--cgroup-driver=$DOCKER_CGROUPS --pod-infra-container-image=registry.cn-hangzhou.aliyuncs.com/google_containers/pause-amd64:3.2"
+EOF
+
+
+或者 k8s官网的pause镜像
+cat &gt;/etc/sysconfig/kubelet&lt;&lt;EOF
+KUBELET_EXTRA_ARGS="--cgroup-driver=$DOCKER_CGROUPS --pod-infra-container-image=k8s.gcr.io/pause:3.2"
+EOF
+
+
+或者直接用没有变量名，直接给cgroup值的
+cat &gt;/etc/sysconfig/kubelet&lt;&lt;EOF
+KUBELET_EXTRA_ARGS="--cgroup-driver=cgroupfs --pod-infra-container-image=k8s.gcr.io/pause:3.2"
+EOF
+</code></pre>
+<p>3、启动kubelet</p>
+<pre class="notranslate"><code class="notranslate">systemctl daemon-reload
+systemctl enable kubelet &amp;&amp; systemctl restart kubelet
+systemctl status kubelet
+
+错误是正常现象，因为api-server还没有在master节点上初始化启动
+报错误信息：
+10⽉ 11 00:26:43 node1 systemd[1]: kubelet.service: main process exited, c
+ode=exited, status=255/n/a
+10⽉ 11 00:26:43 node1 systemd[1]: Unit kubelet.service entered failed sta
+te.
+10⽉ 11 00:26:43 node1 systemd[1]: kubelet.service failed.
+运行 # journalctl -xefu kubelet 命令查看systemd⽇志才发现，真正的错误是：
+ unable to load client CA file /etc/kubernetes/pki/ca.crt: open /etc/ku
+bernetes/pki/ca.crt: no such file or directory
+这个错误在运⾏kubeadm init 生成CA证书后会被自动解决，此处可先忽略。
+简单地说就是在kubeadm init 之前kubelet会不断重启。
+</code></pre>
+</details>
+<h4>master节点初始化</h4>
+<details>
+<summary>master节点初始化</summary>
+<blockquote>
+</blockquote>
+<p>1、初始化</p>
+<pre class="notranslate"><code class="notranslate">kubeadm init --kubernetes-version=v1.19.1 --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.229.11 --ignore-preflight-errors=Swap
+
+apiserver-advertise-address=192.168.229.11 master的ip地址。
+--kubernetes-version=v1.19.1 --更具具体版本进行修改
+--pod-network-cidr=10.244.0.0/16 我们自定义pod给容器内指定的网段
+--ignore-preflight-errors=Swap   忽略swap分区错误（我们已经关闭了swap，此处有没有都可以）
+注意在检查⼀下swap分区是否关闭
+一回车，就会自动的帮我们准备master运行所需要的组件，从k8s官网下载
+</code></pre>
+<p>2、在初始化的时候指定镜像源</p>
+<pre class="notranslate"><code class="notranslate">kubeadm reset
+kubeadm init --kubernetes-version=v1.19.1 --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.229.11 --ignore-preflight-errors=Swap --image-repository=registry.aliyuncs.com/google_containers
+</code></pre>
+<p><strong>镜像准备好之后，再次进行初始化，依然拉取失败</strong></p>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/user-attachments/assets/9d51e27a-3924-48e0-87af-7065cde4739a"><img src="https://github.com/user-attachments/assets/9d51e27a-3924-48e0-87af-7065cde4739a" alt="image" style="max-width: 100%;"></a></p>
 <pre class="notranslate"><code class="notranslate">vim dockerPullv1.19.1.sh
 
 #!/bin/bash
@@ -1689,7 +1795,7 @@ docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:1.7.0
 docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/etcd:3.4.13-0
 docker pull registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.2
 </code></pre>
-<p>2、重新打tag</p>
+<p>重新打tag</p>
 <blockquote>
 <p>下载完了之后需要将阿里云下载下来的所有镜像打成k8s.gcr.io/kube-controller-manage<br>
 r:v1.19.1这样的tag</p>
@@ -1705,25 +1811,286 @@ docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/coredns:1.7.0 k8s
 docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/etcd:3.4.13-0 k8s.gcr.io/etcd:3.4.13-0
 docker tag registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.2 k8s.gcr.io/pause:3.2
 </code></pre>
-<p>3、所有机器安装docker</p>
-<pre class="notranslate"><code class="notranslate">yum remove docker \
-docker-client \
-docker-client-latest \
-docker-common \
-docker-latest \
-docker-latest-logrotate \
-docker-logrotate \
-docker-selinux \
-docker-engine-selinux \
-docker-engine
+<p>3、执行脚本</p>
+<pre class="notranslate"><code class="notranslate">chmod +x *.sh
+bash dockerPullv1.19.1.sh
+bash tagv1.19.1.sh
 </code></pre>
-<pre class="notranslate"><code class="notranslate">yum install -y yum-utils device-mapper-persistent-data lvm2 git
-yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-yum install docker-ce -y
+<p>4、Mater重新完成初始化</p>
+<pre class="notranslate"><code class="notranslate">kubeadm reset
+kubeadm init --kubernetes-version=v1.19.1 --pod-network-cidr=10.244.0.0/16 --apiserver-advertise-address=192.168.229.11 --ignore-preflight-errors=Swap
+</code></pre>
+<p>5、执行Master初始化后的提示配置</p>
+<pre class="notranslate"><code class="notranslate">mkdir -p $HOME/.kube
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+chown $(id -u):$(id -g) $HOME/.kube/config
+</code></pre>
+<p>6、查看node节点</p>
+<pre class="notranslate"><code class="notranslate">kubectl get nodes
 
-启动并设置开机启动
-kuberadm比较严格，必须设置docker开启自启，swp分区必须关闭，否则无法正常初始化
+NAME STATUS ROLES AGE VERSION
+k8s-master NotReady master 2m41s v1.17.4
 </code></pre>
+</details>
+<h4>配置使用网络插件</h4>
+<details>
+<summary>配置使用网络插件</summary>
+<blockquote>
+</blockquote>
+<p>1、用这个网络插件的配置文件kube-flannelv1.19.1.yaml</p>
+<pre class="notranslate"><code class="notranslate">---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: kube-flannel
+  labels:
+    k8s-app: flannel
+    pod-security.kubernetes.io/enforce: privileged
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  labels:
+    k8s-app: flannel
+  name: flannel
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - nodes/status
+  verbs:
+  - patch
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  labels:
+    k8s-app: flannel
+  name: flannel
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: flannel
+subjects:
+- kind: ServiceAccount
+  name: flannel
+  namespace: kube-flannel
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    k8s-app: flannel
+  name: flannel
+  namespace: kube-flannel
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: kube-flannel-cfg
+  namespace: kube-flannel
+  labels:
+    tier: node
+    k8s-app: flannel
+    app: flannel
+data:
+  cni-conf.json: |
+    {
+      "name": "cbr0",
+      "cniVersion": "0.3.1",
+      "plugins": [
+        {
+          "type": "flannel",
+          "delegate": {
+            "hairpinMode": true,
+            "isDefaultGateway": true
+          }
+        },
+        {
+          "type": "portmap",
+          "capabilities": {
+            "portMappings": true
+          }
+        }
+      ]
+    }
+  net-conf.json: |
+    {
+      "Network": "10.244.0.0/16",
+      "EnableNFTables": false,
+      "Backend": {
+        "Type": "vxlan"
+      }
+    }
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-flannel-ds
+  namespace: kube-flannel
+  labels:
+    tier: node
+    app: flannel
+    k8s-app: flannel
+spec:
+  selector:
+    matchLabels:
+      app: flannel
+  template:
+    metadata:
+      labels:
+        tier: node
+        app: flannel
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: kubernetes.io/os
+                operator: In
+                values:
+                - linux
+      hostNetwork: true
+      priorityClassName: system-node-critical
+      tolerations:
+      - operator: Exists
+        effect: NoSchedule
+      - key: node.kubernetes.io/not-ready
+        operator: Exists
+        effect: NoSchedule
+      serviceAccountName: flannel
+      initContainers:
+      - name: install-cni-plugin
+        image: docker.io/flannel/flannel-cni-plugin:v1.5.1-flannel2
+        command:
+        - cp
+        args:
+        - -f
+        - /flannel
+        - /opt/cni/bin/flannel
+        volumeMounts:
+        - name: cni-plugin
+          mountPath: /opt/cni/bin
+      - name: install-cni
+        image: docker.io/flannel/flannel:v0.25.6
+        command:
+        - cp
+        args:
+        - -f
+        - /etc/kube-flannel/cni-conf.json
+        - /etc/cni/net.d/10-flannel.conflist
+        volumeMounts:
+        - name: cni
+          mountPath: /etc/cni/net.d
+        - name: flannel-cfg
+          mountPath: /etc/kube-flannel/
+      containers:
+      - name: kube-flannel
+        image: docker.io/flannel/flannel:v0.25.6
+        command:
+        - /opt/bin/flanneld
+        args:
+        - --ip-masq
+        - --iface=ens33
+        - --kube-subnet-mgr
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "50Mi"
+        securityContext:
+          privileged: false
+          capabilities:
+            add: ["NET_ADMIN", "NET_RAW"]
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: EVENT_QUEUE_DEPTH
+          value: "5000"
+        volumeMounts:
+        - name: run
+          mountPath: /run/flannel
+        - name: flannel-cfg
+          mountPath: /etc/kube-flannel/
+        - name: xtables-lock
+          mountPath: /run/xtables.lock
+      volumes:
+      - name: run
+        hostPath:
+          path: /run/flannel
+      - name: cni-plugin
+        hostPath:
+          path: /opt/cni/bin
+      - name: cni
+        hostPath:
+          path: /etc/cni/net.d
+      - name: flannel-cfg
+        configMap:
+          name: kube-flannel-cfg
+      - name: xtables-lock
+        hostPath:
+          path: /run/xtables.lock
+          type: FileOrCreate
+</code></pre>
+<p>2、创建flannel网络</p>
+<pre class="notranslate"><code class="notranslate">kubectl apply -f kube-flannelv1.19.1.yaml
+kubectl get pod -n kube-system
+</code></pre>
+<p>3、查看哪一个pod被分配到哪一个节点</p>
+<pre class="notranslate"><code class="notranslate">kubectl get pod -n kube-system -o wide 
+
+NAME                             READY   STATUS    RESTARTS   AGE   IP               NODE     NOMINATED NODE   READINESS GATES
+coredns-f9fd979d6-58xgh          1/1     Running   0          91m   10.244.0.2       master   &lt;none&gt;           &lt;none&gt;
+coredns-f9fd979d6-pj6rb          1/1     Running   0          82m   10.244.0.3       master   &lt;none&gt;           &lt;none&gt;
+etcd-master                      1/1     Running   0          92m   192.168.229.11   master   &lt;none&gt;           &lt;none&gt;
+kube-apiserver-master            1/1     Running   4          92m   192.168.229.11   master   &lt;none&gt;           &lt;none&gt;
+kube-controller-manager-master   1/1     Running   15         92m   192.168.229.11   master   &lt;none&gt;           &lt;none&gt;
+kube-proxy-sb5zd                 1/1     Running   0          91m   192.168.229.11   master   &lt;none&gt;           &lt;none&gt;
+kube-scheduler-master            1/1     Running   16         92m   192.168.229.11   master   &lt;none&gt;           &lt;none&gt;
+</code></pre>
+<p>4、获取节点</p>
+<pre class="notranslate"><code class="notranslate">kubectl get node
+
+NAME     STATUS   ROLES    AGE   VERSION
+master   Ready    master   94m   v1.19.1
+</code></pre>
+</details>
+<h4>所有node节点加⼊集群</h4>
+<details>
+<summary>所有node节点加⼊集群</summary>
+<blockquote>
+</blockquote>
+<p>1、配置node节点加⼊集群，如果报错开启ip转发</p>
+<pre class="notranslate"><code class="notranslate">sysctl -w net.ipv4.ip_forward=1
+</code></pre>
+<pre class="notranslate"><code class="notranslate">在所有node节点操作，此命令为初始化master成功后返回的结果
+kubeadm join 192.168.229.11:6443 --token 2eo635.zefoh7sqrndzdju6  --discovery-token-ca-cert-hash sha256:20fe16459d5d0f79025be51f7a800af01f7aa1fb5bd3e33b4eb37328facaff07
+</code></pre>
+<pre class="notranslate"><code class="notranslate">如果加入时显示端口占用，再次 kubeadm reset 即可
+
+加入后master一直显示noready，对应的节点 systemctl restart kubelet
+</code></pre>
+</details>
 </details></div>
 <div style="font-size:small;margin-top:8px;float:right;">❤️ 转载文章请注明出处，谢谢！❤️</div>
 
