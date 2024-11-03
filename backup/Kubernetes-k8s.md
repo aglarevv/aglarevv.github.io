@@ -1810,3 +1810,814 @@ kubeadm join 192.168.229.11:6443 --token 2eo635.zefoh7sqrndzdju6  --discovery-to
 </details>
 
 </details>
+
+## 集群操作
+
+<details>
+<summary>集群操作</summary>
+
+> 
+
+### 查看集群信息
+
+<details>
+<summary>查看集群信息</summary>
+
+> 
+
+查看集群信息
+
+```
+kubectl get nodes
+```
+
+删除节点（⽆效且显示的也可以删除）
+
+> 后期如果 要删除某个节点，为了不增加其他节点的访问压力，先增加一个节点，再删除要删除的节点
+
+```
+语法：kubect	delete node 节点名
+kubectl delete node k8s-node2
+```
+
+```
+如果删除后，该节点需要再次加入集群，在master重置token,打印加入的命令
+kubeadm token create --print-join-command
+
+拿着打印的命令，再要加入的node节点执行
+kubeadm join 192.168.229.11:6443 --token 7saaxa.nc2nvxlwfdzcash2     --discovery-token-ca-cert-hash sha256:f424d840e5699375bb039cbc72e7700ec9234ae0c3be10c4a665ac545c26c5bf
+```
+
+单独查看某⼀个节点(节点名称可以用空格隔开写多个)
+
+```
+kubectl get node k8s-node1
+```
+
+查看node的详细信息
+
+```
+kubectl describe node k8s-node1
+
+Name: k8s-node1
+Roles: <none>
+...
+ -------- -------- ------
+ Allocated resources:
+  (Total limits may be over 100 percent, i.e., overcommitted.)
+  Resource           Requests    Limits
+  --------           --------    ------
+  cpu                200m (10%)  100m (5%)
+  memory             100Mi (2%)  50Mi (1%)
+  ephemeral-storage  0 (0%)      0 (0%)
+  hugepages-1Gi      0 (0%)      0 (0%)
+  hugepages-2Mi      0 (0%)      0 (0%)
+
+#注意:最后被查看的节点名称只能用get nodes⾥⾯查到的name!
+
+
+cpu
+
+Requests: 200m (10%) — 表示容器请求的 CPU 资源为 200 毫核（milli-cores），即 0.2 个核心，占据了总 CPU 资源的 10%。
+Limits: 100m (5%) — 表示容器的 CPU 限制为 100 毫核，即 0.1 个核心，占据了总 CPU 资源的 5%。
+memory
+
+Requests: 100Mi (2%) — 表示容器请求的内存资源为 100 MiB，占据了总内存资源的 2%。
+Limits: 50Mi (1%) — 表示容器的内存限制为 50 MiB，占据了总内存资源的 1%。
+ephemeral-storage
+
+Requests: 0 (0%) — 表示容器请求的临时存储资源为 0。
+Limits: 0 (0%) — 表示容器的临时存储限制为 0。
+hugepages-1Gi
+
+解释
+Requests 是容器启动时 Kubernetes 调度器用来决定节点上可用资源的基础。它代表了容器正常运行所需的最低资源量。
+Limits 是容器可以使用的最大资源量。超出这个限制，容器可能会被限制或终止。
+```
+
+查看各组件信息
+
+```
+service的信息：
+kubectl get service
+
+NAME TYPE CLUSTER-IP EXTERNAL-IP PORT(S) AGE
+kubernetes ClusterIP 10.96.0.1 <none> 443/TCP 19h
+
+NAME: kubernetes — 这是服务的名称。
+TYPE: ClusterIP — 这是服务的类型。ClusterIP 类型的服务只能在集群内部访问，无法从外部直接访问。
+CLUSTER-IP: 10.96.0.1 — 这是服务在集群内部的虚拟 IP 地址。它用于将流量路由到服务后端的 Pods。
+EXTERNAL-IP: <none> — 这个字段显示为 <none>，意味着该服务没有配置外部 IP，也就是说，外部网络不能直接访问这个服务。ClusterIP 类型的服务默认没有外部 IP。
+PORT(S): 443/TCP — 这是服务监听的端口和协议。这里是 TCP 协议的 443 端口。
+AGE: 19h — 这是服务创建的时间，从创建到现在已经过去了 19 小时。
+```
+
+在不同的namespace⾥⾯查看service
+
+```
+kubectl get service -n kube-system -n:namespace
+```
+
+查看所有名称空间内的资源
+
+```
+kubectl get pods --all-namespaces
+```
+
+同时查看多种资源信息
+
+```
+kubectl get pod,service -n kube-system
+```
+
+查看主节点
+
+```
+kubectl cluster-info
+```
+
+api查询
+
+```
+kubectl api-versions
+```
+
+- 创建名称空间
+
+编写yaml文件
+
+```
+vim namespace.yaml
+
+--- # yaml开始的标记
+apiVersion: v1 #api版本
+kind: Namespace #类型---固定的
+metadata: #元数据
+name: ns-monitor #给命名空间起个名字
+labels: #用于给这个 Namespace 添加标签。标签是键值对，可以用于标识、组织和选择资源
+name: ns-monitor  # 该namespace的标签
+
+=======================================================
+
+---
+
+apiVersion: v1
+kind: Namespace
+metadata:
+name: ns-monitor
+labels:
+name: monitor_hah_lale
+```
+
+创建资源
+
+```
+kubectl apply -f namespace.yml
+namespace/ns-monitor created
+```
+
+查看资源
+
+```
+kubectl get namespace
+```
+
+查看某⼀个namespace
+
+```
+kubectl get namespace ns-monitor
+```
+
+根据标签名查询命名空间
+
+```
+kubectl get namespaces --selector=name=monitor_hah_lale
+```
+
+查看某个namespace的详细信息
+
+```
+kubectl describe namespace ns-monitor
+```
+
+修改名称空间的名字
+
+```
+不能直接修改，删除原有的命名空间，创建新的命名空间
+kubectl create namespace new-namespace-name
+
+删除老的命名空间
+kubectl delete namespace ns-monitor
+
+或者 修改yml文件，重新创建
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ns-monitor1  # 从ns-monitor 改为 ns-monitor1
+  labels:
+    name: monitor_hah_lale
+```
+
+删除名称空间
+
+```
+kubectl delete -f namespace.yml
+kubectl delete namespace ns-monitor
+```
+
+</details>
+
+### 发布第⼀个容器化应用
+
+<details>
+<summary>发布第⼀个容器化应用</summary>
+
+> 
+
+> 说明
+> 
+> 1. 有镜像
+> 2. 部署应用。考虑做不做副本不做副本就是pod，做副本以deployment/RC/DaemonSet⽅式去创建。做了副本访问还需要做⼀>个service，使用访问。
+> 3. 作为⼀个应用开发者，⾸先要做的，是制作容器的镜像。
+> 4. 有了容器镜像之后，需要按照 Kubernetes 项⽬的规范和要求，将你的镜像组织为它能够"认识"的⽅式，然后提交上去。
+>    什么才是 Kubernetes 项⽬能"认识"的⽅式？
+> 
+> - 就是使用 Kubernetes 的必备技能：编写配置文件。
+> - 这些配置文件可以是 YAML 或者 JSON 格式的。
+>   Kubernetes 跟 Docker 等很多项⽬最⼤的不同，就在于它不推荐你使用命令⾏的⽅式直接运⾏容器（虽然 Kubernetes 项⽬也⽀持这种⽅式，⽐如：kubectl run），⽽是希望你用 YAML 文件的⽅式，
+>   即：把容器的定义、参数、配置，统统记录在⼀个 YAML 文件中，然后用这样⼀句指令把它运⾏起来：
+
+```
+kubectl create/apply -f 我的配置文件
+```
+> 第一创还能create和apply没有什么区别
+> 如果第二次创建，修改了yml,apply会更新创建的内容
+
+**编写yaml文件内容如下**
+
+```
+vim pod.yml
+
+---
+apiVersion: v1 #api版本，⽀持pod的版本
+kind: Pod      #Pod，定义类型注意语法开头⼤写
+metadata: #元数据
+  name: website  #这是pod的名字
+  labels:
+    name: website_name_pod #⾃定义键值可以是任意内容，但是不能是纯数字
+spec: #属性
+  containers:  #定义容器
+    - name: test-website #容器的名字，可以⾃定义
+      #镜像 可以是仓库地址 也可以是本地镜像名称 如nginx:latest
+      image: hub.atomgit.com/amd64/nginx:1.25.2-perl 
+      ports:
+      - containerPort: 80 #容器暴露的端⼝
+```
+
+创建pod
+
+```
+kubectl apply -f pod.yml
+pod/website created
+```
+
+查看pod
+
+```
+kubectl get pods
+
+NAME READY STATUS RESTARTS AGE
+website 1/1 Running 0 74s
+==========================================================================
+各字段含义：
+NAME: Pod的名称
+READY: Pod的准备状况，右边的数字表示Pod包含的容器总数⽬，左边的数字表示准备就绪的容器
+数⽬
+STATUS: Pod的状态
+RESTARTS: Pod的重启次数
+AGE: Pod的运⾏时间
+```
+
+查看pod运⾏在哪台机器上
+
+```
+kubectl get pods -o wide
+```
+
+查看pods定义的详细信息
+
+```
+kubectl get pod website -o yaml -n default -o：output
+```
+
+查看kubectl describe ⽀持查询Pod的状态和⽣命周期事件
+
+```
+kubectl describe pod website
+```
+
+```
+1.各字段含义：
+Name: Pod的名称
+Namespace: Pod的Namespace。
+Image(s): Pod使用的镜像
+Node: Pod所在的Node。
+Start Time: Pod的起始时间
+Labels: Pod的Label。
+Status: Pod的状态。
+Reason: Pod处于当前状态的原因。
+Message: Pod处于当前状态的信息。
+IP: Pod的PodIP
+Replication Controllers: Pod对应的Replication Controller。
+===============================
+2.Containers:Pod中容器的信息
+Container ID: 容器的ID
+Image: 容器的镜像
+Image ID:镜像的ID
+State: 容器的状态
+Ready: 容器的准备状况(true表示准备就绪)。
+Restart Count: 容器的重启次数统计
+Environment Variables: 容器的环境变量
+Conditions: Pod的条件，包含Pod准备状况(true表示准备就绪)
+Volumes: Pod的数据卷
+Events: 与Pod相关的事件列表
+=====
+⽣命周期：指的是status通过# kubectl get pod
+⽣命周期包括：running、Pending、completed、
+```
+
+进⼊Pod对应的容器内部
+
+```
+kubectl exec -it website /bin/bash
+```
+
+删除pod
+
+```
+kubectl delete pod pod名1 pod名2	#单个或多个删除
+kubectl delete pod --all	#批量删除,删除所有的pod
+```
+
+创建pod
+
+```
+kubectl apply -f pod.yaml #指定创建pod的yml文件名
+kubectl apply -f pod.yaml --validate #想看报错信息，加上--validate参数
+```
+
+重新启动基于yaml文件的应用(这⾥并不是重新启动服务)
+
+```
+kubectl delete -f XXX.yaml #删除
+kubectl apply -f XXX.yaml #创建
+```
+
+</details>
+
+### 投射数据卷 Projected Volume
+
+<details>
+<summary>投射数据卷 Projected Volume</summary>
+
+> 
+
+#### Secret
+
+<details>
+<summary>创建⾃⼰的Secret</summary>
+
+> 
+
+> ⽅式1：使用kubectl create secret命令
+> ⽅式2：yaml文件创建Secret
+
+##### 命令⽅式创建secret
+
+> 假如某个Pod要访问数据库，需要用户名密码，分别存放在2个文件中：username.txt，password.txt
+
+```
+echo -n 'admin' > ./username.txt
+echo -n "sunyaowei1" > password.txt
+```
+
+```
+kubectl create secret generic db-user-pass --from-file=./username.txt --from-file=./password.txt
+
+创建一个名为db-user-pass的secret ，里面引入的有username.txt 和password.txt
+```
+查看创建结果
+
+```
+kubectl get secret
+
+NAME                  TYPE                                  DATA   AGE
+db-user-pass          Opaque                                2      15s
+```
+查看详细信息
+
+```
+kubectl describe secret db-user-pass
+
+Name:         db-user-pass
+Namespace:    default
+Labels:       <none>
+Annotations:  <none>
+
+Type:  Opaque
+
+Data
+====
+password.txt:  10 bytes
+username.txt:  5 bytes
+```
+
+> describe指令不会展示secret的实际内容，这是出于对数据的保护的考虑，如果想查看实际内容使用命令：
+
+```
+kubectl get secret db-user-pass -o yaml
+```
+
+通过字面数据创建secret
+
+```
+kubectl create secret generic mysecret \
+  --from-literal=name=aglarevv\
+  --from-literal=password=123
+```
+
+```
+kubectl get secret mysecret -o yaml
+kubectl describe secret mysecret
+```
+
+##### yaml⽅式创建Secret
+
+创建⼀个secret.yaml文件，内容用base64编码:明文显示容易被别⼈发现，这⾥先转码
+
+```
+cho -n 'admin' | base64
+echo -n '123456' | base64
+```
+
+创建⼀个secret.yaml文件，内容用base64编码
+
+```
+vim secret.yml
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque #模糊
+data:
+  username: YWRtaW4=
+  password: MTIzNDU2
+```
+
+```
+kubectl apply -f secret.yml secret/mysecret created
+```
+
+查看创建的secret
+
+```
+kubectl get secret
+
+NAME                  TYPE                                  DATA   AGE
+db-user-pass          Opaque                                2      38m
+default-token-stcpf   kubernetes.io/service-account-token   3      25h
+mysecret              Opaque                                2      54s
+```
+
+解析Secret中内容,还是经过编码的---需要解码
+
+```
+kubectl get secret mysecret -o yaml
+
+apiVersion: v1
+data:
+  password: MTIzNDU2
+  username: YWRtaW4=
+```
+
+```
+解码：
+echo -n "MTIzNDU2" |base64 --decode
+echo -n "YWRtaW4=" |base64 --decode
+```
+
+</details>
+
+#### 使用Secret
+
+<details>
+<summary>使用Secret</summary>
+
+> 
+
+> 可以把比较敏感的数据创建在secret中
+> 创建的时候都是加密的数据，来到容器后，自动解密
+> 弊端：
+> ​会把整个数据卷的secret映射到指定目录中，
+> 如果只想映射secret中的某一个数据，就需要用到映射secret key的方式
+
+##### ⼀个Pod中引用Secret的例⼦
+
+1、创建一个pod
+
+```
+vim pod_use_secret.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts: #数据卷挂载
+      - name: foo # 挂载名为foo的数据卷
+        mountPath: "/root/" #挂载到容器的/root/目录下
+        readOnly: true #挂载的数据只读
+  volumes: #数据卷的定义
+  - name: foo #卷的名字这个名字自定义
+    secret: #卷是直接使用的secret。
+      secretName: mysecret #调用刚才定义的secret
+```
+
+```
+kubectl apply -f pod_use_secret.yaml
+```
+
+2、查看pod
+
+```
+kubectl get pod
+
+NAME    READY   STATUS    RESTARTS   AGE
+mypod   1/1     Running   0          87s
+```
+
+3、进入到mypod，查看/root/
+
+```
+[root@k8s-master prome]# kubectl exec -it mypod /bin/bash
+root@mypod:/# ls /root/
+password  username
+root@mypod:/# cat /root/password
+123456
+root@mypod:/# cat /root/username
+adminroot
+```
+
+##### 映射secret key到指定的路径
+
+1、清除mypod
+
+```
+kubectl get pod
+
+NAME    READY   STATUS    RESTARTS   AGE
+mypod   1/1     Running   0          7m47s
+```
+
+2、修改
+
+```
+vim pod_use_secret.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mypod
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts: #数据卷挂载
+      - name: foo # 挂载名为foo的数据卷
+        mountPath: "/root/" #挂载到容器的/root/目录下
+        readOnly: true #挂载的数据只读
+  volumes: #数据卷的定义
+  - name: foo #卷的名字这个名字自定义
+    secret: #卷是直接使用的secret。
+      secretName: mysecret #调用刚才定义的secret
+      items: #定义一个选项，即选择mysecret数据中的部分键
+      - key: username # 指定映射的键
+        path: my_dir/my_username # 映射到挂载容器目录下 /my_dir/my_username
+```
+
+```
+kubectl apply -f pod_use_secret.yaml
+```
+
+3、查看pod
+
+```
+kubectl get  pod
+
+NAME    READY   STATUS    RESTARTS   AGE
+mypod   1/1     Running   0          38s
+```
+
+4、进入pod，并查看文件
+
+```
+[root@k8s-master prome]# kubectl exec -it mypod /bin/bash
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+root@mypod:/# pwd
+/
+root@mypod:/# ls /root/
+my_dir
+root@mypod:/# ls /root/my_dir
+my_username
+root@mypod:/# cat /root/my_dir/my_username
+admin
+```
+
+##### 被挂载的secret内容自动更新
+
+1、设置base64加密
+
+```
+echo -n "sunyaowei" | base64
+```
+
+2、将admin替换成sunyaowei
+
+```
+vim secret.yml
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  username: YWRtaW4=
+  password: Y2hlbmZ1Z3Vv #将admin 替换为sunyaowei加密后的数据
+```
+
+3、创建
+
+```
+kubectl apply -f secret.yml
+```
+
+4、连接pod容器
+
+```
+[root@kub-k8s-master prome]# kubectl exec -it mypod /bin/bash
+root@mypod:/# cat /root/my_dir/my_password
+sunyaowei
+```
+
+##### 以环境变量的形式使用Secret（常用）
+
+> 如果secret更新，pod引用中，并不会自动更新
+
+1、创建secret文件夹，里面存放yml文件
+
+```
+生成root 和  sunyaowei的加密数据
+
+echo -n 'root' | base64
+echo -n 'ChenFuguo@123' | base64
+```
+
+2、编写创建secret的yml文件
+
+```
+vim  mysql-sec.yaml
+
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: mysql-user-pass
+type: Opaque
+data:
+  username: cm9vdA== # root
+  password: Q2hlbkZ1Z3VvQDEyMw== #sunyaowei
+```
+
+3、执行生成secret
+
+```
+kubectl apply -f mysql-sec.yaml secret/mysql-user-pass created
+kubectl get secret
+
+NAME                  TYPE                                  DATA   AGE
+db-user-pass          Opaque                                2      8h
+default-token-stcpf   kubernetes.io/service-account-token   3      33h
+mysecret              Opaque                                2      7h58m
+mysql-user-pass       Opaque                                2      20s
+```
+
+4、继续在mysql-sec.yaml中追加剧本，生成创建容器的pod
+
+```
+vim  mysql-sec.yaml
+
+---
+kind: Secret
+apiVersion: v1
+metadata:
+  name: mysql-user-pass
+type: Opaque
+data:
+  username: cm9vdA== # root
+  password: Q2hlbkZ1Z3VvQDEyMw== #sunyaowei
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mysql
+spec:
+  containers:
+  - name: mysql
+    image: mysql:5.7
+    env:
+    - name: MYSQL_ROOT_PASSWORD #创建新的环境变量名称
+      valueFrom:
+        secretKeyRef: #调用的key是什么
+          name: mysql-user-pass #变量的值来自于my-user-pass这个secret
+          key: password #取mysql-user-pass的password的值 即 sunyaowei
+```
+
+5、继续执行mysql-sec.yaml文件
+
+```
+kubectl apply -f mysql-sec.yaml secret/mysql-user-pass unchanged pod/mysql created
+```
+
+6、查看pod状态，进入该pod，测试密码
+
+```
+kubectl get pod  -o wide
+
+NAME    READY   STATUS    RESTARTS   AGE   IP           NODE        NOMINATED NODE   READINESS GATES
+mysql   1/1     Running   0          68s   10.244.2.8   k8s-node2   <none>           <none>
+
+kubectl get pod
+
+NAME    READY   STATUS    RESTARTS   AGE
+mysql   1/1     Running   0          63s
+
+
+[root@k8s-master secret]# kubectl exec -it mysql /bin/bash
+bash-4.2# mysql -uroot -p'sunyaowei'
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+登录成功！！
+```
+
+##### docker私仓secret应用
+
+1、编写pod3.yml，从阿里云私有仓库下载地址
+
+> 提前登录！！！
+
+```
+vim pod3.yml
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  namespace: kube-system
+  name: mynginx
+  labels:
+    name: mynginx_name_pod
+spec:
+  nodeName: k8s-node1
+  containers:
+    - name: nginx
+      image: registry.cn-hangzhou.aliyuncs.com/cfgnginx/nginx:1.24.0 #阿里云私有仓库的地址
+      ports:
+      - containerPort: 80
+```
+
+2、执行
+
+```
+kubectl apply -f pod3.yml pod/mynginx created
+```
+
+</details>
+
+</details>
+
