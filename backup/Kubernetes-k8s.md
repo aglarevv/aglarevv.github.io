@@ -2051,6 +2051,7 @@ kubectl delete namespace ns-monitor
 ```
 kubectl create/apply -f 我的配置文件
 ```
+
 > 第一创还能create和apply没有什么区别
 > 如果第二次创建，修改了yml,apply会更新创建的内容
 
@@ -2207,6 +2208,7 @@ kubectl create secret generic db-user-pass --from-file=./username.txt --from-fil
 
 创建一个名为db-user-pass的secret ，里面引入的有username.txt 和password.txt
 ```
+
 查看创建结果
 
 ```
@@ -2215,6 +2217,7 @@ kubectl get secret
 NAME                  TYPE                                  DATA   AGE
 db-user-pass          Opaque                                2      15s
 ```
+
 查看详细信息
 
 ```
@@ -2621,3 +2624,292 @@ kubectl apply -f pod3.yml pod/mynginx created
 
 </details>
 
+
+### ConfigMap
+
+<details>
+<summary>ConfigMap</summary>
+
+> 
+
+#### 创建ConfigMap
+
+<details>
+<summary>创建ConfigMap</summary>
+
+> 
+
+**通过命令⾏参数--from-literal创建**
+创建命令
+
+```
+kubectl create configmap test-configmap --from-literal=user=admin --from-literal=pass=1122334
+```
+
+删除
+
+```
+kubectl delete cm test-configmap
+```
+
+**通过指定文件创建**
+编辑配置文件app.properties
+
+```
+vim app.properties
+
+property.1 = value-1
+property.2 = value-2
+property.3 = value-3
+property.4 = value-4
+[mysqld]
+!include /home/wing/mysql/etc/mysqld.cnf
+port = 3306
+socket = /home/wing/mysql/tmp/mysql.sock
+pid-file = /wing/mysql/mysql/var/mysql.pid
+basedir = /home/mysql/mysql
+datadir = /wing/mysql/mysql/var
+```
+
+创建（可以有多个--from-file）
+
+```
+kubectl create configmap test-config2 --from-file=app.properties
+```
+
+**指定⽬录创建**
+创建
+
+```
+vim config1
+
+aaa
+bbb
+c=d
+
+
+ vim config2
+
+eee
+fff
+h=k
+```
+
+```
+kubectl create configmap test-config3 --from-file=./config
+
+指定⽬录创建时，configmap内容中的各个文件会创建⼀个key/value对，key是文件名，value是文件内容。
+```
+
+**通过事先写好configmap的标准yaml文件创建**
+创建
+
+```
+vim configmap.yaml
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: test-config4
+  namespace: default
+data:
+  cache_host: memcached-gcxt
+  cache_port: "11211"
+  cache_prefix: gcxt
+  my.cnf: |
+    [mysqld]
+    log-bin = mysql-bin
+    haha = hehe
+```
+
+```
+kubectl apply -f configmap.yaml
+```
+
+查看configmap的详细信息
+
+```
+kubectl describe configmap test-config4
+```
+
+</details>
+
+#### 使用ConfigMap
+
+<details>
+<summary>使用ConfigMap</summary>
+
+> 
+
+示例ConfigMap文件
+
+```
+vim config-map.yml
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map
+  namespace: default
+data:
+  special.how: very
+  special.type: charm
+```
+
+=========分割线============
+
+创建
+
+```
+kubectl apply -f config-map.yml
+```
+
+**通过环境变量使用**
+
+```
+vim testpod.yml
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: daocloud.io/library/nginx
+      env: #专门在容器里设置变量的关键字
+        - name: SPECIAL_LEVEL_KEY #这里的-name,是容器⾥设置的新变量的名字
+          valueFrom:
+            configMapKeyRef:
+              name: config-map #这里是来源于哪个configMap
+              key: special.how #configMap里的key
+        - name: SPECIAL_TYPE_KEY
+          valueFrom:
+            configMapKeyRef:
+              name: config-map
+              key: special.type
+  restartPolicy: Never #当容器退出的时候 不要自动重启
+```
+
+创建pod
+
+```
+kubectl apply -f testpod.yml
+```
+
+测试
+
+```
+[root@kub-k8s-master prome]# kubectl exec -it dapi-test-pod /bin/bash
+root@dapi-test-pod:/# echo $SPECIAL_TYPE_KEY
+charm
+```
+
+**通过envFrom、configMapRef、name使得configmap中的所有key/value对都自动变成环境变量**
+
+```
+kubectl delete -f testpod.yml
+cp testpod.yml testpod.yml.bak
+vim testpod.yml
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+  containers:
+    - name: test-container
+      image: nginx
+      envFrom:
+        - configMapRef:
+            name: config-map  #直接把config-map中的数据全部作为环境变量 即cm中的键就是env的键
+                              # vm中key对应的值 就是env中同名key对应的值
+  restartPolicy: Never
+```
+
+这样容器⾥的变量名称直接使用configMap⾥的key名
+
+创建容器
+
+```
+kubectl apply -f testpod.yml
+```
+
+进入容器查看环境变量
+
+```
+[root@kub-k8s-master prome]# kubectl exec -it dapi-test-pod /bin/bash
+root@dapi-test-pod:/# env
+HOSTNAME=dapi-test-pod
+NJS_VERSION=0.3.3
+NGINX_VERSION=1.17.1
+KUBERNETES_PORT_443_TCP_PROTO=tcp
+KUBERNETES_PORT_443_TCP_ADDR=10.96.0.1
+PKG_RELEASE=1~stretch
+KUBERNETES_PORT=tcp://10.96.0.1:443
+PWD=/
+special.how=very
+HOME=/root
+KUBERNETES_SERVICE_PORT_HTTPS=443
+KUBERNETES_PORT_443_TCP_PORT=443
+KUBERNETES_PORT_443_TCP=tcp://10.96.0.1:443
+TERM=xterm
+SHLVL=1
+KUBERNETES_SERVICE_PORT=443
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+special.type=charm
+KUBERNETES_SERVICE_HOST=10.96.0.1
+_=/usr/bin/env
+```
+
+**作为volume挂载使用**
+把步骤【通过事先写好configmap的标准yaml文件创建】中test-config4所有key/value挂载进来
+
+```
+kubectl delete -f testpod.yml
+vim volupod.yml
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-configmap
+spec:
+  containers:
+    - name: nginx-configmap
+      image: daocloud.io/library/nginx
+      volumeMounts:
+        - name: config-volume4
+          mountPath: "/tmp/config4"
+  volumes:
+    - name: config-volume4
+      configMap:
+        name: test-config4
+  restartPolicy: Always
+```
+
+创建pod
+
+```
+kubectl apply -f volupod.yml
+```
+
+进⼊容器中/tmp/config4查看
+
+```
+[root@kub-k8s-master prome]# kubectl exec -it nginx-configmap /bin/bash
+root@nginx-configmap:/# ls /tmp/config4/
+cache_host cache_port cache_prefix my.cnf
+root@nginx-configmap:/# cat /tmp/config4/cache_host
+memcached-gcxt
+
+可以看到，在config4文件夹下以每⼀个key为文件名value为值创建了多个文件
+```
+
+</details>
+
+</details>
