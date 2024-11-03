@@ -24,7 +24,7 @@ vi etc/hosts
 192.168.209.12 k8s-node2
 ```
 
-### k8s-master
+#### k8s-master
 
 <details>
 <summary>k8s-master</summary>
@@ -147,7 +147,7 @@ server-key.pem 要用的私钥
 
 </details>
 
-### k8s-master & k8s-node
+#### k8s-master & k8s-node
 
 <details>
 <summary>k8s-master & k8s-node</summary>
@@ -280,7 +280,7 @@ cluster is healthy
 
 </details>
 
-### 部署flannel网络插件
+#### 部署flannel网络插件
 
 <details>
 <summary>部署flannel网络插件</summary>
@@ -402,14 +402,14 @@ $ ip -a
 
 </details>
 
-### 在Master节点部署组件
+#### 在Master节点部署组件
 
 <details>
 <summary>在Master节点部署组件</summary>
 
 > 
 
-#### 准备证书
+##### 准备证书
 
 <details>
 <summary>准备证书</summary>
@@ -552,7 +552,7 @@ ca-key.pem  ca.pem  kube-proxy-key.pem  kube-proxy.pem  server-key.pem  server.p
 
 </details>
 
-#### master节点部署apiserver组件
+##### master节点部署apiserver组件
 
 <details>
 <summary>master节点部署apiserver组件</summary>
@@ -660,7 +660,7 @@ systemctl status kube-apiserver
 
 </details>
 
-#### master节点部署schduler组件
+##### master节点部署schduler组件
 
 <details>
 <summary>master节点部署schduler组件</summary>
@@ -712,7 +712,7 @@ systemctl status kube-scheduler
 
 </details>
 
-#### master节点部署controller-manager组件
+##### master节点部署controller-manager组件
 
 <details>
 <summary>master节点部署controller-manager组件</summary>

@@ -36,7 +36,7 @@ vi etc/hosts
 192.168.209.12 k8s-node2
 ```
 
-### k8s-master
+#### k8s-master
 
 <details>
 <summary>k8s-master</summary>
@@ -159,7 +159,7 @@ server-key.pem 要用的私钥
 
 </details>
 
-### k8s-master & k8s-node
+#### k8s-master & k8s-node
 
 <details>
 <summary>k8s-master & k8s-node</summary>
@@ -292,7 +292,7 @@ cluster is healthy
 
 </details>
 
-### 部署flannel网络插件
+#### 部署flannel网络插件
 
 <details>
 <summary>部署flannel网络插件</summary>
@@ -327,7 +327,7 @@ vi etc/hosts
 192.168.209.12 k8s-node2
 ```
 
-### k8s-master
+#### k8s-master
 
 <details>
 <summary>k8s-master</summary>
@@ -450,7 +450,7 @@ server-key.pem 要用的私钥
 
 </details>
 
-### k8s-master & k8s-node
+#### k8s-master & k8s-node
 
 <details>
 <summary>k8s-master & k8s-node</summary>
@@ -583,7 +583,7 @@ cluster is healthy
 
 </details>
 
-### 部署flannel网络插件
+#### 部署flannel网络插件
 
 <details>
 <summary>部署flannel网络插件</summary>
@@ -681,7 +681,7 @@ vi etc/hosts
 192.168.209.11 k8s-node1
 192.168.209.12 k8s-node2
 </code></pre>
-<h3>k8s-master</h3>
+<h4>k8s-master</h4>
 <details>
 <summary>k8s-master</summary>
 <blockquote>
@@ -779,7 +779,7 @@ server.pem 要用的证书
 server-key.pem 要用的私钥
 </code></pre>
 </details>
-<h3>k8s-master &amp; k8s-node</h3>
+<h4>k8s-master &amp; k8s-node</h4>
 <details>
 <summary>k8s-master &amp; k8s-node</summary>
 <blockquote>
@@ -885,7 +885,7 @@ member b9e4274e43b72901 is healthy: got healthy result from https://192.168.209.
 cluster is healthy
 </code></pre>
 </details>
-<h3>部署flannel网络插件</h3>
+<h4>部署flannel网络插件</h4>
 <details>
 <summary>部署flannel网络插件</summary>
 <blockquote>
@@ -977,12 +977,12 @@ $ ip -a
 找到docker 地址  去node1 ping
 </code></pre>
 </details>
-<h3>在Master节点部署组件</h3>
+<h4>在Master节点部署组件</h4>
 <details>
 <summary>在Master节点部署组件</summary>
 <blockquote>
 </blockquote>
-<h4>准备证书</h4>
+<h5>准备证书</h5>
 <details>
 <summary>准备证书</summary>
 <blockquote>
@@ -1102,7 +1102,7 @@ vim ca-config.json
 ca-key.pem  ca.pem  kube-proxy-key.pem  kube-proxy.pem  server-key.pem  server.pem
 </code></pre>
 </details>
-<h4>master节点部署apiserver组件</h4>
+<h5>master节点部署apiserver组件</h5>
 <details>
 <summary>master节点部署apiserver组件</summary>
 <blockquote>
@@ -1191,7 +1191,7 @@ systemctl start kube-apiserver
 systemctl status kube-apiserver
 </code></pre>
 </details>
-<h4>master节点部署schduler组件</h4>
+<h5>master节点部署schduler组件</h5>
 <details>
 <summary>master节点部署schduler组件</summary>
 <blockquote>
@@ -1229,7 +1229,7 @@ systemctl start kube-scheduler
 systemctl status kube-scheduler
 </code></pre>
 </details>
-<h4>master节点部署controller-manager组件</h4>
+<h5>master节点部署controller-manager组件</h5>
 <details>
 <summary>master节点部署controller-manager组件</summary>
 <blockquote>
