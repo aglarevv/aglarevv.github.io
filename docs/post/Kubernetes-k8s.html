@@ -1684,7 +1684,7 @@ EOF
 <p>这里部署k8sv1.19.1版本<br>
 所有节点都必须有镜像</p>
 </blockquote>
-<h3>在所有节点安装kubeadm和kubelet、kubectl</h3>
+<h4>在所有节点安装kubeadm和kubelet、kubectl</h4>
 <details>
 <summary>在所有节点安装kubeadm和kubelet、kubectlKubernetes</summary>
 <blockquote>
@@ -1721,7 +1721,7 @@ sysctl -p /etc/sysctl.d/k8s.conf
 <pre class="notranslate"><code class="notranslate">lsmod | grep ip_vs
 </code></pre>
 </details>
-<h3>所有主机配置启动kubelet</h3>
+<h4>所有主机配置启动kubelet</h4>
 <details>
 <summary>所有主机配置启动kubelet</summary>
 <blockquote>
@@ -1769,7 +1769,7 @@ bernetes/pki/ca.crt: no such file or directory
 简单地说就是在kubeadm init 之前kubelet会不断重启。
 </code></pre>
 </details>
-<h3>master节点初始化</h3>
+<h4>master节点初始化</h4>
 <details>
 <summary>master节点初始化</summary>
 <blockquote>
@@ -1838,7 +1838,7 @@ NAME STATUS ROLES AGE VERSION
 k8s-master NotReady master 2m41s v1.17.4
 </code></pre>
 </details>
-<h3>配置使用网络插件</h3>
+<h4>配置使用网络插件</h4>
 <details>
 <summary>配置使用网络插件</summary>
 <blockquote>
@@ -2081,7 +2081,7 @@ NAME     STATUS   ROLES    AGE   VERSION
 master   Ready    master   94m   v1.19.1
 </code></pre>
 </details>
-<h3>所有node节点加⼊集群</h3>
+<h4>所有node节点加⼊集群</h4>
 <details>
 <summary>所有node节点加⼊集群</summary>
 <blockquote>
