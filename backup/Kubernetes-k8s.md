@@ -1,5 +1,7 @@
 ## 部署
 
+### 二进制部署Kubernetes
+
 <details>
 <summary>二进制部署Kubernetes</summary>
 
@@ -1280,6 +1282,8 @@ nginx NodePort 10.0.0.175 <none> 88:38696/TCP
 
 </details>
 
+### kuberadm方式部署Kubernetes
+
 <details>
 <summary>kuberadm方式部署Kubernetes</summary>
 
@@ -1304,9 +1308,7 @@ EOF
 > 这里部署k8sv1.19.1版本
 > 所有节点都必须有镜像
 
-
-
-#### 在所有节点安装kubeadm和kubelet、kubectl
+### 在所有节点安装kubeadm和kubelet、kubectl
 
 <details>
 <summary>在所有节点安装kubeadm和kubelet、kubectlKubernetes</summary>
@@ -1367,7 +1369,7 @@ lsmod | grep ip_vs
 
 </details>
 
-#### 所有主机配置启动kubelet
+### 所有主机配置启动kubelet
 
 <details>
 <summary>所有主机配置启动kubelet</summary>
@@ -1427,7 +1429,7 @@ bernetes/pki/ca.crt: no such file or directory
 
 </details>
 
-#### master节点初始化
+### master节点初始化
 
 <details>
 <summary>master节点初始化</summary>
@@ -1523,7 +1525,7 @@ k8s-master NotReady master 2m41s v1.17.4
 
 </details>
 
-#### 配置使用网络插件
+### 配置使用网络插件
 
 <details>
 <summary>配置使用网络插件</summary>
@@ -1781,7 +1783,7 @@ master   Ready    master   94m   v1.19.1
 
 </details>
 
-#### 所有node节点加⼊集群
+### 所有node节点加⼊集群
 
 <details>
 <summary>所有node节点加⼊集群</summary>

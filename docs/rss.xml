@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>这个人很懒，没有写简介~</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/assets/icon3.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Sun, 03 Nov 2024 07:32:32 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>RabbitMQ</title><link>https://aglarevv.github.io//post/RabbitMQ.html</link><description>## 部署&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>这个人很懒，没有写简介~</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/assets/icon3.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Sun, 03 Nov 2024 08:08:19 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>RabbitMQ</title><link>https://aglarevv.github.io//post/RabbitMQ.html</link><description>## 部署&#13;
 &#13;
 &lt;details&gt;&#13;
 &lt;summary&gt;单机部署&lt;/summary&gt;&#13;
@@ -78,6 +78,8 @@ scp /var/lib/rabbitmq/.erlang.cookie  rabbitmq3:/var/lib/rabbitmq/.erlang.cookie
 &#13;
 源码包部署一般会存在.erlang.cookie文件；&#13;
 rpm包部署一般是在/var/lib/rabbitmq/.erlang.cookie。</description><guid isPermaLink="true">https://aglarevv.github.io//post/RabbitMQ.html</guid><pubDate>Thu, 31 Oct 2024 11:22:01 +0000</pubDate></item><item><title>Kubernetes-k8s</title><link>https://aglarevv.github.io//post/Kubernetes-k8s.html</link><description>## 部署&#13;
+&#13;
+### 二进制部署Kubernetes&#13;
 &#13;
 &lt;details&gt;&#13;
 &lt;summary&gt;二进制部署Kubernetes&lt;/summary&gt;&#13;
