@@ -426,9 +426,59 @@ mysqldump -u root -p -A > /mysql_backup/all.sql
 
 </details>
 
-## 数据库集群
+### 备份脚本
+<details>
+<summary>备份脚本</summary>
 
-### 基于log-bin的主从复制
+>
+
+```
+#!/bin/bash
+
+# 配置项
+BACKUP_DIR="/backup/mysql"   # 备份文件存放路径
+MYSQL_USER="backup_user"     # MySQL 备份用户
+MYSQL_PASSWORD="your_password"  # MySQL 备份用户的密码
+MYSQL_HOST="localhost"       # MySQL 主机地址
+MYSQL_PORT="3306"            # MySQL 端口
+RETENTION_DAYS=30             # 备份保留天数，自动删除超过保留天数的备份
+
+# 获取当前日期
+DATE=$(date +"%Y-%m-%d")
+
+# 创建备份目录（如果不存在）
+mkdir -p "$BACKUP_DIR/$DATE"
+
+# 备份所有数据库
+echo "开始备份MySQL: $DATE"
+
+databases=$(mysql -u$MYSQL_USER -p$MYSQL_PASSWORD -h$MYSQL_HOST -P$MYSQL_PORT -e "SHOW DATABASES;" | grep -Ev "(Database|information_schema|performance_schema|mysql|sys)")
+
+for db in $databases; do
+    echo "备份数据库: $db"
+    mysqldump -u$MYSQL_USER -p$MYSQL_PASSWORD -h$MYSQL_HOST -P$MYSQL_PORT --databases "$db" > "$BACKUP_DIR/$DATE/$db.sql"
+    if [ $? -eq 0 ]; then
+        echo "备份数据库 $db 完成."
+    else
+        echo "Error: 备份数据库 $db 失败！"
+    fi
+done
+
+# 压缩备份目录
+tar -czf "$BACKUP_DIR/$DATE.tar.gz" -C "$BACKUP_DIR" "$DATE"
+rm -rf "$BACKUP_DIR/$DATE"
+
+echo "备份数据完成压缩"
+
+# 删除过期备份
+find "$BACKUP_DIR" -name "*.tar.gz" -type f -mtime +$RETENTION_DAYS -exec rm {} \;
+echo "旧备份已保留超过 $RETENTION_DAYS 天，将被删除."
+
+echo "MySQL备份完成: $DATE"
+```
+</details>
+
+## 主从复制
 
 <details>
 <summary>基于log-bin的主从复制</summary>
@@ -499,6 +549,11 @@ show slave status\G;
 </details>
 
 ## 基础操作语句
+
+<details>
+<summary>基础操作</summary>
+
+> 
 
 ##### 数据库的创建和销毁-语法
 
@@ -661,3 +716,4 @@ revoke 权限名 on 库名.表明 from 用户名;
 > 被回收的权限必须存在，否则会出错
 > 整个数据库，使用 ON datebase.*；
 > 特定的表：使用 ON datebase.table；
+</details>
