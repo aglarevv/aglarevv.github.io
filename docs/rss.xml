@@ -1,10 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>这个人很懒，没有写简介~</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/assets/icon3.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Fri, 08 Nov 2024 03:11:00 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>memo</title><link>https://aglarevv.github.io//post/memo.html</link><description>124 222 28 230&#13;
-1、k8s中镜像下载策略有哪几种&#13;
-Always、Nerver、IfNotPresent&#13;
-&#13;
-2、k8s中pod是如何实现代理和负载均衡？&#13;
-通过创建service资源，通过label标签匹配到后端的pod，代理pod，实现pod的负载均衡。</description><guid isPermaLink="true">https://aglarevv.github.io//post/memo.html</guid><pubDate>Mon, 21 Oct 2024 08:43:44 +0000</pubDate></item><item><title>linux懒人命令目录</title><link>https://aglarevv.github.io//post/linux-lan-ren-ming-ling-mu-lu.html</link><description>| 命令    | 介绍                     | 页码 |&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>这个人很懒，没有写简介~</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/assets/icon3.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Fri, 08 Nov 2024 03:22:30 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>memo</title><link>https://aglarevv.github.io//post/memo.html</link><description>124 222 28 230&#13;
+。</description><guid isPermaLink="true">https://aglarevv.github.io//post/memo.html</guid><pubDate>Mon, 21 Oct 2024 08:43:44 +0000</pubDate></item><item><title>linux懒人命令目录</title><link>https://aglarevv.github.io//post/linux-lan-ren-ming-ling-mu-lu.html</link><description>| 命令    | 介绍                     | 页码 |&#13;
 | ------- | ------------------------ | ---- |&#13;
 | cat     | 查看文件内容信息         | 32   |&#13;
 | uname   | 查看系统的内核版本       | 32   |&#13;
