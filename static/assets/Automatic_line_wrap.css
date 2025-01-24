@@ -1,0 +1,4 @@
+pre code {
+    white-space: pre-wrap; /* 开启自动换行 */
+    word-wrap: break-word; /* 允许长单词换行 */
+}
