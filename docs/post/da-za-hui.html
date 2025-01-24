@@ -12,7 +12,6 @@
     </script>
 <meta name="description" content="<details>
 <summary>日志轮转</summary>
->
 
 # 日志轮转
 ```
@@ -34,7 +33,6 @@ yum.log：yum相关的日志
 
 <details>
 <summary>防火墙</summary>
->
 
 # 防火墙
 
@@ -52,7 +50,6 @@ yum.log：yum相关的日志
 
 <details>
 <summary>更改命令行颜色</summary>
->
 
 # 更改命令行颜色
 ```
@@ -62,7 +59,6 @@ PS1='\[\e[1;35m\][\u@\h \w]\\$\[\e[0m\]'
 
 <details>
 <summary>vim文件分割</summary>
->
 
 # vim文件分割
 ```
@@ -78,7 +74,6 @@ PS1='\[\e[1;35m\][\u@\h \w]\\$\[\e[0m\]'
 
 <details>
 <summary>sftp服务</summary>
->
 
 # sftp服务
 
@@ -138,20 +133,20 @@ sftp -oPort=22 sftpuser@10.10.10.10
 
 <details>
 <summary>扫描新硬盘</summary>
->
 
+# 扫描新硬盘
 ```
-echo '- - -' > /sys/class/scsi_host/host0/scan
-echo '- - -' > /sys/class/scsi_host/host1/scan
-echo '- - -' > /sys/class/scsi_host/host2/scan
+vi ~/bashrc
+添加以下配置：
 
-alias scandisk='echo '- - -' > /sys/class/scsi_host/host0/scan;echo '- - -' > /sys/class/scsi_host/host1/scan;echo '- - -' > /sys/class/scsi_host/host2/scan'
+alias scandisk='echo '- - -' > /sys/class/scsi_host/host0/scan; \
+echo '- - -' > /sys/class/scsi_host/host1/scan; \
+echo '- - -' > /sys/class/scsi_host/host2/scan'
 ```
 </details>。">
 <meta property="og:title" content="大杂烩">
 <meta property="og:description" content="<details>
 <summary>日志轮转</summary>
->
 
 # 日志轮转
 ```
@@ -173,7 +168,6 @@ yum.log：yum相关的日志
 
 <details>
 <summary>防火墙</summary>
->
 
 # 防火墙
 
@@ -191,7 +185,6 @@ yum.log：yum相关的日志
 
 <details>
 <summary>更改命令行颜色</summary>
->
 
 # 更改命令行颜色
 ```
@@ -201,7 +194,6 @@ PS1='\[\e[1;35m\][\u@\h \w]\\$\[\e[0m\]'
 
 <details>
 <summary>vim文件分割</summary>
->
 
 # vim文件分割
 ```
@@ -217,7 +209,6 @@ PS1='\[\e[1;35m\][\u@\h \w]\\$\[\e[0m\]'
 
 <details>
 <summary>sftp服务</summary>
->
 
 # sftp服务
 
@@ -277,14 +268,15 @@ sftp -oPort=22 sftpuser@10.10.10.10
 
 <details>
 <summary>扫描新硬盘</summary>
->
 
+# 扫描新硬盘
 ```
-echo '- - -' > /sys/class/scsi_host/host0/scan
-echo '- - -' > /sys/class/scsi_host/host1/scan
-echo '- - -' > /sys/class/scsi_host/host2/scan
+vi ~/bashrc
+添加以下配置：
 
-alias scandisk='echo '- - -' > /sys/class/scsi_host/host0/scan;echo '- - -' > /sys/class/scsi_host/host1/scan;echo '- - -' > /sys/class/scsi_host/host2/scan'
+alias scandisk='echo '- - -' > /sys/class/scsi_host/host0/scan; \
+echo '- - -' > /sys/class/scsi_host/host1/scan; \
+echo '- - -' > /sys/class/scsi_host/host2/scan'
 ```
 </details>。">
 <meta property="og:type" content="article">
@@ -359,7 +351,6 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     <div id="content">
 <div class="markdown-body" id="postBody"><details>
 <summary>日志轮转</summary>
-&gt;
 <h1>日志轮转</h1>
 <pre class="notranslate"><code class="notranslate">默认日志生成在/var/log/下
 messages：linux系统本身运行时的日志
@@ -376,7 +367,6 @@ yum.log：yum相关的日志
 </details>
 <details>
 <summary>防火墙</summary>
-&gt;
 <h1>防火墙</h1>
 <pre class="notranslate"><code class="notranslate">添加允许通过的服务：firewall-cmd --zone=public --add-service=http
 查看当前使用区域配置：firewall-cmd --list-all
@@ -390,14 +380,12 @@ yum.log：yum相关的日志
 </details>
 <details>
 <summary>更改命令行颜色</summary>
-&gt;
 <h1>更改命令行颜色</h1>
 <pre class="notranslate"><code class="notranslate">PS1="\[\e[1;35m\][\u@\h \w]\\$\[\e[0m\]"
 </code></pre>
 </details>
 <details>
 <summary>vim文件分割</summary>
-&gt;
 <h1>vim文件分割</h1>
 <pre class="notranslate"><code class="notranslate">多文件水平分割：vim -o f1 f2
 多文件垂直分割：vim -O f1 f2
@@ -410,7 +398,6 @@ yum.log：yum相关的日志
 </details>
 <details>
 <summary>sftp服务</summary>
-&gt;
 <h1>sftp服务</h1>
 <p>工作目录：/data/sftp<br>
 用户默认目录：/data/sftp/%u/home<br>
@@ -459,12 +446,13 @@ sftp -oPort=22 sftpuser@10.10.10.10
 </details>
 <details>
 <summary>扫描新硬盘</summary>
-&gt;
-<pre class="notranslate"><code class="notranslate">echo '- - -' &gt; /sys/class/scsi_host/host0/scan
-echo '- - -' &gt; /sys/class/scsi_host/host1/scan
-echo '- - -' &gt; /sys/class/scsi_host/host2/scan
+<h1>扫描新硬盘</h1>
+<pre class="notranslate"><code class="notranslate">vi ~/bashrc
+添加以下配置：
 
-alias scandisk="echo '- - -' &gt; /sys/class/scsi_host/host0/scan;echo '- - -' &gt; /sys/class/scsi_host/host1/scan;echo '- - -' &gt; /sys/class/scsi_host/host2/scan"
+alias scandisk="echo '- - -' &gt; /sys/class/scsi_host/host0/scan; \
+echo '- - -' &gt; /sys/class/scsi_host/host1/scan; \
+echo '- - -' &gt; /sys/class/scsi_host/host2/scan"
 </code></pre>
 </details></div>
 <div style="font-size:small;margin-top:8px;float:right;">❤️ 转载文章请注明出处，谢谢！❤️</div>
