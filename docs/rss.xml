@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>这个人很懒，没有写简介~</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/assets/icon3.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Fri, 24 Jan 2025 07:58:09 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>Linux内核参数</title><link>https://aglarevv.github.io//post/Linux-nei-he-can-shu.html</link><description>/etc/sysctl.conf 文件中修改 。</description><guid isPermaLink="true">https://aglarevv.github.io//post/Linux-nei-he-can-shu.html</guid><pubDate>Sat, 21 Dec 2024 09:10:34 +0000</pubDate></item><item><title>memo</title><link>https://aglarevv.github.io//post/memo.html</link><description>124 222 28 230&#13;
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>十三个九的 Blog</title><link>https://aglarevv.github.io/</link><description>这个人很懒，没有写简介~</description><copyright>十三个九的 Blog</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://aglarevv.github.io/assets/icon3.svg</url><title>avatar</title><link>https://aglarevv.github.io/</link></image><lastBuildDate>Fri, 24 Jan 2025 08:45:35 +0000</lastBuildDate><managingEditor>十三个九的 Blog</managingEditor><ttl>60</ttl><webMaster>十三个九的 Blog</webMaster><item><title>Linux内核参数</title><link>https://aglarevv.github.io//post/Linux-nei-he-can-shu.html</link><description>/etc/sysctl.conf 文件中修改 。</description><guid isPermaLink="true">https://aglarevv.github.io//post/Linux-nei-he-can-shu.html</guid><pubDate>Sat, 21 Dec 2024 09:10:34 +0000</pubDate></item><item><title>memo</title><link>https://aglarevv.github.io//post/memo.html</link><description>124 222 28 230&#13;
 。</description><guid isPermaLink="true">https://aglarevv.github.io//post/memo.html</guid><pubDate>Mon, 21 Oct 2024 08:43:44 +0000</pubDate></item><item><title>linux懒人命令目录</title><link>https://aglarevv.github.io//post/linux-lan-ren-ming-ling-mu-lu.html</link><description>| 命令    | 介绍                     | 页码 |&#13;
 | ------- | ------------------------ | ---- |&#13;
 | cat     | 查看文件内容信息         | 32   |&#13;
@@ -1023,77 +1023,144 @@ fair：智能加载&#13;
 least_conn：最闲连接&#13;
 url_hash：固定业务，用于分布式微服务&#13;
 ```&#13;
-。</description><guid isPermaLink="true">https://aglarevv.github.io//post/nginx.html</guid><pubDate>Mon, 19 Aug 2024 02:46:17 +0000</pubDate></item><item><title>大杂烩</title><link>https://aglarevv.github.io//post/da-za-hui.html</link><description>## top命令：动态监控系统资源&#13;
-&#13;
-```&#13;
-top -d 1：每秒刷新&#13;
-P：按cpu使用率排序&#13;
-M：按内存使用率排序&#13;
-```&#13;
-&#13;
-## 校对时间&#13;
-&#13;
-&gt; 使用ntp工具进行校对&#13;
-&#13;
-```&#13;
-yum install ntp -y&#13;
-ntpdate cn.pool.ntp.org&#13;
-```&#13;
-&#13;
-## 循环调度任务&#13;
-&#13;
-&gt; cronie工具包里的组件&#13;
-&#13;
-```&#13;
-yum install cronie -y&#13;
-crontab -e 进入编辑界面&#13;
-```&#13;
-&#13;
-## tail命令：查看文件尾部&#13;
-&#13;
-```&#13;
-tail -f 动态查看&#13;
-```&#13;
-&#13;
-## 日志轮转&#13;
-&#13;
-```&#13;
-默认日志生成在/var/log/下&#13;
-messages：linux系统本身运行时的日志&#13;
-secure：认证，安全的日志&#13;
-postfix：邮件相关的日志&#13;
-cron：crond，at进行相关的日志&#13;
-dmsg：系统启动相关的日志&#13;
-yum.log：yum相关的日志&#13;
-&#13;
-默认配置文件：/etc/logrotate.conf&#13;
-配置文件存放路径：/etc/logrotate.d/&#13;
-使用时在配置文件中引入自定义配置文件&#13;
-```&#13;
-&#13;
-## sed命令：字符流编辑器&#13;
-&#13;
-&gt; 操作、过滤、转换文本内容的工具，配合正则对文件实现快速增删查改&#13;
-&#13;
-```&#13;
-sed -n 'p' file ：打印文件所有行&#13;
-sed -i 's/**/**/g' file ：修改文件&#13;
-```&#13;
-&#13;
-## awk命令：文本格式化，转换为标准的excel表样式&#13;
-&#13;
-## HP服务器硬盘位置&#13;
-&#13;
-```&#13;
-/dev/cciss/c0d0p1：c0是第一个控制器，d0是第一块磁盘，p1是分区1&#13;
-```&#13;
-&#13;
-## 磁盘相关&#13;
-&#13;
-```&#13;
-查看磁盘分区：lsblk&#13;
-查看当前使用磁盘文件：df -TH&#13;
-磁盘自动开机挂载：/etc/rc.d/rc.local文件里添加挂载命令。</description><guid isPermaLink="true">https://aglarevv.github.io//post/da-za-hui.html</guid><pubDate>Sat, 17 Aug 2024 02:58:01 +0000</pubDate></item><item><title>EMC-梳理复习</title><link>https://aglarevv.github.io//post/EMC--shu-li-fu-xi.html</link><description>电磁兼容性定义：&#13;
+。</description><guid isPermaLink="true">https://aglarevv.github.io//post/nginx.html</guid><pubDate>Mon, 19 Aug 2024 02:46:17 +0000</pubDate></item><item><title>大杂烩</title><link>https://aglarevv.github.io//post/da-za-hui.html</link><description>&lt;details&gt;
+&lt;summary&gt;日志轮转&lt;/summary&gt;
+&gt;
+
+# 日志轮转
+```
+默认日志生成在/var/log/下
+messages：linux系统本身运行时的日志
+secure：认证，安全的日志
+postfix：邮件相关的日志
+cron：crond，at进行相关的日志
+dmsg：系统启动相关的日志
+yum.log：yum相关的日志
+
+默认配置文件：/etc/logrotate.conf
+配置文件存放路径：/etc/logrotate.d/
+使用时在配置文件中引入自定义配置文件
+```
+
+&lt;/details&gt;
+
+
+&lt;details&gt;
+&lt;summary&gt;防火墙&lt;/summary&gt;
+&gt;
+
+# 防火墙
+
+```
+添加允许通过的服务：firewall-cmd --zone=public --add-service=http
+查看当前使用区域配置：firewall-cmd --list-all
+删除允许通过的服务或端口：firewall-cmd --zone=public --remove-service=http or --remove-port=1234/tcp
+添加允许通过的端口：firewall-cmd --zone=public --add-port=1234/tcp
+```
+
+&gt; [!TIP]
+&gt; 以上全部只在本次开机生效，要永久性生效，添加 --permanent参数，之后重新启动防火墙或使用 --reload参数重新加载配置
+&lt;/details&gt;
+
+
+&lt;details&gt;
+&lt;summary&gt;更改命令行颜色&lt;/summary&gt;
+&gt;
+
+# 更改命令行颜色
+```
+PS1='\[\e[1;35m\][\u@\h \w]\\$\[\e[0m\]'
+```
+&lt;/details&gt;
+
+&lt;details&gt;
+&lt;summary&gt;vim文件分割&lt;/summary&gt;
+&gt;
+
+# vim文件分割
+```
+多文件水平分割：vim -o f1 f2
+多文件垂直分割：vim -O f1 f2
+单文件水平分割：CTRL+w,s
+单文件垂直分割：CTRL+w,v
+退出相邻一个：CTRL+w,q
+退出其他所有：CTRL+w,o
+推出所有：:wqll
+```
+&lt;/details&gt;
+
+&lt;details&gt;
+&lt;summary&gt;sftp服务&lt;/summary&gt;
+&gt;
+
+# sftp服务
+
+工作目录：/data/sftp
+用户默认目录：/data/sftp/%u/home
+公共目录：/data/sftp/pub
+团队目录：/data/sftp/team
+创建sftp组，用户
+```
+groupadd sftpusers #创建组
+adduser sftpuser01 -G  sftpusers #创建用户并添加到组
+echo '123' | passwd --stdin sftpuser01 #设置用户登录密码
+mkdir -p /data/sftp/sftpuser01/home #创建用户家目录
+chown -R sftpuser01:sftpuser01 /data/sftp/sftpuser01 #更改文件所属
+chmod -R 770 /data/sftp/sftpuser01 #用户无法进入其他用户的家目录 
+```
+创建sftp服务器目录
+```
+mkdir /data/sftp/pub #公共目录
+mkdir /data/sftp/team #团队协作目录
+chown root:sftpusers /data/sftp/team 
+chown root:sftpusers /data/sftp/pub
+chmod 1777 /data/sftp/pub #粘滞位t，用户只能删除自己的文件
+chmod 2770 /data/sftp/team #目录下所有文件共享同一个组权限，组成员有创建删除文件的权限
+```
+更改配置文件
+```
+vi /etc/ssh/sshd_config
+文件末尾添加：
+Subsystem    sftp    internal-sftp 
+Match Group sftpusers #限制只有该组用户可以使用sftp
+chrootDirectory /data/sftp/%u #sftp会话的根目录，用户被限制在该目录
+ForceCommand internal-sftp -d %u/home #指定sftp会话的工作目录
+AllowTcpForwarding no #禁用TCP转发
+x11Forwarding no #禁用X11转发
+```
+如启用防火墙，则开放端口
+```
+firewall-cmd --permanent --zone=public --add-port=22/tcp
+#开通sftp服务22默认端口
+firewall-cmd --reload
+#刷新防火墙，重新载入
+```
+
+重启SFTP服务
+```
+systemctl restart sshd.service
+```
+
+访问sftp
+```
+sftp sftpuser@10.10.10.10
+or
+sftp -oPort=22 sftpuser@10.10.10.10
+```
+&lt;/details&gt;
+
+&lt;details&gt;
+&lt;summary&gt;扫描新硬盘&lt;/summary&gt;
+&gt;
+
+```
+echo '- - -' &gt; /sys/class/scsi_host/host0/scan
+echo '- - -' &gt; /sys/class/scsi_host/host1/scan
+echo '- - -' &gt; /sys/class/scsi_host/host2/scan
+
+alias scandisk='echo '- - -' &gt; /sys/class/scsi_host/host0/scan;echo '- - -' &gt; /sys/class/scsi_host/host1/scan;echo '- - -' &gt; /sys/class/scsi_host/host2/scan'
+```
+&lt;/details&gt;。</description><guid isPermaLink="true">https://aglarevv.github.io//post/da-za-hui.html</guid><pubDate>Sat, 17 Aug 2024 02:58:01 +0000</pubDate></item><item><title>EMC-梳理复习</title><link>https://aglarevv.github.io//post/EMC--shu-li-fu-xi.html</link><description>电磁兼容性定义：&#13;
  ```&#13;
 电子设备或系统在预定的电磁环境中能够可靠的工作，并且电子设备或系统之间不会产生不良的影响&#13;
 ```&#13;

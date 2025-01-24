@@ -10,40 +10,11 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="## top命令：动态监控系统资源
+<meta name="description" content="<details>
+<summary>日志轮转</summary>
+>
 
-```
-top -d 1：每秒刷新
-P：按cpu使用率排序
-M：按内存使用率排序
-```
-
-## 校对时间
-
-> 使用ntp工具进行校对
-
-```
-yum install ntp -y
-ntpdate cn.pool.ntp.org
-```
-
-## 循环调度任务
-
-> cronie工具包里的组件
-
-```
-yum install cronie -y
-crontab -e 进入编辑界面
-```
-
-## tail命令：查看文件尾部
-
-```
-tail -f 动态查看
-```
-
-## 日志轮转
-
+# 日志轮转
 ```
 默认日志生成在/var/log/下
 messages：linux系统本身运行时的日志
@@ -58,64 +29,131 @@ yum.log：yum相关的日志
 使用时在配置文件中引入自定义配置文件
 ```
 
-## sed命令：字符流编辑器
+</details>
 
-> 操作、过滤、转换文本内容的工具，配合正则对文件实现快速增删查改
 
-```
-sed -n 'p' file ：打印文件所有行
-sed -i 's/**/**/g' file ：修改文件
-```
+<details>
+<summary>防火墙</summary>
+>
 
-## awk命令：文本格式化，转换为标准的excel表样式
-
-## HP服务器硬盘位置
+# 防火墙
 
 ```
-/dev/cciss/c0d0p1：c0是第一个控制器，d0是第一块磁盘，p1是分区1
+添加允许通过的服务：firewall-cmd --zone=public --add-service=http
+查看当前使用区域配置：firewall-cmd --list-all
+删除允许通过的服务或端口：firewall-cmd --zone=public --remove-service=http or --remove-port=1234/tcp
+添加允许通过的端口：firewall-cmd --zone=public --add-port=1234/tcp
 ```
 
-## 磁盘相关
+> [!TIP]
+> 以上全部只在本次开机生效，要永久性生效，添加 --permanent参数，之后重新启动防火墙或使用 --reload参数重新加载配置
+</details>
+
+
+<details>
+<summary>更改命令行颜色</summary>
+>
+
+# 更改命令行颜色
+```
+PS1='\[\e[1;35m\][\u@\h \w]\\$\[\e[0m\]'
+```
+</details>
+
+<details>
+<summary>vim文件分割</summary>
+>
+
+# vim文件分割
+```
+多文件水平分割：vim -o f1 f2
+多文件垂直分割：vim -O f1 f2
+单文件水平分割：CTRL+w,s
+单文件垂直分割：CTRL+w,v
+退出相邻一个：CTRL+w,q
+退出其他所有：CTRL+w,o
+推出所有：:wqll
+```
+</details>
+
+<details>
+<summary>sftp服务</summary>
+>
+
+# sftp服务
+
+工作目录：/data/sftp
+用户默认目录：/data/sftp/%u/home
+公共目录：/data/sftp/pub
+团队目录：/data/sftp/team
+创建sftp组，用户
+```
+groupadd sftpusers #创建组
+adduser sftpuser01 -G  sftpusers #创建用户并添加到组
+echo '123' | passwd --stdin sftpuser01 #设置用户登录密码
+mkdir -p /data/sftp/sftpuser01/home #创建用户家目录
+chown -R sftpuser01:sftpuser01 /data/sftp/sftpuser01 #更改文件所属
+chmod -R 770 /data/sftp/sftpuser01 #用户无法进入其他用户的家目录 
+```
+创建sftp服务器目录
+```
+mkdir /data/sftp/pub #公共目录
+mkdir /data/sftp/team #团队协作目录
+chown root:sftpusers /data/sftp/team 
+chown root:sftpusers /data/sftp/pub
+chmod 1777 /data/sftp/pub #粘滞位t，用户只能删除自己的文件
+chmod 2770 /data/sftp/team #目录下所有文件共享同一个组权限，组成员有创建删除文件的权限
+```
+更改配置文件
+```
+vi /etc/ssh/sshd_config
+文件末尾添加：
+Subsystem    sftp    internal-sftp 
+Match Group sftpusers #限制只有该组用户可以使用sftp
+chrootDirectory /data/sftp/%u #sftp会话的根目录，用户被限制在该目录
+ForceCommand internal-sftp -d %u/home #指定sftp会话的工作目录
+AllowTcpForwarding no #禁用TCP转发
+x11Forwarding no #禁用X11转发
+```
+如启用防火墙，则开放端口
+```
+firewall-cmd --permanent --zone=public --add-port=22/tcp
+#开通sftp服务22默认端口
+firewall-cmd --reload
+#刷新防火墙，重新载入
+```
+
+重启SFTP服务
+```
+systemctl restart sshd.service
+```
+
+访问sftp
+```
+sftp sftpuser@10.10.10.10
+or
+sftp -oPort=22 sftpuser@10.10.10.10
+```
+</details>
+
+<details>
+<summary>扫描新硬盘</summary>
+>
 
 ```
-查看磁盘分区：lsblk
-查看当前使用磁盘文件：df -TH
-磁盘自动开机挂载：/etc/rc.d/rc.local文件里添加挂载命令。">
+echo '- - -' > /sys/class/scsi_host/host0/scan
+echo '- - -' > /sys/class/scsi_host/host1/scan
+echo '- - -' > /sys/class/scsi_host/host2/scan
+
+alias scandisk='echo '- - -' > /sys/class/scsi_host/host0/scan;echo '- - -' > /sys/class/scsi_host/host1/scan;echo '- - -' > /sys/class/scsi_host/host2/scan'
+```
+</details>。">
 <meta property="og:title" content="大杂烩">
-<meta property="og:description" content="## top命令：动态监控系统资源
+<meta property="og:description" content="<details>
+<summary>日志轮转</summary>
+>
 
-```
-top -d 1：每秒刷新
-P：按cpu使用率排序
-M：按内存使用率排序
-```
-
-## 校对时间
-
-> 使用ntp工具进行校对
-
-```
-yum install ntp -y
-ntpdate cn.pool.ntp.org
-```
-
-## 循环调度任务
-
-> cronie工具包里的组件
-
-```
-yum install cronie -y
-crontab -e 进入编辑界面
-```
-
-## tail命令：查看文件尾部
-
-```
-tail -f 动态查看
-```
-
-## 日志轮转
-
+# 日志轮转
 ```
 默认日志生成在/var/log/下
 messages：linux系统本身运行时的日志
@@ -130,29 +168,125 @@ yum.log：yum相关的日志
 使用时在配置文件中引入自定义配置文件
 ```
 
-## sed命令：字符流编辑器
+</details>
 
-> 操作、过滤、转换文本内容的工具，配合正则对文件实现快速增删查改
 
-```
-sed -n 'p' file ：打印文件所有行
-sed -i 's/**/**/g' file ：修改文件
-```
+<details>
+<summary>防火墙</summary>
+>
 
-## awk命令：文本格式化，转换为标准的excel表样式
-
-## HP服务器硬盘位置
+# 防火墙
 
 ```
-/dev/cciss/c0d0p1：c0是第一个控制器，d0是第一块磁盘，p1是分区1
+添加允许通过的服务：firewall-cmd --zone=public --add-service=http
+查看当前使用区域配置：firewall-cmd --list-all
+删除允许通过的服务或端口：firewall-cmd --zone=public --remove-service=http or --remove-port=1234/tcp
+添加允许通过的端口：firewall-cmd --zone=public --add-port=1234/tcp
 ```
 
-## 磁盘相关
+> [!TIP]
+> 以上全部只在本次开机生效，要永久性生效，添加 --permanent参数，之后重新启动防火墙或使用 --reload参数重新加载配置
+</details>
+
+
+<details>
+<summary>更改命令行颜色</summary>
+>
+
+# 更改命令行颜色
+```
+PS1='\[\e[1;35m\][\u@\h \w]\\$\[\e[0m\]'
+```
+</details>
+
+<details>
+<summary>vim文件分割</summary>
+>
+
+# vim文件分割
+```
+多文件水平分割：vim -o f1 f2
+多文件垂直分割：vim -O f1 f2
+单文件水平分割：CTRL+w,s
+单文件垂直分割：CTRL+w,v
+退出相邻一个：CTRL+w,q
+退出其他所有：CTRL+w,o
+推出所有：:wqll
+```
+</details>
+
+<details>
+<summary>sftp服务</summary>
+>
+
+# sftp服务
+
+工作目录：/data/sftp
+用户默认目录：/data/sftp/%u/home
+公共目录：/data/sftp/pub
+团队目录：/data/sftp/team
+创建sftp组，用户
+```
+groupadd sftpusers #创建组
+adduser sftpuser01 -G  sftpusers #创建用户并添加到组
+echo '123' | passwd --stdin sftpuser01 #设置用户登录密码
+mkdir -p /data/sftp/sftpuser01/home #创建用户家目录
+chown -R sftpuser01:sftpuser01 /data/sftp/sftpuser01 #更改文件所属
+chmod -R 770 /data/sftp/sftpuser01 #用户无法进入其他用户的家目录 
+```
+创建sftp服务器目录
+```
+mkdir /data/sftp/pub #公共目录
+mkdir /data/sftp/team #团队协作目录
+chown root:sftpusers /data/sftp/team 
+chown root:sftpusers /data/sftp/pub
+chmod 1777 /data/sftp/pub #粘滞位t，用户只能删除自己的文件
+chmod 2770 /data/sftp/team #目录下所有文件共享同一个组权限，组成员有创建删除文件的权限
+```
+更改配置文件
+```
+vi /etc/ssh/sshd_config
+文件末尾添加：
+Subsystem    sftp    internal-sftp 
+Match Group sftpusers #限制只有该组用户可以使用sftp
+chrootDirectory /data/sftp/%u #sftp会话的根目录，用户被限制在该目录
+ForceCommand internal-sftp -d %u/home #指定sftp会话的工作目录
+AllowTcpForwarding no #禁用TCP转发
+x11Forwarding no #禁用X11转发
+```
+如启用防火墙，则开放端口
+```
+firewall-cmd --permanent --zone=public --add-port=22/tcp
+#开通sftp服务22默认端口
+firewall-cmd --reload
+#刷新防火墙，重新载入
+```
+
+重启SFTP服务
+```
+systemctl restart sshd.service
+```
+
+访问sftp
+```
+sftp sftpuser@10.10.10.10
+or
+sftp -oPort=22 sftpuser@10.10.10.10
+```
+</details>
+
+<details>
+<summary>扫描新硬盘</summary>
+>
 
 ```
-查看磁盘分区：lsblk
-查看当前使用磁盘文件：df -TH
-磁盘自动开机挂载：/etc/rc.d/rc.local文件里添加挂载命令。">
+echo '- - -' > /sys/class/scsi_host/host0/scan
+echo '- - -' > /sys/class/scsi_host/host1/scan
+echo '- - -' > /sys/class/scsi_host/host2/scan
+
+alias scandisk='echo '- - -' > /sys/class/scsi_host/host0/scan;echo '- - -' > /sys/class/scsi_host/host1/scan;echo '- - -' > /sys/class/scsi_host/host2/scan'
+```
+</details>。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://aglarevv.github.io//post/da-za-hui.html">
 <meta property="og:image" content="https://aglarevv.github.io/assets/icon3.svg">
@@ -193,7 +327,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     font-size: 12px;
 }
 </style>
-<style>.markdown-alert{padding:0.5rem 1rem;margin-bottom:1rem;border-left:.25em solid var(--borderColor-default,var(--color-border-default));}.markdown-alert .markdown-alert-title {display:flex;font-weight:var(--base-text-weight-medium,500);align-items:center;line-height:1;}.markdown-alert>:first-child {margin-top:0;}.markdown-alert>:last-child {margin-bottom:0;}</style><style>.markdown-alert.markdown-alert-tip {border-left-color:var(--borderColor-success-emphasis, var(--color-success-emphasis));background-color:var(--color-success-subtle);}.markdown-alert.markdown-alert-tip .markdown-alert-title {color: var(--fgColor-success,var(--color-success-fg));}</style>
+
 
 
 
@@ -223,29 +357,10 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><h2>top命令：动态监控系统资源</h2>
-<pre class="notranslate"><code class="notranslate">top -d 1：每秒刷新
-P：按cpu使用率排序
-M：按内存使用率排序
-</code></pre>
-<h2>校对时间</h2>
-<blockquote>
-<p>使用ntp工具进行校对</p>
-</blockquote>
-<pre class="notranslate"><code class="notranslate">yum install ntp -y
-ntpdate cn.pool.ntp.org
-</code></pre>
-<h2>循环调度任务</h2>
-<blockquote>
-<p>cronie工具包里的组件</p>
-</blockquote>
-<pre class="notranslate"><code class="notranslate">yum install cronie -y
-crontab -e 进入编辑界面
-</code></pre>
-<h2>tail命令：查看文件尾部</h2>
-<pre class="notranslate"><code class="notranslate">tail -f 动态查看
-</code></pre>
-<h2>日志轮转</h2>
+<div class="markdown-body" id="postBody"><details>
+<summary>日志轮转</summary>
+&gt;
+<h1>日志轮转</h1>
 <pre class="notranslate"><code class="notranslate">默认日志生成在/var/log/下
 messages：linux系统本身运行时的日志
 secure：认证，安全的日志
@@ -258,76 +373,32 @@ yum.log：yum相关的日志
 配置文件存放路径：/etc/logrotate.d/
 使用时在配置文件中引入自定义配置文件
 </code></pre>
-<h2>sed命令：字符流编辑器</h2>
-<blockquote>
-<p>操作、过滤、转换文本内容的工具，配合正则对文件实现快速增删查改</p>
-</blockquote>
-<pre class="notranslate"><code class="notranslate">sed -n "p" file ：打印文件所有行
-sed -i "s/**/**/g" file ：修改文件
-</code></pre>
-<h2>awk命令：文本格式化，转换为标准的excel表样式</h2>
-<h2>HP服务器硬盘位置</h2>
-<pre class="notranslate"><code class="notranslate">/dev/cciss/c0d0p1：c0是第一个控制器，d0是第一块磁盘，p1是分区1
-</code></pre>
-<h2>磁盘相关</h2>
-<pre class="notranslate"><code class="notranslate">查看磁盘分区：lsblk
-查看当前使用磁盘文件：df -TH
-磁盘自动开机挂载：/etc/rc.d/rc.local文件里添加挂载命令。这个文件开机自动执行
-</code></pre>
-<h2>更改ip地址</h2>
-<pre class="notranslate"><code class="notranslate">vi /etc/sysconfig/network-scripts/ifcfg-eth0
-</code></pre>
-<h2>防火墙</h2>
+</details>
+<details>
+<summary>防火墙</summary>
+&gt;
+<h1>防火墙</h1>
 <pre class="notranslate"><code class="notranslate">添加允许通过的服务：firewall-cmd --zone=public --add-service=http
 查看当前使用区域配置：firewall-cmd --list-all
 删除允许通过的服务或端口：firewall-cmd --zone=public --remove-service=http or --remove-port=1234/tcp
 添加允许通过的端口：firewall-cmd --zone=public --add-port=1234/tcp
 </code></pre>
-<div class="markdown-alert markdown-alert-tip"><p class="markdown-alert-title"><svg class="octicon octicon-light-bulb mr-2" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="M8 1.5c-2.363 0-4 1.69-4 3.75 0 .984.424 1.625.984 2.304l.214.253c.223.264.47.556.673.848.284.411.537.896.621 1.49a.75.75 0 0 1-1.484.211c-.04-.282-.163-.547-.37-.847a8.456 8.456 0 0 0-.542-.68c-.084-.1-.173-.205-.268-.32C3.201 7.75 2.5 6.766 2.5 5.25 2.5 2.31 4.863 0 8 0s5.5 2.31 5.5 5.25c0 1.516-.701 2.5-1.328 3.259-.095.115-.184.22-.268.319-.207.245-.383.453-.541.681-.208.3-.33.565-.37.847a.751.751 0 0 1-1.485-.212c.084-.593.337-1.078.621-1.489.203-.292.45-.584.673-.848.075-.088.147-.173.213-.253.561-.679.985-1.32.985-2.304 0-2.06-1.637-3.75-4-3.75ZM5.75 12h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM6 15.25a.75.75 0 0 1 .75-.75h2.5a.75.75 0 0 1 0 1.5h-2.5a.75.75 0 0 1-.75-.75Z"></path></svg>Tip</p><p>以上全部只在本次开机生效，要永久性生效，添加 --permanent参数，之后重新启动防火墙或使用 --reload参数重新加载配置</p>
-</div>
-<h2>关机</h2>
-<pre class="notranslate"><code class="notranslate">init 0
-</code></pre>
-<h2>重启</h2>
-<pre class="notranslate"><code class="notranslate">init 6
-</code></pre>
-<h2>查看当前用户</h2>
-<pre class="notranslate"><code class="notranslate">whoami
-</code></pre>
-<h2>查看用户id</h2>
-<pre class="notranslate"><code class="notranslate">id -u
-</code></pre>
-<h2>查看内核版本</h2>
-<pre class="notranslate"><code class="notranslate">uname -r
-</code></pre>
-<h2>查看CPU信息</h2>
-<pre class="notranslate"><code class="notranslate">lscpu
-</code></pre>
-<h2>查看内存信息</h2>
-<pre class="notranslate"><code class="notranslate">ree -h
-</code></pre>
-<h2>查看硬盘信息</h2>
-<pre class="notranslate"><code class="notranslate">lsblk
-</code></pre>
-<h2>查看当前登录用户，登录终端</h2>
-<pre class="notranslate"><code class="notranslate">who am i
-</code></pre>
-<h2>查看当前所有登录用户</h2>
-<pre class="notranslate"><code class="notranslate">who
-</code></pre>
-<h2>更改命令行颜色（临时）</h2>
+<blockquote>
+<p>[!TIP]<br>
+以上全部只在本次开机生效，要永久性生效，添加 --permanent参数，之后重新启动防火墙或使用 --reload参数重新加载配置</p>
+</blockquote>
+</details>
+<details>
+<summary>更改命令行颜色</summary>
+&gt;
+<h1>更改命令行颜色</h1>
 <pre class="notranslate"><code class="notranslate">PS1="\[\e[1;35m\][\u@\h \w]\\$\[\e[0m\]"
 </code></pre>
-<h2>登录提示内容</h2>
-<pre class="notranslate"><code class="notranslate">vi /etc/motd
-</code></pre>
-<h2>查看日历</h2>
-<pre class="notranslate"><code class="notranslate">cal -y
-</code></pre>
-<h2>指定登录shell</h2>
-<pre class="notranslate"><code class="notranslate">chsh -s /bin/bash
-</code></pre>
-<h2>vim文件分割</h2>
+</details>
+<details>
+<summary>vim文件分割</summary>
+&gt;
+<h1>vim文件分割</h1>
 <pre class="notranslate"><code class="notranslate">多文件水平分割：vim -o f1 f2
 多文件垂直分割：vim -O f1 f2
 单文件水平分割：CTRL+w,s
@@ -336,36 +407,66 @@ sed -i "s/**/**/g" file ：修改文件
 退出其他所有：CTRL+w,o
 推出所有：:wqll
 </code></pre>
-<h2>vim配置文件</h2>
-<pre class="notranslate"><code class="notranslate">个人位置：~/.vimrc
-全局位置：/etc/vimrc
+</details>
+<details>
+<summary>sftp服务</summary>
+&gt;
+<h1>sftp服务</h1>
+<p>工作目录：/data/sftp<br>
+用户默认目录：/data/sftp/%u/home<br>
+公共目录：/data/sftp/pub<br>
+团队目录：/data/sftp/team<br>
+创建sftp组，用户</p>
+<pre class="notranslate"><code class="notranslate">groupadd sftpusers #创建组
+adduser sftpuser01 -G  sftpusers #创建用户并添加到组
+echo "123" | passwd --stdin sftpuser01 #设置用户登录密码
+mkdir -p /data/sftp/sftpuser01/home #创建用户家目录
+chown -R sftpuser01:sftpuser01 /data/sftp/sftpuser01 #更改文件所属
+chmod -R 770 /data/sftp/sftpuser01 #用户无法进入其他用户的家目录 
 </code></pre>
-<h2>静态ip配置</h2>
-<blockquote>
-<p>vim /etc/sysconfig/netword-scripts/ifcfg-ens33</p>
-</blockquote>
-<pre class="notranslate"><code class="notranslate">TYPE="Ethernet"
-PROXY_METHOD="none"
-BROWSER_ONLY="no"
-BOOTPROTO="none"
-DEFROUTE="yes"
-IPV4_FAILURE_FATAL="no"
-IPV6INIT="yes"
-IPV6_AUTOCONF="yes"
-IPV6_DEFROUTE="yes"
-IPV6_FAILURE_FATAL="no"
-IPV6_ADDR_GEN_MODE="stable-privacy"
-NAME="ens33"
-UUID="b4ce1d74-4e77-419e-9616-823cee6bbaf9"
-DEVICE="ens33"
-ONBOOT="yes"
-IPADDR="192.168.209.138"
-PREFIX="24"
-GATEWAY="192.168.209.2"
-DNS1="8.8.8.8"
-IPV6_PRIVACY="no"
-ZONE=
-</code></pre></div>
+<p>创建sftp服务器目录</p>
+<pre class="notranslate"><code class="notranslate">mkdir /data/sftp/pub #公共目录
+mkdir /data/sftp/team #团队协作目录
+chown root:sftpusers /data/sftp/team 
+chown root:sftpusers /data/sftp/pub
+chmod 1777 /data/sftp/pub #粘滞位t，用户只能删除自己的文件
+chmod 2770 /data/sftp/team #目录下所有文件共享同一个组权限，组成员有创建删除文件的权限
+</code></pre>
+<p>更改配置文件</p>
+<pre class="notranslate"><code class="notranslate">vi /etc/ssh/sshd_config
+文件末尾添加：
+Subsystem    sftp    internal-sftp 
+Match Group sftpusers #限制只有该组用户可以使用sftp
+chrootDirectory /data/sftp/%u #sftp会话的根目录，用户被限制在该目录
+ForceCommand internal-sftp -d %u/home #指定sftp会话的工作目录
+AllowTcpForwarding no #禁用TCP转发
+x11Forwarding no #禁用X11转发
+</code></pre>
+<p>如启用防火墙，则开放端口</p>
+<pre class="notranslate"><code class="notranslate">firewall-cmd --permanent --zone=public --add-port=22/tcp
+#开通sftp服务22默认端口
+firewall-cmd --reload
+#刷新防火墙，重新载入
+</code></pre>
+<p>重启SFTP服务</p>
+<pre class="notranslate"><code class="notranslate">systemctl restart sshd.service
+</code></pre>
+<p>访问sftp</p>
+<pre class="notranslate"><code class="notranslate">sftp sftpuser@10.10.10.10
+or
+sftp -oPort=22 sftpuser@10.10.10.10
+</code></pre>
+</details>
+<details>
+<summary>扫描新硬盘</summary>
+&gt;
+<pre class="notranslate"><code class="notranslate">echo '- - -' &gt; /sys/class/scsi_host/host0/scan
+echo '- - -' &gt; /sys/class/scsi_host/host1/scan
+echo '- - -' &gt; /sys/class/scsi_host/host2/scan
+
+alias scandisk="echo '- - -' &gt; /sys/class/scsi_host/host0/scan;echo '- - -' &gt; /sys/class/scsi_host/host1/scan;echo '- - -' &gt; /sys/class/scsi_host/host2/scan"
+</code></pre>
+</details></div>
 <div style="font-size:small;margin-top:8px;float:right;">❤️ 转载文章请注明出处，谢谢！❤️</div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
